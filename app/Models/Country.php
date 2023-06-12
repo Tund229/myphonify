@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Country extends Model
 {
@@ -14,5 +15,10 @@ class Country extends Model
     public function api_name()
     {
         return $this->belongsTo('App\Models\Api', "api_id");
+    }
+    
+    public function price($id, $services){
+        $country = Country::where($id)->first();
+        dd($country);
     }
 }
