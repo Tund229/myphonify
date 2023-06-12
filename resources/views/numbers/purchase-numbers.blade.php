@@ -1,47 +1,60 @@
 @extends('layouts.app')
 
 @section('content')
-    <h5 class="fw-bold py-3 mb-4">Faites votre choix &#x1F60A;</h5>
+    <h5 class="fw-bold py-3 mb-2">Faites votre choix &#x1F60A;</h5>
 
 
     <div class="row">
         <div class="col-md-6">
             <div class="card mb-4">
                 <div class="card-body">
-                    <div class="mb-3">
-                        <label for="defaultFormControlInput" class="form-label">Choisir le pays</label>
-                        <select id="single-select-optgroup-field" class="form-select">
-                            @foreach ($countries as $country)
-                                <option value="{{ $country->id }}" @if ($id == $country->id) selected @endif>
-
-                                    {{ $country->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-4">
+                    <form action="{{ route('purchase') }}" method="POST">
+                        @csrf
                         <div class="mb-3">
-                            <label for="serviceSelect" class="form-label">Choisir le service</label>
-                            <select id="serviceSelect" class="form-select">
-                                <option value="" selected disabled>Sélectionnez un service</option>
-                                <option value="whatsapp">
-                                    WhatsApp
-                                </option>
-                                <option value="facebook">
-                                    Facebook
-                                </option>
-                                <option value="tiktok">
-                                    TikTok
-                                </option>
-                                <option value="gmail">
-                                    Gmail
-                                </option>
+                            <label for="defaultFormControlInput" class="form-label">Choisir le pays</label>
+                            <select id="single-select-optgroup-field" class="form-select" name="country_id">
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}" @if ($id == $country->phonecode) selected @endif>
+                                        {{ $country->name }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
-                        <button type="button" onclick="submitForm()" class="btn btn-primary text-center"
-                            id="submitButton">Commander</button>
+                        <div class="mb-4">
+                            <div class="mb-3">
+                                <label for="serviceSelect" class="form-label">Choisir le service</label>
+                                <select id="serviceSelect" class="form-select" name="service">
+                                    <option value="" selected disabled>Sélectionnez un service</option>
+                                    <option value="whatsapp">
+                                        WhatsApp
+                                    </option>
+                                    <option value="facebook">
+                                        Facebook
+                                    </option>
+                                    <option value="tiktok">
+                                        TikTok
+                                    </option>
+                                    <option value="gmail">
+                                        Gmail
+                                    </option>
+                                </select>
 
-                    </div>
+                                <div class="mt-3">
+                                    @error('service')
+                                        <span class="text-danger text-center mb-4" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+
+                            <button type="submit" class="btn btn-primary text-center">Commander</button>
+
+                        </div>
+                    </form>
+
                 </div>
 
             </div>
@@ -51,28 +64,34 @@
         <div class="col-md-6">
             <div class="card mb-4">
                 <h6 class="card-header text-center">👁️ Visualiser la commande 👁️</h6>
-                <div class="card-body" id="selectedValues" style="display: none;">
-                    <div class="selected-values-container">
-                        <div class="row">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p><a href="#!" class="text-dark" id="serviceValue"></a></p>
-                                    <p class="small text-muted" id="countryValue"></p>
-                                </div>
-
-                                <div>
-                                    <h4 class="fw-bold text-success">Rated 4.0/5</h4>
-                                </div>
-                            </div>
-
+                <div class="card-body">
+                    @foreach ($temppurchase as $purchase)
+                        <div class="selected-values-container">
                             <hr class="my-0" />
-                            <div class="d-flex justify-content-between align-items-center pb-2">
-                                <button class="btn btn-danger btn-sm" type="button"
-                                    onclick="deleteSelectedValues()">Annuler</button>
-                                <button class="btn btn-outline-success btn-sm mt-2" type="button">Confirmer</button>
+                            <div class="row">
+                                <div class="d-flex justify-content-between mt-2">
+                                    <div>
+                                        <p class="text-dark">{{ strtoupper($purchase->service) }}</p>
+                                        <p class="small text-muted" > {{ $purchase->country->name }}  ( + {{ $purchase->country->phonecode}})</p>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="fw-bold text-success">{{ $purchase->service_price }} XOF</h4>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center pb-2">
+                                    <a href="{{route('purchase-delete', ['id' => $purchase->id])}}">
+                                        <button class="btn btn-danger btn-sm" type="button">Annuler</button>
+                                    </a>
+                                    
+                                    <button class="btn btn-outline-success btn-sm mt-2" type="button">Confirmer</button>
+                                </div>
+                                
                             </div>
                         </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
         </div>
@@ -85,7 +104,7 @@
 
 
 
-    <script>
+    {{-- <script>
         function submitForm() {
             var countrySelect = document.getElementById('single-select-optgroup-field');
             var serviceSelect = document.getElementById('serviceSelect');
@@ -155,5 +174,5 @@
                 deleteButton.textContent = 'Annuler la suppression';
             }
         }
-    </script>
+    </script> --}}
 @endsection

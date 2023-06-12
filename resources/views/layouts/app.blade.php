@@ -270,8 +270,7 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        @if ($title == 'Dashboard')
-                        @endif
+                      
                         <div class="row">
                             @if ($title == 'Dashboard')
                                 <div class="col-lg-12 mb-2 order-0">
@@ -367,7 +366,7 @@
                                                             alt="Credit Card" class="rounded" />
                                                     </div>
 
-                                                    <span class="fw-semibold d-block mb-1">Sales</span>
+                                                    <span class="fw-semibold d-block mb-1">Pays disponibles</span>
                                                 </div>
                                                 <h3 class="card-title text-nowrap mb-1 text-center">
                                                     {{ $countries_count }}</h3>

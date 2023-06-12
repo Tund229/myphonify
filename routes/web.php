@@ -29,6 +29,9 @@ Route::get('/mywallet', [HomeController::class, 'mywallet'])->name('mywallet');
 //numbers routes
 Route::get('/my-numbers', [NumberController::class, 'my_numbers'])->name('my-numbers');
 Route::get('/purchase-numbers/{id?}', [NumberController::class, 'purchase_numbers'])->name('purchase-numbers');
+Route::post('/purchase', [NumberController::class, 'purchase'])->name('purchase');
+Route::get('/purchase-delete/{id}', [NumberController::class, 'purchase_delete'])->name('purchase-delete');
+
 Route::post('/my-numbers', [NumberController::class, 'store'])->name('my-numbers.store');
 Route::get('/my-numbers/{id}', [NumberController::class, 'show'])->name('my-numbers.show');
 Route::get('/my-numbers/{id}/edit', [NumberController::class, 'edit'])->name('my-numbers.edit');

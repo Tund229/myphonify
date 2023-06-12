@@ -17,8 +17,5 @@ class Country extends Model
         return $this->belongsTo('App\Models\Api', "api_id");
     }
     
-    public function price($id, $services){
-        $country = Country::where($id)->first();
-        dd($country);
-    }
+
 }

@@ -113,7 +113,7 @@
                             <td class="text-center">{{ $country->price_TikTok }}</td>
                             <td class="text-center">{{ $country->price_telegram }}</td>
                             <td class="text-center">
-                                <a href="{{ route('purchase-numbers', ['id' => $country->id]) }}">
+                                <a href="{{ route('purchase-numbers', ['id' => $country->phonecode]) }}">
                                     <button class="btn btn-outline-primary">
                                         <i class="bx bx-cart"></i>
                                     </button>
