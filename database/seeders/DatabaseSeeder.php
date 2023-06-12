@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\ApiSeeder;
 use Illuminate\Database\Seeder;
+use Database\Seeders\CountrySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,5 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UsersTableSeeder::class);
+        $this->call(ApiSeeder::class);
+        $this->call(CountrySeeder::class);
     }
 }

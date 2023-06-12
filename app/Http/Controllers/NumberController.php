@@ -2,84 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class NumberController extends Controller
-{
-    /**
-     * Display a listing of the resource.
+{   
+
+       /**
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index()
-    {   
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
+    // my-numbers function 
+    public function my_numbers(){
         $title = "My Numbers";
-        return view('numbers.index', compact("title"));
+        $countries_count = Country::where('state', true)->count();
+        return view('numbers.my-numbers', compact('title', 'countries_count'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    //purchase-numbers
+    public function purchase_numbers($id = null){
+        $title = "Purchase Numbers";
+        $countries = Country::where('state', true)->get();
+        $countries_count = Country::where('state', true)->count();
+        return view('numbers.purchase-numbers', compact('title', 'countries', 'countries_count', 'id'));
     }
 }

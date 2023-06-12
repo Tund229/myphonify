@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -41,21 +42,37 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
+    private function validator(Request $request)
+    {
+        return request()->validate([
+            'email' => [function ($attribute, $value, $fail) {
+                if (empty($value)) {
+                    $fail('Veuillez remplir ce champ');
+                }
+            },'string', 'email', 'max:255'],
+            'password' => [ function ($attribute, $value, $fail) {
+                if (empty($value)) {
+                    $fail('Veuillez remplir ce champ');
+                }
+            }],
+        ]);
+    }
 
     public function login(Request $request)
     {
+        $this->validator($request);
+
         $email = $request["email"];
         $password = $request["password"];
         $user = User::where('email', '=', $email)->first();
         if (!$user) {
-            $message = "You don't have an account yet! Please sign up.";
+            $message = "Vous n'avez pas encore de compte ! Veuillez vous inscrire.";
             $request->session()->flash('error_message', $message);
             return redirect()->back();
         } else {
             if (Hash::check($password, $user->password)) {
                 if ($user ->status ==  1) {
-                    $message = "This account has been blocked. Please contact the administrator.";
+                    $message = "Cet compte a été bloqué. Veuillez contacter le service.";
                     $request->session()->flash('error_message', $message);
                     return redirect()->back();
                 } else {
@@ -63,10 +80,12 @@ class LoginController extends Controller
                     $user = User::where('email', $email)->first();
                     Auth::login($user);
                     $title = "Dashboard" ;
-                    return view('home', compact('title'));
+                    $countries_count = Country::where('state', true)->count();
+
+                    return view('home', compact('title', 'countries_count'));
                 }
             } else {
-                $message = "The password is incorrect.";
+                $message = "Le mot de passe est incorrect.";
                 return redirect()->route('login')
                     ->with('state', $message)
                     ->withErrors(['password' =>$message]);
@@ -77,11 +96,5 @@ class LoginController extends Controller
     }
 
 
-    private function validator()
-    {
-        return request()->validate([
-            'email' => "required|email|unique:users",
-            'password' => "required",
-        ]);
-    }
+
 }

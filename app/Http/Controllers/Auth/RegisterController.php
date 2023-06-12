@@ -41,7 +41,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    
+
 
     /**
      * Get a validator for an incoming registration request.
@@ -50,11 +50,41 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {   
+    {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
+            'name' => [function ($attribute, $value, $fail) {
+                if (empty($value)) {
+                    $fail('Veuillez remplir ce champ');
+                }else {
+                    $user = User::where('name', $value)->first();
+                    if ($user) {
+                        $fail("Le nom d'utilisateur est déjà utilisée.");
+                    }
+                }
+            }, 'string', 'max:255'],
+
+
+            'email' => [function ($attribute, $value, $fail) {
+                if (empty($value)) {
+                    $fail('Veuillez remplir ce champ');
+                }
+            }, 'email', 'max:255', function ($attribute, $value, $fail) {
+                if (empty($value)) {
+                    $fail('Veuillez remplir ce champ');
+                } else {
+                    $user = User::where('email', $value)->first();
+                    if ($user) {
+                        $fail("L'adresse e-mail est déjà utilisée.");
+                    }
+                }
+            }],
+
+
+            'password' => [function ($attribute, $value, $fail) {
+                if (empty($value)) {
+                    $fail('Veuillez remplir ce champ');
+                }
+            }, 'string', 'min:8'],
         ]);
     }
 
@@ -65,7 +95,8 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {   $identifiant = mt_rand(10000000, 99999999);
+    {
+        $identifiant = mt_rand(10000000, 99999999);
         $name = $data['name'];
         if (!ctype_alnum($name)) {
             $name_array = str_split($name);

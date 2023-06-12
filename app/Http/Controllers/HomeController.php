@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -22,13 +23,16 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {   
         $title = "Dashboard" ;
-        return view('home', compact('title'));
+        $countries_count = Country::where('state', true)->count();
+        $countries = Country::where('state', true)->get();
+        return view('home', compact('title', 'countries_count', 'countries'));
     }
 
     public function mywallet()
     {    $title = "Mywallet" ;
-        return view('mywallet', compact('title'));
+        $countries_count = Country::where('state', true)->count();
+        return view('mywallet', compact('title','countries_count'));
     }
 }

@@ -1,354 +1,474 @@
-{{-- <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
-</body>
-</html> --}}
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Myphonify - {{$title}}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Favicons -->
+    <title>Myphonify - {{ $title }}</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
     <link href="{{ asset('landing_assets/assets/img/favicon.png') }}" rel="icon">
     <link href="{{ asset('landing_assets/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
 
-    <!-- Custom styles for this template-->
-    <link href="{{ asset('dashboard_assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/fonts/boxicons.css') }}" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/css/core.css') }}"
+        class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/css/theme-default.css') }}"
+        class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('dashboard/assets/css/demo.css') }}" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+
+    <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="{{ asset('dashboard/assets/vendor/js/helpers.js') }}"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+   
 
 </head>
 
-<body id="page-top">
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+<body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            <!-- Menu -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+                <div class="app-brand demo">
+                    <a href="index.html" class="app-brand-link">
+                        <span class="app-brand-logo demo">
+                            <img src="{{ asset('landing_assets/assets/img/logo.png') }}" alt=""
+                                class="img-fluid" style="width:120px; ">
+                        </span>
+                    </a>
 
-            <!-- Main Content -->
-            <div id="content">
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <a href="javascript:void(0);"
+                        class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                        <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                    </a>
+                </div>
 
-                    <a id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3"
-                        href="{{ route('home') }}"><img src="{{ asset('landing_assets/assets/img/logo.png') }}"
-                            alt="" class="img-fluid" style="width: 100px"></a>
+                <div class="menu-inner-shadow"></div>
 
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <a href="{{ route('home') }}"><img src="{{ asset('landing_assets/assets/img/logo.png') }}"
-                                alt="" class="img-fluid" style="width: 150px;"></a>
-                    </form>
+                <ul class="menu-inner py-1">
+                    <!-- dashboard -->
+                    <li class="menu-item active">
+                        <a href="index.html" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                            <div data-i18n="Analytics">Mon compte</div>
+                        </a>
+                    </li>
 
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
+
+
+                    <li class="menu-header small text-uppercase">
+                        <span class="menu-header-text">Numéros</span>
+                    </li>
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                            <div data-i18n="Account Settings">Numéros</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="pages-account-settings-account.html" class="menu-link">
+                                    <div data-i18n="Account">Nouveau numéro</div>
                                 </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="pages-account-settings-notifications.html" class="menu-link">
+                                    <div data-i18n="Notifications">Mes numéros</div>
+                                </a>
+                            </li>
 
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More
-                                    Messages</a>
+                        </ul>
+                    </li>
+
+                    <!-- Components -->
+                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Recharges</span></li>
+                    <!-- Cards -->
+
+                    <!-- User interface -->
+                    <li class="menu-item">
+                        <a href="javascript:void(0)" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-box"></i>
+                            <div data-i18n="User interface">Recharges</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="ui-accordion.html" class="menu-link">
+                                    <div data-i18n="Accordion">Recharges</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="ui-alerts.html" class="menu-link">
+                                    <div data-i18n="Alerts">Mes recharges</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+
+                    <!-- Forms & Tables -->
+                    {{-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp;
+                            Tables</span></li>
+                    <!-- Forms -->
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-detail"></i>
+                            <div data-i18n="Form Elements">Form Elements</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="forms-basic-inputs.html" class="menu-link">
+                                    <div data-i18n="Basic Inputs">Basic Inputs</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="forms-input-groups.html" class="menu-link">
+                                    <div data-i18n="Input groups">Input groups</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-detail"></i>
+                            <div data-i18n="Form Layouts">Form Layouts</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="form-layouts-vertical.html" class="menu-link">
+                                    <div data-i18n="Vertical Form">Vertical Form</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="form-layouts-horizontal.html" class="menu-link">
+                                    <div data-i18n="Horizontal Form">Horizontal Form</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Tables -->
+                    <li class="menu-item">
+                        <a href="tables-basic.html" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-table"></i>
+                            <div data-i18n="Tables">Tables</div>
+                        </a>
+                    </li> --}}
+                    <!-- Misc -->
+                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Aide &amp;
+                            Assitance</span></li>
+                    <li class="menu-item">
+                        <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+                            target="_blank" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-support"></i>
+                            <div data-i18n="Support">Support</div>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+            <!-- / Menu -->
+
+            <!-- Layout container -->
+            <div class="layout-page">
+                <!-- Navbar -->
+
+                <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                    id="layout-navbar">
+                    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                            <i class="bx bx-menu bx-sm"></i>
+                        </a>
+                    </div>
+
+                    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                        <!-- Search -->
+                        <div class="navbar-nav align-items-center">
+                            <div class="nav-item d-flex align-items-center font-bold">
+                                {{ Auth::user()->name }}
                             </div>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Auth::user()->name }}
-                                </span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{ asset('dashboard_assets/img/avatar-svgrepo-com.svg') }}">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                        </div>
+                        <!-- /Search -->
+                        <ul class="navbar-nav flex-row align-items-center ms-auto">
+                            <!-- User -->
+                            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                                    data-bs-toggle="dropdown">
+                                    <div class="avatar avatar-online">
+                                        <img src="{{ asset('dashboard/assets/img/avatars/1.png') }}" alt
+                                            class="w-px-40 h-auto rounded-circle" />
+                                    </div>
                                 </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
 
-                                <div class="dropdown-divider"></div>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bx bx-user me-2"></i>
+                                            <span class="align-middle">My Profile</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bx bx-cog me-2"></i>
+                                            <span class="align-middle">Settings</span>
+                                        </a>
+                                    </li>
+                                    {{-- <li>
+                                        <a class="dropdown-item" href="#">
+                                            <span class="d-flex align-items-center align-middle">
+                                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                                                <span class="flex-grow-1 align-middle">Billing</span>
+                                                <span
+                                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                                            </span>
+                                        </a>
+                                    </li> --}}
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <i class="bx bx-power-off me-2"></i>
+                                            <span class="align-middle">Déconnexion</span>
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
 
-                                <a class="dropdown-item" href="#"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
 
-                            </div>
-                        </li>
-
-                    </ul>
-
+                                    </li>
+                                </ul>
+                            </li>
+                            <!--/ User -->
+                        </ul>
+                    </div>
                 </nav>
-                <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    <!-- Content Row -->
-                    <div class="row">
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <a href="{{route('mywallet')}}" class="card-link" data-toggle="tooltip" data-placement="top"
-                                title="Account Management">
-                                <div class="card border-left-success shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                    My Account</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                <!-- / Navbar -->
+
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+                    <!-- Content -->
+
+                    <div class="container-xxl flex-grow-1 container-p-y">
+
+                        <div class="row">
+                            <div class="col-lg-12 mb-2 order-0">
+                                <div class="alert alert-success alert-dismissible fade show text-black"
+                                    role="alert">
+                                    <div class="d-flex align-items-end row">
+                                        <div class="col-sm-7">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-primary">{{ Auth::user()->name }}</h5>
+                                                <p class="mb-4">
+                                                    Rejoignez notre canal <span class="fw-bold">Telegram</span> pour
+                                                    les dernières mises à jour!
+                                                    🚀📢
+                                                </p>
+                                                <a href="#" class="btn btn-sm btn-outline-primary">
+                                                    Rejoindre
+                                                </a>
                                             </div>
-                                            <div class="col-auto">
-                                                <i class="far fa-credit-card fa-2x text-success"></i>
+                                        </div>
+                                        <div class="col-sm-5 text-center text-sm-left">
+                                            <div class="card-body pb-0 px-0 px-md-4">
+                                                <img src="{{ asset('dashboard/assets/img/illustrations/man-with-laptop-light.png') }}"
+                                                    height="140" alt="View Badge User"
+                                                    data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                                                    data-app-light-img="illustrations/man-with-laptop-light.png" />
                                             </div>
                                         </div>
                                     </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
                                 </div>
-                            </a>
-                        </div>
+                            </div>
 
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <a href="{{route('my-numbers.index')}}" class="card-link" data-toggle="tooltip" data-placement="top"
-                                title="Numbers">
-                                <div class="card border-left-primary shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                    Purchased numbers</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-cart-shopping fa-2x text-primary"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <a href="/" class="card-link" data-toggle="tooltip" data-placement="top"
-                                title="Affiliation">
-                                <div class="card border-left-info shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                    Affiliation
-                                                </div>
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col-auto">
-                                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-auto">
-                                                <i class="fas fa-handshake fa-2x text-info"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <a href="#" class="card-link" data-toggle="tooltip" data-placement="top"
-                                title="Help and Assistance">
-                                <div class="card border-left-warning shadow h-100 py-2 menu-item">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
+                            <div class="col-lg-12 col-md-4 order-1">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-12 col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
                                                 <div
-                                                    class="text-xs font-weight-bold text-warning text-uppercase mb-1 text-center">
-                                                    Help and Assistance</div>
+                                                    class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}"
+                                                            alt="chart success" class="rounded" />
+                                                    </div>
+
+                                                    <span class="fw-semibold d-block mb-1">Solde</span>
+                                                </div>
+                                                <h3 class="card-title mb-2">{{ Auth::user()->account_balance }}</h3>
                                             </div>
-                                            <div class="col-auto">
-                                                <button class="btn btn-warning">
-                                                    <i class="fad fa-question text-white"></i>
-                                                </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-12 col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div
+                                                    class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}"
+                                                            alt="Credit Card" class="rounded" />
+                                                    </div>
+
+                                                    <span class="fw-semibold d-block mb-1">Numéros</span>
+                                                </div>
+                                                <h3 class="card-title text-nowrap mb-1 text-center">$4,679</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-12 col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div
+                                                    class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}"
+                                                            alt="Credit Card" class="rounded" />
+                                                    </div>
+
+                                                    <span class="fw-semibold d-block mb-1">Numéros</span>
+                                                </div>
+                                                <h3 class="card-title text-nowrap mb-1 text-center">$4,679</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-12 col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div
+                                                    class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <img src="{{ asset('dashboard/assets/img/icons/unicons/globe.png') }}"
+                                                            alt="Credit Card" class="rounded" />
+                                                    </div>
+
+                                                    <span class="fw-semibold d-block mb-1">Sales</span>
+                                                </div>
+                                                <h3 class="card-title text-nowrap mb-1 text-center">
+                                                    {{ $countries_count }}</h3>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
 
+                        @yield('content')
 
                     </div>
+                    <!-- / Content -->
 
+                    <!-- Footer -->
+                    <footer class="content-footer footer bg-footer-theme">
+                        <div class="container-xxl d-flex flex-wrap justify-content-center ">
+                            <div>
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script>
+                                Tous droits réservés , Myphonify
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- / Footer -->
 
-
+                    <div class="content-backdrop fade"></div>
                 </div>
-                <!-- /.container-fluid -->
-                @yield('content')
+                <!-- Content wrapper -->
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; <span style="color: #5377e4;">Myphonify</span> </span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
+            <!-- / Layout page -->
         </div>
-        <!-- End of Content Wrapper -->
 
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+    <!-- / Layout wrapper -->
 
 
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="{{ asset('dashboard/assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('dashboard_assets/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('dashboard_assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/vendor/js/menu.j') }}s"></script>
+    <!-- endbuild -->
 
-    <!-- Core plugin JavaScript-->
-    <script src="{{ asset('dashboard_assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <!-- Vendors JS -->
+    <script src="{{ asset('dashboard/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="{{ asset('dashboard_assets/js/sb-admin-2.min.js') }}"></script>
+    <!-- Main JS -->
+    <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
 
-    <script src="{{ asset('dashboard_assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('dashboard_assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <!-- Page JS -->
+    <script src="{{ asset('dashboard/assets/js/dashboards-analytics.js') }}"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="{{ asset('dashboard_assets/js/demo/datatables-demo.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": false,
+                "autoWidth": false,
+                "language": {
+                    "sEmptyTable": "Aucune donnée disponible dans le tableau",
+                    "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+                    "sInfoEmpty": " 0 à 0 sur 0 élément",
+                    "sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Afficher _MENU_ éléments",
+                    "sLoadingRecords": "Chargement...",
+                    "sProcessing": "Traitement...",
+                    "sSearch": "Rechercher :",
+                    "sZeroRecords": "Aucun élément correspondant trouvé",
+                    "oPaginate": {
+                        "sFirst": "Premier",
+                        "sLast": "Dernier",
+                        "sNext": "Suiv.",
+                        "sPrevious": "Préc."
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                        "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                    }
+                }
+            });
+        });
+    </script>
 
 </body>
 
