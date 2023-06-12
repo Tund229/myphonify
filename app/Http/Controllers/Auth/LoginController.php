@@ -82,7 +82,8 @@ class LoginController extends Controller
                     $title = "Dashboard" ;
                     $countries_count = Country::where('state', true)->count();
 
-                    return view('home', compact('title', 'countries_count'));
+                    return redirect()->route('home')->with(compact('title', 'countries_count'));
+
                 }
             } else {
                 $message = "Le mot de passe est incorrect.";

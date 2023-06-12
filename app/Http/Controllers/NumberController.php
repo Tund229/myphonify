@@ -21,7 +21,8 @@ class NumberController extends Controller
 
     // my-numbers function 
     public function my_numbers(){
-        $title = "My Numbers";
+      
+        $title = "Mes numéros";
         $countries_count = Country::where('state', true)->count();
         return view('numbers.my-numbers', compact('title', 'countries_count'));
     }
@@ -29,7 +30,7 @@ class NumberController extends Controller
 
     //purchase-numbers
     public function purchase_numbers($id = null){
-        $title = "Purchase Numbers";
+        $title = "Acheter un numéro";
         $countries = Country::where('state', true)->get();
         $countries_count = Country::where('state', true)->count();
         return view('numbers.purchase-numbers', compact('title', 'countries', 'countries_count', 'id'));

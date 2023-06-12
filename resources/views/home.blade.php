@@ -3,8 +3,8 @@
 @section('content')
     <style>
         #dataTable_paginate {
-           
-            margin: 0  auto;
+
+            margin: 0 auto;
             text-align: center;
             margin-bottom: 20px;
         }
@@ -113,9 +113,11 @@
                             <td class="text-center">{{ $country->price_TikTok }}</td>
                             <td class="text-center">{{ $country->price_telegram }}</td>
                             <td class="text-center">
-                                <button class="btn btn-outline-primary">
-                                    <i class="bx bx-cart"></i>
-                                </button>
+                                <a href="{{ route('purchase-numbers', ['id' => $country->id]) }}">
+                                    <button class="btn btn-outline-primary">
+                                        <i class="bx bx-cart"></i>
+                                    </button>
+                                </a>
                             </td>
                         </tr>
                     @endforeach

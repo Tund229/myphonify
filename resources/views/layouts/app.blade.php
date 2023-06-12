@@ -44,7 +44,11 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-   
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
 
 </head>
 
@@ -73,8 +77,15 @@
 
                 <ul class="menu-inner py-1">
                     <!-- dashboard -->
-                    <li class="menu-item active">
-                        <a href="index.html" class="menu-link">
+                    <li class="menu-item {{ $title === 'Dashboard' ? 'active' : '' }}">
+                        <a href="{{ route('home') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                            <div data-i18n="Analytics">Tableau de bord</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item  mt-2  {{ $title === 'Mywallet' ? 'active' : '' }}">
+                        <a href="{{ route('mywallet') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Mon compte</div>
                         </a>
@@ -85,49 +96,31 @@
                     <li class="menu-header small text-uppercase">
                         <span class="menu-header-text">Numéros</span>
                     </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                            <div data-i18n="Account Settings">Numéros</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="pages-account-settings-account.html" class="menu-link">
-                                    <div data-i18n="Account">Nouveau numéro</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="pages-account-settings-notifications.html" class="menu-link">
-                                    <div data-i18n="Notifications">Mes numéros</div>
-                                </a>
-                            </li>
 
-                        </ul>
+                    <li class="menu-item  {{ $title === 'Mes numéros' ? 'active' : '' }}">
+                        <a href="{{ route('my-numbers') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                            <div data-i18n="Analytics">Mes numéros</div>
+                        </a>
                     </li>
+                    <li class="menu-item mt-2  {{ $title === 'Acheter un numéro' ? 'active' : '' }}">
+                        <a href="{{ route('purchase-numbers') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                            <div data-i18n="Analytics"> Acheter </div>
+                        </a>
+                    </li>
+
+
 
                     <!-- Components -->
                     <li class="menu-header small text-uppercase"><span class="menu-header-text">Recharges</span></li>
                     <!-- Cards -->
 
-                    <!-- User interface -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0)" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-box"></i>
-                            <div data-i18n="User interface">Recharges</div>
+                    <li class="menu-item mt-2  {{ $title === 'Mes recharges' ? 'active' : '' }}">
+                        <a href="{{ route('my-recharges') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                            <div data-i18n="Analytics"> Recharger </div>
                         </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="ui-accordion.html" class="menu-link">
-                                    <div data-i18n="Accordion">Recharges</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="ui-alerts.html" class="menu-link">
-                                    <div data-i18n="Alerts">Mes recharges</div>
-                                </a>
-                            </li>
-
-                        </ul>
                     </li>
 
 
@@ -277,38 +270,42 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-
+                        @if ($title == 'Dashboard')
+                        @endif
                         <div class="row">
-                            <div class="col-lg-12 mb-2 order-0">
-                                <div class="alert alert-success alert-dismissible fade show text-black"
-                                    role="alert">
-                                    <div class="d-flex align-items-end row">
-                                        <div class="col-sm-7">
-                                            <div class="card-body">
-                                                <h5 class="card-title text-primary">{{ Auth::user()->name }}</h5>
-                                                <p class="mb-4">
-                                                    Rejoignez notre canal <span class="fw-bold">Telegram</span> pour
-                                                    les dernières mises à jour!
-                                                    🚀📢
-                                                </p>
-                                                <a href="#" class="btn btn-sm btn-outline-primary">
-                                                    Rejoindre
-                                                </a>
+                            @if ($title == 'Dashboard')
+                                <div class="col-lg-12 mb-2 order-0">
+                                    <div class="alert alert-success alert-dismissible fade show text-black"
+                                        role="alert">
+                                        <div class="d-flex align-items-end row">
+                                            <div class="col-sm-7">
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-primary">{{ Auth::user()->name }}</h5>
+                                                    <p class="mb-4">
+                                                        Rejoignez notre canal <span class="fw-bold">Telegram</span>
+                                                        pour
+                                                        les dernières mises à jour!
+                                                        🚀📢
+                                                    </p>
+                                                    <a href="#" class="btn btn-sm btn-outline-primary">
+                                                        Rejoindre
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5 text-center text-sm-left">
+                                                <div class="card-body pb-0 px-0 px-md-4">
+                                                    <img src="{{ asset('dashboard/assets/img/illustrations/man-with-laptop-light.png') }}"
+                                                        height="140" alt="View Badge User"
+                                                        data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                                                        data-app-light-img="illustrations/man-with-laptop-light.png" />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-5 text-center text-sm-left">
-                                            <div class="card-body pb-0 px-0 px-md-4">
-                                                <img src="{{ asset('dashboard/assets/img/illustrations/man-with-laptop-light.png') }}"
-                                                    height="140" alt="View Badge User"
-                                                    data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                                                    data-app-light-img="illustrations/man-with-laptop-light.png" />
-                                            </div>
-                                        </div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
                                     </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
                                 </div>
-                            </div>
+                            @endif
 
                             <div class="col-lg-12 col-md-4 order-1">
                                 <div class="row">
@@ -469,6 +466,25 @@
             });
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#single-select-optgroup-field').select2({
+                theme: "bootstrap-5",
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                    'style',
+                placeholder: $(this).data('placeholder'),
+                templateSelection: function(selection) {
+                    return $('<span>').css('color', '#5c7ee5').text(selection.text);
+                },
+                dropdownPosition: 'below',
+             
+            });
+        });
+    </script>
+
 
 </body>
 

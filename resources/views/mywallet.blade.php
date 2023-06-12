@@ -5,7 +5,7 @@
     <div class="col-xl-4 col-lg-5">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">My account 💰 </h6>
+                <h6 class="m-0 font-weight-bold text-primary">Mon compte 💰 </h6>
                 @if (Auth::user()->status == 0)
                     <span class="badge badge-success"><i class="fas fa-circle fa-xs"></i></span>
                 @else
@@ -18,7 +18,7 @@
                     <div class="info-item d-flex align-items-center justify-content-between mb-4">
                         <div class="d-flex align-items-center">
                             <div class="text-xs font-weight-bold">
-                                <h6 class="m-0">Amount:</h6>
+                                <h6 class="m-0">Solde:</h6>
                             </div>
                         </div>
                         <div class="info-amount">$1000</div>
@@ -27,7 +27,7 @@
                     <div class="info-item d-flex align-items-center justify-content-between mb-4">
                         <div class="d-flex align-items-center">
                             <div class="text-xs font-weight-bold">
-                                <h6 class="m-0">Purchased Numbers:</h6>
+                                <h6 class="m-0">Numéros achetés:</h6>
                             </div>
                         </div>
                         <div class="info-amount">$1000</div>
@@ -37,7 +37,7 @@
                     <div class="info-item d-flex align-items-center justify-content-between mb-4">
                         <div class="d-flex align-items-center">
                             <div class="text-xs font-weight-bold">
-                                <h6 class="m-0">Affiliation Balance:</h6>
+                                <h6 class="m-0">Gains par affiliation:</h6>
                             </div>
                         </div>
                         <div class="info-amount">$1000</div>
@@ -46,17 +46,17 @@
 
                 @if (Auth::user()->account_balance >= 1000)
                     <div class="text-center">
-                        <button class="btn btn-primary mt-4">Recharge My Account
+                        <button class="btn btn-primary mt-4">Recharger mon compte
                         </button>
                     </div>
 
                     <div class="text-center mt-2">
-                        <button class="btn btn-primary mt-4">Purchase a Number
+                        <button class="btn btn-primary mt-4"> Acheter un numéro
                         </button>
                     </div>
                 @else
                     <div class="text-center">
-                        <button class="btn btn-primary mt-4">Recharge My Account
+                        <button class="btn btn-primary mt-4">Recharger mon compte
                         </button>
                     </div>
                 @endif
@@ -72,7 +72,7 @@
     <div class="col-xl-8 col-lg-7">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">List of recharges</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Listes des recharges</h6>
 
             </div>
             <div class="card-body">

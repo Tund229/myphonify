@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NumberController;
+use App\Http\Controllers\RechargeController;
 use App\Http\Controllers\CountriesController;
 
 /*
@@ -38,6 +39,10 @@ Route::delete('/my-numbers/{id}', [NumberController::class, 'destroy'])->name('m
 
 //countries routes
 Route::get('/countries-list', [CountriesController::class, 'countries_list'])->name('countries-list');
+
+//recharges routes
+Route::get('/my-recharges', [RechargeController::class, 'my_recharges'])->name('my-recharges');
+
 
 
 
