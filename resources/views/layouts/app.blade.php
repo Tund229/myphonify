@@ -75,114 +75,182 @@
 
                 <div class="menu-inner-shadow"></div>
 
-                <ul class="menu-inner py-1">
-                    <!-- dashboard -->
-                    <li class="menu-item {{ $title === 'Dashboard' ? 'active' : '' }}">
-                        <a href="{{ route('home') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Tableau de bord</div>
-                        </a>
-                    </li>
+                @if (Auth::user()->is_admin == 0)
+                    <ul class="menu-inner py-1">
+                        <!-- dashboard -->
+                        <li class="menu-item {{ $title === 'Dashboard' ? 'active' : '' }}">
+                            <a href="{{ route('home') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <div data-i18n="Analytics">Tableau de bord</div>
+                            </a>
+                        </li>
 
-                    <li class="menu-item  mt-2  {{ $title === 'Mywallet' ? 'active' : '' }}">
-                        <a href="{{ route('mywallet') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Mon compte</div>
-                        </a>
-                    </li>
-
-
-
-                    <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">Numéros</span>
-                    </li>
-
-                    <li class="menu-item  {{ $title === 'Mes numéros' ? 'active' : '' }}">
-                        <a href="{{ route('my-numbers') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Mes numéros</div>
-                        </a>
-                    </li>
-                    <li class="menu-item mt-2  {{ $title === 'Acheter un numéro' ? 'active' : '' }}">
-                        <a href="{{ route('purchase-numbers') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics"> Acheter </div>
-                        </a>
-                    </li>
+                        <li class="menu-item  mt-2  {{ $title === 'Mywallet' ? 'active' : '' }}">
+                            <a href="{{ route('mywallet') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <div data-i18n="Analytics">Mon compte</div>
+                            </a>
+                        </li>
 
 
 
-                    <!-- Components -->
-                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Recharges</span></li>
-                    <!-- Cards -->
+                        <li class="menu-header small text-uppercase">
+                            <span class="menu-header-text">Numéros</span>
+                        </li>
 
-                    <li class="menu-item mt-2  {{ $title === 'Mes recharges' ? 'active' : '' }}">
-                        <a href="{{ route('my-recharges') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics"> Recharger </div>
-                        </a>
-                    </li>
+                        <li class="menu-item  {{ $title === 'Mes numéros' ? 'active' : '' }}">
+                            <a href="{{ route('my-numbers') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <div data-i18n="Analytics">Mes numéros</div>
+                            </a>
+                        </li>
+                        <li class="menu-item mt-2  {{ $title === 'Acheter un numéro' ? 'active' : '' }}">
+                            <a href="{{ route('purchase-numbers') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <div data-i18n="Analytics"> Acheter </div>
+                            </a>
+                        </li>
 
 
 
-                    <!-- Forms & Tables -->
-                    {{-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp;
-                            Tables</span></li>
-                    <!-- Forms -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="Form Elements">Form Elements</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="forms-basic-inputs.html" class="menu-link">
-                                    <div data-i18n="Basic Inputs">Basic Inputs</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="forms-input-groups.html" class="menu-link">
-                                    <div data-i18n="Input groups">Input groups</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="Form Layouts">Form Layouts</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="form-layouts-vertical.html" class="menu-link">
-                                    <div data-i18n="Vertical Form">Vertical Form</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="form-layouts-horizontal.html" class="menu-link">
-                                    <div data-i18n="Horizontal Form">Horizontal Form</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- Tables -->
-                    <li class="menu-item">
-                        <a href="tables-basic.html" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-table"></i>
-                            <div data-i18n="Tables">Tables</div>
-                        </a>
-                    </li> --}}
-                    <!-- Misc -->
-                    <li class="menu-header small text-uppercase"><span class="menu-header-text">Aide &amp;
-                            Assitance</span></li>
-                    <li class="menu-item">
-                        <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                            target="_blank" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-support"></i>
-                            <div data-i18n="Support">Support</div>
-                        </a>
-                    </li>
-                </ul>
+                        <!-- Components -->
+                        <li class="menu-header small text-uppercase"><span class="menu-header-text">Recharges</span>
+                        </li>
+                        <!-- Cards -->
+
+                        <li class="menu-item mt-2  {{ $title === 'Mes recharges' ? 'active' : '' }}">
+                            <a href="{{ route('my-recharges') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <div data-i18n="Analytics"> Recharger </div>
+                            </a>
+                        </li>
+
+
+
+                        <!-- Forms & Tables -->
+                        {{-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp;
+                        Tables</span></li>
+                <!-- Forms -->
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-detail"></i>
+                        <div data-i18n="Form Elements">Form Elements</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="forms-basic-inputs.html" class="menu-link">
+                                <div data-i18n="Basic Inputs">Basic Inputs</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="forms-input-groups.html" class="menu-link">
+                                <div data-i18n="Input groups">Input groups</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-detail"></i>
+                        <div data-i18n="Form Layouts">Form Layouts</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="form-layouts-vertical.html" class="menu-link">
+                                <div data-i18n="Vertical Form">Vertical Form</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="form-layouts-horizontal.html" class="menu-link">
+                                <div data-i18n="Horizontal Form">Horizontal Form</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Tables -->
+                <li class="menu-item">
+                    <a href="tables-basic.html" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-table"></i>
+                        <div data-i18n="Tables">Tables</div>
+                    </a>
+                </li> --}}
+                        <!-- Misc -->
+                        <li class="menu-header small text-uppercase"><span class="menu-header-text">Aide &amp;
+                                Assitance</span></li>
+                        <li class="menu-item">
+                            <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+                                target="_blank" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-support"></i>
+                                <div data-i18n="Support">Support</div>
+                            </a>
+                        </li>
+                    </ul>
+                @elseif (Auth::user()->is_admin == 1)
+                    <ul class="menu-inner py-1">
+                        <!-- dashboard -->
+                        <li class="menu-item {{ $title === 'Dashboard' ? 'active' : '' }}">
+                            <a href="{{ route('home') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <div data-i18n="Analytics">Tableau de bord</div>
+                            </a>
+                        </li>
+
+                        <li class="menu-item  mt-2  {{ $title === 'Mywallet' ? 'active' : '' }}">
+                            <a href="{{ route('mywallet') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <div data-i18n="Analytics">Mon compte</div>
+                            </a>
+                        </li>
+
+
+
+                        <li class="menu-header small text-uppercase">
+                            <span class="menu-header-text">Numéros</span>
+                        </li>
+
+                        <li class="menu-item  {{ $title === 'Mes numéros' ? 'active' : '' }}">
+                            <a href="{{ route('my-numbers') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <div data-i18n="Analytics">Mes numéros</div>
+                            </a>
+                        </li>
+                        <li class="menu-item mt-2  {{ $title === 'Acheter un numéro' ? 'active' : '' }}">
+                            <a href="{{ route('purchase-numbers') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <div data-i18n="Analytics"> Acheter </div>
+                            </a>
+                        </li>
+
+
+                        <li class="menu-header small text-uppercase"><span class="menu-header-text">
+                                Menu Adminstrateur</span></li>
+                        <li class="menu-item {{ $title === 'Liste des utilisateurs' ? 'active' : '' }}">
+                            <a href="{{ route('private.users.index') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-support"></i>
+                                <div data-i18n="Support">Utilisateurs</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ $title === 'Liste des recharges' ? 'active' : '' }}">
+                            <a href="{{ route('private.recharges.index') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-support"></i>
+                                <div data-i18n="Support">Recharges</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ $title === 'Liste des numéros' ? 'active' : '' }}">
+                            <a href="{{ route('private.numbers.index') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-support"></i>
+                                <div data-i18n="Support">Numéros</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ $title === 'Stats' ? 'active' : '' }}">
+                            <a href="{{ route('private.stats.index') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-support"></i>
+                                <div data-i18n="Support">Stats</div>
+                            </a>
+                        </li>
+                    </ul>
+                @endif
+
             </aside>
             <!-- / Menu -->
 
@@ -219,27 +287,12 @@
                                 <ul class="dropdown-menu dropdown-menu-end">
 
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{route('profile')}}">
                                             <i class="bx bx-user me-2"></i>
-                                            <span class="align-middle">My Profile</span>
+                                            <span class="align-middle">Mon profil</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="bx bx-cog me-2"></i>
-                                            <span class="align-middle">Settings</span>
-                                        </a>
-                                    </li>
-                                    {{-- <li>
-                                        <a class="dropdown-item" href="#">
-                                            <span class="d-flex align-items-center align-middle">
-                                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                                <span class="flex-grow-1 align-middle">Billing</span>
-                                                <span
-                                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                            </span>
-                                        </a>
-                                    </li> --}}
+                                
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
@@ -270,7 +323,7 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                      
+
                         <div class="row">
                             @if ($title == 'Dashboard')
                                 <div class="col-lg-12 mb-2 order-0">
@@ -306,75 +359,78 @@
                                 </div>
                             @endif
 
-                            <div class="col-lg-12 col-md-4 order-1">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-12 col-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div
-                                                    class="card-title d-flex align-items-start justify-content-between">
-                                                    <div class="avatar flex-shrink-0">
-                                                        <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}"
-                                                            alt="chart success" class="rounded" />
-                                                    </div>
+                            @if ($title != 'Stats' && $title != 'Mon Profil')
+                                <div class="col-lg-12 col-md-4 order-1">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-12 col-6 mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div
+                                                        class="card-title d-flex align-items-start justify-content-between">
+                                                        <div class="avatar flex-shrink-0">
+                                                            <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}"
+                                                                alt="chart success" class="rounded" />
+                                                        </div>
 
-                                                    <span class="fw-semibold d-block mb-1">Solde</span>
+                                                        <span class="fw-semibold d-block mb-1">Solde</span>
+                                                    </div>
+                                                    <h3 class="card-title mb-2">{{ Auth::user()->account_balance }}
+                                                    </h3>
                                                 </div>
-                                                <h3 class="card-title mb-2">{{ Auth::user()->account_balance }}</h3>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-12 col-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div
-                                                    class="card-title d-flex align-items-start justify-content-between">
-                                                    <div class="avatar flex-shrink-0">
-                                                        <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}"
-                                                            alt="Credit Card" class="rounded" />
-                                                    </div>
+                                        <div class="col-lg-3 col-md-12 col-6 mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div
+                                                        class="card-title d-flex align-items-start justify-content-between">
+                                                        <div class="avatar flex-shrink-0">
+                                                            <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}"
+                                                                alt="Credit Card" class="rounded" />
+                                                        </div>
 
-                                                    <span class="fw-semibold d-block mb-1">Numéros</span>
+                                                        <span class="fw-semibold d-block mb-1">Numéros</span>
+                                                    </div>
+                                                    <h3 class="card-title text-nowrap mb-1 text-center">$4,679</h3>
                                                 </div>
-                                                <h3 class="card-title text-nowrap mb-1 text-center">$4,679</h3>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-12 col-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div
-                                                    class="card-title d-flex align-items-start justify-content-between">
-                                                    <div class="avatar flex-shrink-0">
-                                                        <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}"
-                                                            alt="Credit Card" class="rounded" />
-                                                    </div>
+                                        <div class="col-lg-3 col-md-12 col-6 mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div
+                                                        class="card-title d-flex align-items-start justify-content-between">
+                                                        <div class="avatar flex-shrink-0">
+                                                            <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}"
+                                                                alt="Credit Card" class="rounded" />
+                                                        </div>
 
-                                                    <span class="fw-semibold d-block mb-1">Numéros</span>
+                                                        <span class="fw-semibold d-block mb-1">Numéros</span>
+                                                    </div>
+                                                    <h3 class="card-title text-nowrap mb-1 text-center">$4,679</h3>
                                                 </div>
-                                                <h3 class="card-title text-nowrap mb-1 text-center">$4,679</h3>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-12 col-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div
-                                                    class="card-title d-flex align-items-start justify-content-between">
-                                                    <div class="avatar flex-shrink-0">
-                                                        <img src="{{ asset('dashboard/assets/img/icons/unicons/globe.png') }}"
-                                                            alt="Credit Card" class="rounded" />
-                                                    </div>
+                                        <div class="col-lg-3 col-md-12 col-6 mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div
+                                                        class="card-title d-flex align-items-start justify-content-between">
+                                                        <div class="avatar flex-shrink-0">
+                                                            <img src="{{ asset('dashboard/assets/img/icons/unicons/globe.png') }}"
+                                                                alt="Credit Card" class="rounded" />
+                                                        </div>
 
-                                                    <span class="fw-semibold d-block mb-1">Pays disponibles</span>
+                                                        <span class="fw-semibold d-block mb-1">Pays</span>
+                                                    </div>
+                                                    <h3 class="card-title text-nowrap mb-1 text-center">
+                                                        {{ $countries_count }}</h3>
                                                 </div>
-                                                <h3 class="card-title text-nowrap mb-1 text-center">
-                                                    {{ $countries_count }}</h3>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
 
                         @yield('content')
@@ -465,7 +521,7 @@
             });
         });
     </script>
-   
+
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
@@ -479,14 +535,13 @@
                     return $('<span>').css('color', '#5c7ee5').text(selection.text);
                 },
                 dropdownPosition: 'below',
-             
+
             });
         });
-        
     </script>
 
-    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
 
 </body>

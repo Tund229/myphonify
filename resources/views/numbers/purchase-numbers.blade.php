@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (session()->has('error_message'))
+        <div class="alert alert-danger mt-4 d-flex justify-content-center" role="alert"
+            style="background-color: #e94c4c; color: #FFFFFF;">
+            {{ session('error_message') }}
+        </div>
+    @endif
     <h5 class="fw-bold py-3 mb-2">Faites votre choix &#x1F60A;</h5>
 
 
@@ -8,7 +14,7 @@
         <div class="col-md-6">
             <div class="card mb-4">
                 <div class="card-body">
-                    <form action="{{ route('purchase') }}" method="POST">
+                    <form action="{{ route('temp-purchase') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="defaultFormControlInput" class="form-label">Choisir le pays</label>
@@ -31,7 +37,7 @@
                                     <option value="facebook">
                                         Facebook
                                     </option>
-                                    <option value="tiktok">
+                                    <option value="TikTok">
                                         TikTok
                                     </option>
                                     <option value="gmail">
@@ -72,7 +78,8 @@
                                 <div class="d-flex justify-content-between mt-2">
                                     <div>
                                         <p class="text-dark">{{ strtoupper($purchase->service) }}</p>
-                                        <p class="small text-muted" > {{ $purchase->country->name }}  ( + {{ $purchase->country->phonecode}})</p>
+                                        <p class="small text-muted"> {{ $purchase->country->name }} ( +
+                                            {{ $purchase->country->phonecode }})</p>
                                     </div>
 
                                     <div>
@@ -81,13 +88,18 @@
                                 </div>
 
                                 <div class="d-flex justify-content-between align-items-center pb-2">
-                                    <a href="{{route('purchase-delete', ['id' => $purchase->id])}}">
+                                    <a href="{{ route('purchase-delete', ['id' => $purchase->id]) }}">
                                         <button class="btn btn-danger btn-sm" type="button">Annuler</button>
                                     </a>
+
+                                    <form action="{{ route('purchase', ['id' => $purchase->id]) }}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-outline-success btn-sm mt-2" type="submit">Confirmer</button>
+                                    </form>
                                     
-                                    <button class="btn btn-outline-success btn-sm mt-2" type="button">Confirmer</button>
+                                    
                                 </div>
-                                
+
                             </div>
                         </div>
                     @endforeach

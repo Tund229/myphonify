@@ -49,4 +49,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function recharges(){
+        return $this->hasMany('App\Models\Recharge');
+    }
+
+    public function numbers(){
+        return $this->hasMany('App\Models\Number');
+    }
+
+
+    public function calcAmount()
+    {
+        $recharges = $this->recharges()->where('state', ["validé"])->sum('amount');
+        $achats = $this->numbers()->whereIn('state', ["en cours", "validé"])->sum('amount');
+        $this->account_balance = $recharges - $achats;
+        $this->save();
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Faker\Generator as Faker;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,7 @@ class UsersTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
         User::create([
             'name' => 'Super Admin',
@@ -29,7 +30,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'user@user.com',
             'identifiant' => mt_rand(10000000, 99999999),
             'password' => Hash::make('123456789'),
-            'role' => 'user',
+            'is_admin' => true,
         ]);
 
         User::create([
@@ -38,6 +39,18 @@ class UsersTableSeeder extends Seeder
             'identifiant' => mt_rand(10000000, 99999999),
             'password' => Hash::make('123456789'),
             'role' => 'admin',
+            'is_admin' => true,
+
         ]);
+
+        
+        for ($i = 0; $i < 100; $i++) {
+            User::create([
+                'name' => $faker->name,
+                'email' => $faker->unique()->safeEmail,
+                'identifiant' => mt_rand(10000000, 99999999),
+                'password' => Hash::make("password"),
+            ]);
+        }
     }
 }

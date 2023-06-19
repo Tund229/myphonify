@@ -20,7 +20,7 @@ class ApiSeeder extends Seeder
         [
               [
               
-                "name" => "OnlineSim",
+                "name" => "SmsActivate",
               ],
 
 
@@ -37,6 +37,10 @@ class ApiSeeder extends Seeder
               [
                 
                 "name" => "5sim",
+              ],
+              [
+                
+                "name" => "OnlineSim",
               ],
         ];
 
