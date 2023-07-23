@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'user@user.com',
             'identifiant' => mt_rand(10000000, 99999999),
             'password' => Hash::make('123456789'),
-            'is_admin' => true,
+            'is_admin' => false,
         ]);
 
         User::create([
@@ -40,7 +40,6 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('123456789'),
             'role' => 'admin',
             'is_admin' => true,
-
         ]);
 
         

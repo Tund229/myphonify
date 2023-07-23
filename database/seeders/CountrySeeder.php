@@ -448,7 +448,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ],
               [
                 "id" => 28,
@@ -593,7 +593,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                "api_id" => 2
+                'api_id' => 1
               ],
               [
                 "id" => 37,
@@ -720,7 +720,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                "api_id" => 2
+                'api_id' => 1
               ],
               [
                 "id" => 45,
@@ -975,7 +975,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ],
               [
                 "id" => 61,
@@ -1009,7 +1009,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                "api_id" => 2
+                'api_id' => 1
               ],
               [
                 "id" => 63,
@@ -1202,7 +1202,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ],
               [
                 "id" => 75,
@@ -1464,7 +1464,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ],
               [
                 "id" => 91,
@@ -1608,7 +1608,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ],
               [
                 "id" => 100,
@@ -1935,7 +1935,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ],
               [
                 "id" => 119,
@@ -1999,7 +1999,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ],
               [
                 "id" => 123,
@@ -2099,7 +2099,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ],
               [
                 "id" => 129,
@@ -2430,7 +2430,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ],
               [
                 "id" => 150,
@@ -2449,7 +2449,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ],
               [
                 "id" => 151,
@@ -2564,7 +2564,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
 
               ],
               [
@@ -2791,7 +2791,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ],
               [
                 "id" => 172,
@@ -3288,7 +3288,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ],
               [
                 "id" => 203,
@@ -3737,7 +3737,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ],
               [
                 "id" => 231,
@@ -3989,7 +3989,7 @@ class CountrySeeder extends Seeder
                 'price_Viber' =>"2500",
                 'price_Signal' => "2500",
                 'state' => true,
-                'api_id' => 2
+                'api_id' => 1
               ]
 
         ];

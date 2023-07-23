@@ -85,7 +85,7 @@
                                 <div class="row">
                                     <div class="col mb-3">
                                         <input type="number" value="{{ $user->id }}" class="form-control"
-                                            name="user_id" hidden />
+                                            name="user_id" hidden       />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -99,6 +99,12 @@
                                             <strong class="text-danger">{{ $message }}</strong>
                                         </span>
                                     @enderror
+
+                                    @error('user_id')
+                                    <span role="alert">
+                                        <strong class="text-danger">{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
 
                             </div>

@@ -157,13 +157,13 @@
                                 <div class="row">
                                     <div class="col mb-3">
                                         <label for="nameSmall" class="form-label">Utilisateurs</label>
-                                        <select id="single-select-optgroup-field" class="form-select" name="user_id">
-                                            @foreach ($users as $user)
-                                                <option value="{{ $user->id }}">
-                                                    {{ $user->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" id="nameSmall" class="form-control" name="user" />
+                                        @error('user')
+                                            <span role="alert">
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
                                     </div>
                                 </div>
                                 <div class="row">

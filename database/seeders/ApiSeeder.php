@@ -20,7 +20,7 @@ class ApiSeeder extends Seeder
         [
               [
               
-                "name" => "SmsActivate",
+                "name" => "Smspva",
               ],
 
 
@@ -31,13 +31,13 @@ class ApiSeeder extends Seeder
 
               [
                 
-                "name" => "Smspva",
+                "name" => "SmsActivate",
               ],
 
-              [
+              // [
                 
-                "name" => "5sim",
-              ],
+              //   "name" => "5sim",
+              // ],
               [
                 
                 "name" => "OnlineSim",

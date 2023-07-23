@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
     <title>Myphonify</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+    <meta content="Achetez des numéros virtuels fiables sur Myphonify. Large sélection à partir de 2000 F CFA."
+        name="description">
+    <meta content="numéro virtuel, vente, Myphonify, fiable, communication, professionnel" name="keywords">
 
     <!-- Favicons -->
     <link href="{{ asset('landing_assets/assets/img/favicon.png') }}" rel="icon">
@@ -47,10 +47,10 @@
                     <li><a class="nav-link scrollto" href="#about"> Comment ça marche ? </a></li>
                     <li><a class="nav-link scrollto" href="#why-us">Affiliation</a></li>
                     <li><a class="nav-link scrollto" href="#clients">Services</a></li>
-                    @if(Auth::user())
-                    <li><a class="nav-link scrollto " href="{{route('home')}}">Tableau de bord </a></li>
+                    @if (Auth::user())
+                        <li><a class="nav-link scrollto " href="{{ route('home') }}">Tableau de bord </a></li>
                     @else
-                    <li><a class="nav-link scrollto " href="{{route('login')}}">Se connecter</a></li>
+                        <li><a class="nav-link scrollto " href="{{ route('login') }}">Se connecter</a></li>
                     @endif
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
@@ -71,11 +71,11 @@
 
             <div class="hero-info" data-aos="zoom-in" data-aos-delay="100">
                 <h2>
-                    Obtenez un 
+                    Achetez vos
                     <br>
-                    numéro fiable 
+                    numéros fiables
                     <br>
-                    à partir de 2500 F CFA
+                    à partir de 2000 FCFA
                 </h2>
                 <div>
                     <a href="#" class="btn-services scrollto">Acheter</a>
@@ -93,37 +93,35 @@
 
                 <header class="section-header">
                     <h3>Comment ça marche ?</h3>
-                    {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et
-                        dolore magna aliqua.</p> --}}
+
                 </header>
 
                 <div class="row about-container">
 
                     <div class="col-lg-6 content order-lg-1 order-2">
-                       
+
                         <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-                            <div class="icon"><i class="bi bi-card-checklist"></i></div>
-                            <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
-                            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero
-                                tempore, cum
-                                soluta nobis est eligendi</p>
+                            <div class="icon"><i class="bi bi-plugin"></i></div>
+                            <h4 class="title">Recharger votre compte</h4>
+                            <p class="description">Rechargez facilement votre compte avec MyPhonify. Entrez le montant
+                                souhaité et sélectionnez votre opérateur mobile. Profitez d'une recharge instantanée et
+                                recevez une notification de confirmation. </p>
                         </div>
 
                         <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
-                            <div class="icon"><i class="bi bi-brightness-high"></i></div>
-                            <h4 class="title"><a href="">Magni Dolores</a></h4>
-                            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                                officia deserunt
-                                mollit anim id est laborum</p>
+                            <div class="icon"><i class="bi bi-cart3"></i></div>
+                            <h4 class="title">Choisir le pays et le service</h4>
+                            <p class="description">Sélectionnez le pays dont vous souhaitez acheter
+                                numéro virtuel. Parcourez notre liste complète de pays disponibles et choisissez celui
+                                qui correspond à vos besoins. Sélectionnez le service souhaité et procédez à l'achat en
+                                toute simplicité.</p>
                         </div>
 
                         <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
-                            <div class="icon"><i class="bi bi-calendar4-week"></i></div>
-                            <h4 class="title"><a href="">Dolor Sitema</a></h4>
-                            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                aliquip ex ea
-                                commodo consequat tarad limino ata</p>
+                            <div class="icon"><i class="bi bi-check-circle-fill"></i></div>
+                            <h4 class="title">Recevoir le code de confirmation</h4>
+                            <p class="description">Utilisez votre numéro et recevez votre code de confirmation très
+                                rapidement et en toute sécurité.</p>
                         </div>
 
                     </div>
@@ -134,7 +132,7 @@
                     </div>
                 </div>
 
-                <div class="row about-extra">
+                {{-- <div class="row about-extra">
                     <div class="col-lg-6" data-aos="fade-right">
                         <img src="{{ asset('landing_assets/assets/img/about-extra-2.svg') }}" class="img-fluid"
                             alt="">
@@ -154,95 +152,71 @@
                             eum eum.
                         </p>
                     </div>
-                </div>
-
-                {{-- <div class="row about-extra">
-                    <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left">
-                        <img src="{{ asset('landing_assets/assets/img/about-extra-2.svg') }}" class="img-fluid"
-                            alt="">
-                    </div>
-
-                    <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-right">
-                        <h4>Neque saepe temporibus repellat ea ipsum et. Id vel et quia tempora facere reprehenderit.
-                        </h4>
-                        <p>
-                            Delectus alias ut incidunt delectus nam placeat in consequatur. Sed cupiditate quia ea quis.
-                            Voluptas nemo
-                            qui aut distinctio. Cumque fugit earum est quam officiis numquam. Ducimus corporis autem at
-                            blanditiis
-                            beatae incidunt sunt.
-                        </p>
-                        <p>
-                            Voluptas saepe natus quidem blanditiis. Non sunt impedit voluptas mollitia beatae. Qui esse
-                            molestias.
-                            Laudantium libero nisi vitae debitis. Dolorem cupiditate est perferendis iusto.
-                        </p>
-                        <p>
-                            Eum quia in. Magni quas ipsum a. Quis ex voluptatem inventore sint quia modi. Numquam est
-                            aut fuga
-                            mollitia exercitationem nam accusantium provident quia.
-                        </p>
-                    </div>
-
                 </div> --}}
+
 
             </div>
         </section><!-- End About Section -->
 
-   
+
         <!-- ======= Why Us Section ======= -->
         <section id="why-us">
             <div class="container" data-aos="fade-up">
                 <header class="section-header">
-                    <h3>Why choose us?</h3>
-                    <p>Laudem latine persequeris id sed, ex fabulas delectus quo. No vel partiendo abhorreant
-                        vituperatoribus.</p>
+                    <h3>Pourquoi nous choisir?</h3>
+                    <p></p>
                 </header>
 
                 <div class="row row-eq-height justify-content-center">
 
                     <div class="col-lg-4 mb-4">
                         <div class="card" data-aos="zoom-in" data-aos-delay="100">
-                            <i class="bi bi-calendar4-week"></i>
+                            <i class="bi bi-shield-shaded"></i>
                             <div class="card-body">
-                                <h5 class="card-title">Corporis dolorem</h5>
-                                <p class="card-text">Deleniti optio et nisi dolorem debitis. Aliquam nobis est
-                                    temporibus sunt ab
-                                    inventore officiis aut voluptatibus.</p>
-                                <a href="#" class="readmore">Read more </a>
+                                <h5 class="card-title">Fiabilité</h5>
+                                <p class="card-text"> Vous pouvez
+                                    compter sur la stabilité et la disponibilité de nos numéros virtuels pour répondre à
+                                    vos
+                                    besoins. Notre engagement envers la fiabilité garantit que vous disposez d'un numéro
+                                    virtuel performant et prêt à l'emploi. Faites confiance à notre fiabilité pour
+                                    rester
+                                    connecté(e) en toute tranquillité."</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-lg-4 mb-4">
                         <div class="card" data-aos="zoom-in" data-aos-delay="200">
-                            <i class="bi bi-camera-reels"></i>
+                            <i class="bi bi-lock-fill"></i>
                             <div class="card-body">
-                                <h5 class="card-title">Voluptates dolores</h5>
-                                <p class="card-text">Voluptates nihil et quis omnis et eaque omnis sint aut. Ducimus
-                                    dolorum aspernatur.
+                                <h5 class="card-title">Sécurité</h5>
+                                <p class="card-text"> Protégez vos informations personnelles et effectuez vos
+                                    transactions en toute confiance grâce à notre site sécurisé et fiable. Nous mettons
+                                    en place des mesures de sécurité avancées pour garantir la confidentialité de vos
+                                    données et assurer la sécurité de chaque transaction que vous effectuez.
                                 </p>
-                                <a href="#" class="readmore">Read more </a>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-lg-4 mb-4">
                         <div class="card" data-aos="zoom-in" data-aos-delay="300">
-                            <i class="bi bi-chat-square-text"></i>
+                            <i class="bi bi-eye-fill"></i>
+
                             <div class="card-body">
-                                <h5 class="card-title">Eum ut aspernatur</h5>
-                                <p class="card-text">Autem quod nesciunt eos ea aut amet laboriosam ab. Eos quis porro
-                                    in non nemo ex.
+                                <h5 class="card-title">Transparence</h5>
+                                <p class="card-text">Nous croyons en la transparence dans nos opérations. Nous vous
+                                    fournissons des informations claires et détaillées sur nos services, nos tarifs et
+                                    nos politiques. Vous pouvez consulter toutes les informations nécessaires pour
+                                    prendre des décisions éclairées concernant vos achats et transactions.
                                 </p>
-                                <a href="#" class="readmore">Read more </a>
                             </div>
                         </div>
                     </div>
 
                 </div>
 
-            
+
             </div>
         </section><!-- End Why Us Section -->
 
@@ -261,57 +235,57 @@
 
                     <div class="col-lg-3 col-md-4 col-xs-6">
                         <div class="client-logo">
-                            <img src="{{ asset('landing_assets/assets/img/clients/client-1.png') }}"
+                            <img src="{{ asset('landing_assets/assets/img/clients/whatsapp.png') }}"
                                 class="img-fluid" alt="">
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-4 col-xs-6">
                         <div class="client-logo">
-                            <img src="{{ asset('landing_assets/assets/img/clients/client-2.png') }}"
+                            <img src="{{ asset('landing_assets/assets/img/clients/tiktok.png') }}"
+                                class="img-fluid" alt="" >
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="client-logo">
+                            <img src="{{ asset('landing_assets/assets/img/clients/telegram.png') }}"
+                                class="img-fluid" alt="" width="90%">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="client-logo">
+                            <img src="{{ asset('landing_assets/assets/img/clients/gmail.jpg') }}"
+                                class="img-fluid" alt=""  width="90%">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="client-logo">
+                            <img src="{{ asset('landing_assets/assets/img/clients/chat-gpt.jpg') }}"
+                                class="img-fluid" alt="" width="90%" >
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="client-logo">
+                            <img src="{{ asset('landing_assets/assets/img/clients/facebook.png') }}"
                                 class="img-fluid" alt="">
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-4 col-xs-6">
                         <div class="client-logo">
-                            <img src="{{ asset('landing_assets/assets/img/clients/client-3.png') }}"
-                                class="img-fluid" alt="">
+                            <img src="{{ asset('landing_assets/assets/img/clients/insta.png') }}"
+                                class="img-fluid" alt=""  width="90%">
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-4 col-xs-6">
                         <div class="client-logo">
-                            <img src="{{ asset('landing_assets/assets/img/clients/client-4.png') }}"
-                                class="img-fluid" alt="">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-xs-6">
-                        <div class="client-logo">
-                            <img src="{{ asset('landing_assets/assets/img/clients/client-5.png') }}"
-                                class="img-fluid" alt="">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-xs-6">
-                        <div class="client-logo">
-                            <img src="{{ asset('landing_assets/assets/img/clients/client-6.png') }}"
-                                class="img-fluid" alt="">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-xs-6">
-                        <div class="client-logo">
-                            <img src="{{ asset('landing_assets/assets/img/clients/client-7.png') }}"
-                                class="img-fluid" alt="">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-xs-6">
-                        <div class="client-logo">
-                            <img src="{{ asset('landing_assets/assets/img/clients/client-8.png') }}"
-                                class="img-fluid" alt="">
+                            <img src="{{ asset('landing_assets/assets/img/clients/amazon.png') }}"
+                                class="img-fluid" alt="" width="60%">
                         </div>
                     </div>
 

@@ -19,35 +19,22 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet" />
-
-    <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/fonts/boxicons.css') }}" />
-
-    <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/css/core.css') }}"
         class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/css/theme-default.css') }}"
         class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('dashboard/assets/css/demo.css') }}" />
-
-    <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
-
-    <!-- Page CSS -->
-
-    <!-- Helpers -->
     <script src="{{ asset('dashboard/assets/vendor/js/helpers.js') }}"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 
 </head>
@@ -87,7 +74,7 @@
 
                         <li class="menu-item  mt-2  {{ $title === 'Mywallet' ? 'active' : '' }}">
                             <a href="{{ route('mywallet') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <i class='menu-icon  tf-icons bx bxs-user-circle'></i>
                                 <div data-i18n="Analytics">Mon compte</div>
                             </a>
                         </li>
@@ -100,13 +87,13 @@
 
                         <li class="menu-item  {{ $title === 'Mes numéros' ? 'active' : '' }}">
                             <a href="{{ route('my-numbers') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <i class='menu-icon tf-icons bx bx-list-ul'></i>
                                 <div data-i18n="Analytics">Mes numéros</div>
                             </a>
                         </li>
                         <li class="menu-item mt-2  {{ $title === 'Acheter un numéro' ? 'active' : '' }}">
                             <a href="{{ route('purchase-numbers') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <i class='menu-icon tf-icons bx bxs-cart-add'></i>
                                 <div data-i18n="Analytics"> Acheter </div>
                             </a>
                         </li>
@@ -197,7 +184,8 @@
 
                         <li class="menu-item  mt-2  {{ $title === 'Mywallet' ? 'active' : '' }}">
                             <a href="{{ route('mywallet') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                {{-- <i class="menu-icon tf-icons bx bx-home-circle"></i> --}}
+                                <i class='menu-icon  tf-icons bx bxs-user-circle'></i>
                                 <div data-i18n="Analytics">Mon compte</div>
                             </a>
                         </li>
@@ -210,13 +198,13 @@
 
                         <li class="menu-item  {{ $title === 'Mes numéros' ? 'active' : '' }}">
                             <a href="{{ route('my-numbers') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <i class='menu-icon tf-icons bx bx-list-ul'></i>
                                 <div data-i18n="Analytics">Mes numéros</div>
                             </a>
                         </li>
                         <li class="menu-item mt-2  {{ $title === 'Acheter un numéro' ? 'active' : '' }}">
                             <a href="{{ route('purchase-numbers') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                                <i class='menu-icon tf-icons bx bxs-cart-add'></i>
                                 <div data-i18n="Analytics"> Acheter </div>
                             </a>
                         </li>
@@ -226,25 +214,25 @@
                                 Menu Adminstrateur</span></li>
                         <li class="menu-item {{ $title === 'Liste des utilisateurs' ? 'active' : '' }}">
                             <a href="{{ route('private.users.index') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-support"></i>
+                                <i class='menu-icon tf-icons bx bxs-user'></i>
                                 <div data-i18n="Support">Utilisateurs</div>
                             </a>
                         </li>
                         <li class="menu-item {{ $title === 'Liste des recharges' ? 'active' : '' }}">
                             <a href="{{ route('private.recharges.index') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-support"></i>
+                                <i class='menu-icon tf-icons bx bxs-book-add'></i>
                                 <div data-i18n="Support">Recharges</div>
                             </a>
                         </li>
                         <li class="menu-item {{ $title === 'Liste des numéros' ? 'active' : '' }}">
                             <a href="{{ route('private.numbers.index') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-support"></i>
+                                <i class='menu-icon tf-icons bx bxs-phone'></i>
                                 <div data-i18n="Support">Numéros</div>
                             </a>
                         </li>
                         <li class="menu-item {{ $title === 'Stats' ? 'active' : '' }}">
                             <a href="{{ route('private.stats.index') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-support"></i>
+                                <i class='menu-icon tf-icons bx bx-stats'></i>
                                 <div data-i18n="Support">Stats</div>
                             </a>
                         </li>
@@ -287,12 +275,12 @@
                                 <ul class="dropdown-menu dropdown-menu-end">
 
                                     <li>
-                                        <a class="dropdown-item" href="{{route('profile')}}">
+                                        <a class="dropdown-item" href="{{ route('profile') }}">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">Mon profil</span>
                                         </a>
                                     </li>
-                                
+
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
@@ -374,7 +362,7 @@
 
                                                         <span class="fw-semibold d-block mb-1">Solde</span>
                                                     </div>
-                                                    <h3 class="card-title mb-2">{{ Auth::user()->account_balance }}
+                                                    <h3 class="card-title mb-2">{{ Auth::user()->account_balance }} XOF
                                                     </h3>
                                                 </div>
                                             </div>
@@ -391,7 +379,7 @@
 
                                                         <span class="fw-semibold d-block mb-1">Numéros</span>
                                                     </div>
-                                                    <h3 class="card-title text-nowrap mb-1 text-center">$4,679</h3>
+                                                    <h3 class="card-title text-nowrap mb-1 text-center">0</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -407,7 +395,7 @@
 
                                                         <span class="fw-semibold d-block mb-1">Numéros</span>
                                                     </div>
-                                                    <h3 class="card-title text-nowrap mb-1 text-center">$4,679</h3>
+                                                    <h3 class="card-title text-nowrap mb-1 text-center"> 0 </h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -542,7 +530,19 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://cdn.kkiapay.me/k.js"> </script>
+    @livewireScripts
 
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        })
+    </script>
 
 </body>
 

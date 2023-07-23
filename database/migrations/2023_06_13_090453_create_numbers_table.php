@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('numbers', function (Blueprint $table) {
             $table->id();
             $table->string("service");
-            $table->string("country");
             $table->string("amount");
             $table->string("phone")->nullable();
             $table->string("country_name");
