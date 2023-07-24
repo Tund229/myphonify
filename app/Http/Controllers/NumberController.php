@@ -117,6 +117,7 @@ class NumberController extends Controller
                     $product = $tempourchase->service;
                     $country = Country::find($tempourchase->country_id);
                     $api_name = $country->api_name->name;
+                  
 
                     // Smspva
                     if($api_name == 'Smspva') {
@@ -158,7 +159,7 @@ class NumberController extends Controller
                                 if ($rep['response'] == 1) {
                                     $number = Number::create([
                                         'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,
-                                        'state' => 'en cours', 'phone' =>$phone,'tzip' => $rep['id'], 'api_name' => 'OnlineSim', 'amount' => $amount
+                                        'state' => 'en cours', 'tzip' => $rep['tzid'], 'api_name' => 'OnlineSim', 'amount' => $amount
                                     ]);
                                     $operation = Http::get(
                                         'https://onlinesim.io/api/getState.php?apikey=a3HaYQM6mn666EZ-B2n56N6g-qKd3eN69-61TwhE35-be233apCFVZ883a&tzid=' . $number->tzip
@@ -257,7 +258,7 @@ class NumberController extends Controller
                                     if ($rep['response'] == 1) {
                                         $number = Number::create([
                                             'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,
-                                            'state' => 'en cours', 'phone' =>$phone,'tzip' => $rep['id'], 'api_name' => 'OnlineSim', 'amount' => $amount
+                                            'state' => 'en cours', 'tzip' => $rep['tzid'], 'api_name' => 'OnlineSim', 'amount' => $amount
                                         ]);
                                         $operation = Http::get(
                                             'https://onlinesim.io/api/getState.php?apikey=a3HaYQM6mn666EZ-B2n56N6g-qKd3eN69-61TwhE35-be233apCFVZ883a&tzid=' . $number->tzip
@@ -311,10 +312,11 @@ class NumberController extends Controller
                             'https://onlinesim.io/api/getNum.php?apikey=a3HaYQM6mn666EZ-B2n56N6g-qKd3eN69-61TwhE35-be233apCFVZ883a&service=' .$product. '&country=' . $country->phonecode
                         );
                         $rep = $response->json();
+                       
                         if ($rep['response'] == 1) {
                             $number = Number::create([
                                 'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,
-                                'state' => 'en cours', 'phone' =>$phone,'tzip' => $rep['id'], 'api_name' => $api_name, 'amount' => $amount
+                                'state' => 'en cours','tzip' => $rep['tzid'], 'api_name' => $api_name, 'amount' => $amount
                             ]);
                             $operation = Http::get(
                                 'https://onlinesim.io/api/getState.php?apikey=a3HaYQM6mn666EZ-B2n56N6g-qKd3eN69-61TwhE35-be233apCFVZ883a&tzid=' . $number->tzip

@@ -509,9 +509,7 @@
             });
         });
     </script>
-
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
     <script>
         $(document).ready(function() {
             $('#single-select-optgroup-field').select2({
@@ -527,23 +525,9 @@
             });
         });
     </script>
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <script src="https://cdn.kkiapay.me/k.js"> </script>
     @livewireScripts
-
-    <script>
-        $(window).on('load', function() {
-            if (feather) {
-                feather.replace({
-                    width: 14,
-                    height: 14
-                });
-            }
-        })
-    </script>
-
 </body>
 
 </html>

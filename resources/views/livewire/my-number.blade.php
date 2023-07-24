@@ -93,10 +93,12 @@
                 <thead>
                     <tr class="text-nowrap">
                         <th class="text-center">Status</th>
-                        <th class="text-center">Messages</th>
+                        <th class="text-center">Msgs</th>
                         <th class="text-center">Pays</th>
                         <th class="text-center">Numéros</th>
                         <th class="text-center">Services</th>
+                        <th class="text-center">Time</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -115,6 +117,42 @@
                             <td class="text-center">{{ strtoupper($number->country_name) }}</td>
                             <td class="text-center">{{ $number->phone }}</td>
                             <td class="text-center">{{ strtoupper($number->service) }}</td>
+                            @if ($number->phone && $number->state =="en cours")
+                            <td  class="text-center text-danger" id="counter">
+                                <script>
+                                    <?php
+                                    $dateTime = strtotime($item->created_at);
+                                    $getDateTime = date('F d, Y H:i:s', $dateTime);
+                                    $add_min = date('Y-m-d H:i:s', strtotime($getDateTime . '+10 minutes'));
+                                    ?>
+                                    var countDownDate = new Date("<?php echo "$add_min"; ?>").getTime();
+                                    // Update the count down every 1 second
+                                    var x = setInterval(function() {
+                                        var now = new Date().getTime();
+                                        // Find the distance between now an the count down date
+                                        var distance = countDownDate - now;
+                                        // Time calculations for days, hours, minutes and seconds
+                                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                        // Output the result in an element with id="counter"11
+                                        document.getElementById("counter").innerHTML =
+                                            minutes + " m " + " : " + seconds + " s ";
+                                        // If the count down is over, write some text 
+                                        if (distance < 0) {
+                                            clearInterval(x);
+                                            document.getElementById("counter").innerHTML = "Temps écoulé";
+                                        }
+                                    }, 1000);
+                                </script>
+                            </td>
+                            @else
+                            <td class="text-center">⌛️</td>
+                            @endif
+                            
+
+
                         </tr>
                     @endforeach
                 </tbody>
@@ -122,10 +160,10 @@
         </div>
     </div>
     <script>
-        window.setInterval('refresh()', 5000);
+        // window.setInterval('refresh()', 1000);
 
-        function refresh() {
-            Livewire.emit('actualiser');
-        }
+        // function refresh() {
+        //     Livewire.emit('actualiser');
+        // }
     </script>
 </div>
