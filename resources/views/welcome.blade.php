@@ -1,13 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Myphonify</title>
-    <meta content="Achetez des numéros virtuels fiables sur Myphonify. Large sélection à partir de 2000 F CFA."
-        name="description">
-    <meta content="numéro virtuel, vente, Myphonify, fiable, communication, professionnel" name="keywords">
+    <meta name="description"
+        content="Achetez des numéros virtuels pour votre entreprise et offrez à vos clients un moyen simple de vous contacter. Découvrez notre large sélection de numéros disponibles dans différentes régions du monde.">
+    <meta name="keywords"
+        content="numéros virtuels, numéros de téléphone, ventes, entreprise, communication, contacts, clients">
+
+    <!-- Balises Open Graph -->
+    <meta property="og:title" content="Vente de Numéros Virtuels">
+    <meta property="og:description"
+        content="Achetez des numéros virtuels pour votre entreprise et offrez à vos clients un moyen simple de vous contacter. Découvrez notre large sélection de numéros disponibles dans différentes régions du monde.">
+    <meta property="og:image" content="https://myphonify.com/landing_assets/assets/img/logo.png">
+    <meta property="og:url" content="https://myphonify.com">
+
+    <!-- Balises Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vente de Numéros Virtuels">
+    <meta name="twitter:description"
+        content="Achetez des numéros virtuels pour votre entreprise et offrez à vos clients un moyen simple de vous contacter. Découvrez notre large sélection de numéros disponibles dans différentes régions du monde.">
+    <meta name="twitter:image" content="https://myphonify.com/landing_assets/assets/img/logo.png">
 
     <!-- Favicons -->
     <link href="{{ asset('landing_assets/assets/img/favicon.png') }}" rel="icon">
@@ -36,8 +51,8 @@
         <div class="container d-flex justify-content-between">
 
             <div class="logo">
-                <a href="route"><img src="{{ asset('landing_assets/assets/img/logo.png') }}" alt=""
-                        class="img-fluid"></a>
+                <a href="{{ route('welcome') }}"><img src="{{ asset('landing_assets/assets/img/logo.png') }}"
+                        alt="" class="img-fluid"></a>
             </div>
 
 
@@ -45,7 +60,7 @@
                 <ul>
                     <li><a class="nav-link scrollto active" href="#hero">Acceuil</a></li>
                     <li><a class="nav-link scrollto" href="#about"> Comment ça marche ? </a></li>
-                    <li><a class="nav-link scrollto" href="#why-us">Affiliation</a></li>
+                    <li><a class="nav-link scrollto" href="#why-us">A propos</a></li>
                     <li><a class="nav-link scrollto" href="#clients">Services</a></li>
                     @if (Auth::user())
                         <li><a class="nav-link scrollto " href="{{ route('home') }}">Tableau de bord </a></li>
@@ -66,19 +81,19 @@
         <div class="container" data-aos="fade-up">
 
             <div class="hero-img" data-aos="zoom-out" data-aos-delay="200">
-                <img src="{{ asset('landing_assets/assets/img/hero-img.svg') }}" alt="" class="img-fluid">
+                <img src="{{ asset('landing_assets/assets/img/acceuil.svg') }}" alt="" class="img-fluid">
             </div>
 
             <div class="hero-info" data-aos="zoom-in" data-aos-delay="100">
                 <h2>
                     Achetez vos
                     <br>
-                    numéros fiables
+                    numéros virtuels
                     <br>
-                    à partir de 2000 FCFA
+                    à partir <br> de 2000 FCFA
                 </h2>
                 <div>
-                    <a href="#" class="btn-services scrollto">Acheter</a>
+                    <a href="{{ route('purchase-numbers') }}" class="btn-services scrollto">Acheter</a>
                 </div>
             </div>
 
@@ -227,8 +242,7 @@
 
                 <div class="section-header">
                     <h3>Services Disponibles</h3>
-                    <p>Voici une liste des services que nous offrons
-                    </p>
+                    <h4 class="title text-center">Voici une liste des services que nous offrons</h4>
                 </div>
 
                 <div class="row g-0 clients-wrap clearfix" data-aos="zoom-in" data-aos-delay="100">
@@ -242,29 +256,29 @@
 
                     <div class="col-lg-3 col-md-4 col-xs-6">
                         <div class="client-logo">
-                            <img src="{{ asset('landing_assets/assets/img/clients/tiktok.png') }}"
-                                class="img-fluid" alt="" >
+                            <img src="{{ asset('landing_assets/assets/img/clients/tiktok.png') }}" class="img-fluid"
+                                alt="" width="80%">
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-4 col-xs-6">
                         <div class="client-logo">
                             <img src="{{ asset('landing_assets/assets/img/clients/telegram.png') }}"
-                                class="img-fluid" alt="" width="90%">
+                                class="img-fluid" alt="" width="80%">
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-4 col-xs-6">
                         <div class="client-logo">
-                            <img src="{{ asset('landing_assets/assets/img/clients/gmail.jpg') }}"
-                                class="img-fluid" alt=""  width="90%">
+                            <img src="{{ asset('landing_assets/assets/img/clients/gmail.jpg') }}" class="img-fluid"
+                                alt="" width="80%">
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-4 col-xs-6">
                         <div class="client-logo">
                             <img src="{{ asset('landing_assets/assets/img/clients/chat-gpt.jpg') }}"
-                                class="img-fluid" alt="" width="90%" >
+                                class="img-fluid" alt="" width="80%">
                         </div>
                     </div>
 
@@ -277,15 +291,15 @@
 
                     <div class="col-lg-3 col-md-4 col-xs-6">
                         <div class="client-logo">
-                            <img src="{{ asset('landing_assets/assets/img/clients/insta.png') }}"
-                                class="img-fluid" alt=""  width="90%">
+                            <img src="{{ asset('landing_assets/assets/img/clients/insta.png') }}" class="img-fluid"
+                                alt="" width="80%">
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-4 col-xs-6">
                         <div class="client-logo">
-                            <img src="{{ asset('landing_assets/assets/img/clients/amazon.png') }}"
-                                class="img-fluid" alt="" width="60%">
+                            <img src="{{ asset('landing_assets/assets/img/clients/amazon.png') }}" class="img-fluid"
+                                alt="" width="50%">
                         </div>
                     </div>
 
@@ -303,12 +317,8 @@
     <footer id="footer">
         <div class="container">
             <div class="copyright">
-                &copy; Copyright <strong>Myohonify</strong>. Tous droits réservés
+                &copy; Copyright <strong>Myphonify</strong>. Tous droits réservés
             </div>
-            {{-- <div class="credits">
-
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-            </div> --}}
         </div>
     </footer><!-- End Footer -->
 
