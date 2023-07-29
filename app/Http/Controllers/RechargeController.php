@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Country;
+use App\Models\Recharge;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class RechargeController extends Controller
 {
-        /**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -18,19 +22,40 @@ class RechargeController extends Controller
     }
 
 
-    // my-numbers function 
-    public function my_recharges(){
+    // my-numbers function
+    public function my_recharges()
+    { 
         $title = "Mes recharges";
         $countries_count = Country::where('state', true)->count();
         return view('recharges.my-recharges', compact('title', 'countries_count'));
     }
 
 
-    //purchase-numbers
-    // public function purchase_numbers($id = null){
-    //     $title = "Acheter un numéro";
-    //     $countries = Country::where('state', true)->get();
-    //     $countries_count = Country::where('state', true)->count();
-    //     return view('numbers.purchase-numbers', compact('title', 'countries', 'countries_count', 'id'));
-    // }
+    private function validator()
+    {
+        return request()->validate([
+            'transaction_id' => ["required"],
+        ]);
+    }
+
+    public function recharge(Request $request)
+    {
+        $data = $this->validator();
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer sk_sandbox_nAg7ezG1g3RMKZ8CHOs89afi'
+        ])->get('https://sandbox-api.fedapay.com/v1/transactions/' . $data['transaction_id']);
+        $rep = $response->json();
+        if (array_key_exists("v1/transaction",$rep)){
+            $rep = $rep['v1/transaction'];
+            if ($rep['status'] == "approved" or $rep['status'] == "transferred" ){
+                $recharge = Recharge::create(['user_id' =>Auth::user()->id, 'amount' => $rep['amount'], 'state' => "validé", "name"=>Auth::user()->name]);
+                Auth::user()->calcAmount();
+                return "approved";
+            }else {
+                return "failed";
+            }
+        }else{
+            return "failed";
+        }
+    }
 }

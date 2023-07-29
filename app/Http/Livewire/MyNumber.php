@@ -3,9 +3,13 @@
 namespace App\Http\Livewire;
 
 use DateTime;
+use Carbon\Carbon;
 use App\Models\Number;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+
 
 class MyNumber extends Component
 {
@@ -13,7 +17,6 @@ class MyNumber extends Component
 
     public function render()
     {
-        
         Auth::user()->restoreState();
         $numbers = Auth::user()->numbers()->orderBy('created_at', 'desc')->get();
         return view('livewire.my-number', compact('numbers'));
@@ -22,6 +25,8 @@ class MyNumber extends Component
 
     public function actualiser(Number $nbr)
     {
+
+
         // if ($nbr->api_name == 'OnlineSim') {
         //     $operation = Http::get(
         //         'https://onlinesim.io/api/getState.php?apikey=G35FFApry182XSY-9stXta5D-m3FHEMna-FhPs7165-rxnrKQXAejs18j2&tzid=' . $nbr->tzip
@@ -41,54 +46,50 @@ class MyNumber extends Component
         //     }
         // }
 
-        // if ($nbr->api_name == 'Smspva') {
-        //     if ($nbr->service == 'whatsapp') {
-        //         $service = 'opt20';
-        //     } elseif ($nbr->service == 'telegram') {
-        //         $service = 'opt29';
-        //     } elseif ($nbr->service == 'facebook') {
-        //         $service = 'opt2';
-        //     } elseif ($nbr->service == 'gmail') {
-        //         $service = 'opt1';
-        //     } elseif ($nbr->service == 'TikTok') {
-        //         $service = 'opt104';
-        //     } elseif ($nbr->service == 'Signal') {
-        //         $service = 'opt127';
-        //     } elseif ($nbr->service == 'Viber') {
-        //         $service = 'opt11';
-        //     }
-        //     $operation = Http::get(
-        //         'https://smspva.com/priemnik.php?metod=get_sms&country='.$nbr->pays->country_iso.'&service='.$service.'&id='.$nbr->tzip.'&apikey=v1rNIwTzstolXukLAdUSJlbIxqvMQL'
-        //     );
-        //     $rep = $operation->json();
+        if ($nbr->api_name == 'Smspva') {
+            if ($nbr->service == 'whatsapp') {
+                $service = 'opt20';
+            } elseif ($nbr->service == 'telegram') {
+                $service = 'opt29';
+            } elseif ($nbr->service == 'facebook') {
+                $service = 'opt2';
+            } elseif ($nbr->service == 'gmail') {
+                $service = 'opt1';
+            } elseif ($nbr->service == 'TikTok') {
+                $service = 'opt104';
+            } elseif ($nbr->service == 'Signal') {
+                $service = 'opt127';
+            } elseif ($nbr->service == 'Viber') {
+                $service = 'opt11';
+            }
+            $operation = Http::get(
+                'https://smspva.com/priemnik.php?metod=get_sms&country='.$nbr->pays->country_iso.'&service='.$service.'&id='.$nbr->tzip.'&apikey=L9zCBnR84GOadTQjVqjd3O6ntgqoKY'
+            );
+            $rep = $operation->json();
+            if ($rep) {
+                if ($rep['id'] = $nbr->tzip && $rep['text'] != null && $rep['sms'] != null) {
+                    $nbr->update(['message' => $rep['sms']]);
+                    $nbr->update(['state' => "validé"]);
+                    Auth::user()->calcAmount();
+                    return redirect()->back();
+                } else {
+                    $num = DB::table('numbers')->where('user_id', '=', Auth::user()->id)->latest('created_at')->first();
+                    $created_at = Carbon::parse($num->created_at);
+                    $time = $created_at->format('H:i:s');
+                    $date = new DateTime();
+                    $is_Expired = $date->format('H:i:s');
+                    $diff_in_minutes = $created_at->diffInMinutes($is_Expired);
 
-        //     if ($rep) {
-        //         if ($rep['id'] = $nbr->tzip && $rep['text'] != null && $rep['sms'] != null) {
-        //             $nbr->update(['message' => $rep['sms']]);
-        //             $nbr->update(['state' => "validé"]);
-        //             $nbr->transaction->update(['state' => "validé"]);
-        //             Auth::user()->calcAmount();
-        //             return redirect()->back();
-        //         } else {
-        //             $num = DB::table('numbers')->where('user_id', '=', Auth::user()->id)->latest('created_at')->first();
-        //             $created_at = Carbon::parse($num->created_at);
-        //             $time = $created_at->format('H:i:s');
-        //             $date = new DateTime();
-        //             $is_Expired = $date->format('H:i:s');
-        //             $diff_in_minutes = $created_at->diffInMinutes($is_Expired);
-
-        //             if ($diff_in_minutes >= 10) {
-        //                 $nbr->transaction->update(['state' => "echoué"]);
-        //                 $nbr->update(['state' => "echoué"]);
-        //                 Auth::user()->calcAmount();
-        //             }
-        //         }
-        //     } else {
-        //         $nbr->transaction->update(['state' => "echoué"]);
-        //         $nbr->update(['state' => "echoué"]);
-        //         Auth::user()->calcAmount();
-        //     }
-        // }
+                    if ($diff_in_minutes >= 10) {
+                        $nbr->update(['state' => "echoué"]);
+                        Auth::user()->calcAmount();
+                    }
+                }
+            } else {
+                $nbr->update(['state' => "echoué"]);
+                Auth::user()->calcAmount();
+            }
+        }
 
 
         // if ($nbr->api_name == 'Autofication') {

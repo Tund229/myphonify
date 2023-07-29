@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("service");
             $table->string("amount");
+            $table->string("country");
             $table->string("phone")->nullable();
             $table->string("country_name");
             $table->string("state")->default("en cours"); //en cours, echoué, validé

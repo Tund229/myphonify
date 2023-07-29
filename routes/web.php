@@ -55,6 +55,8 @@ Route::get('/countries-list', [CountriesController::class, 'countries_list'])->n
 
 //recharges routes
 Route::get('/my-recharges', [RechargeController::class, 'my_recharges'])->name('my-recharges');
+Route::post('/recharges', [RechargeController::class, 'recharge']);
+
 
 
 

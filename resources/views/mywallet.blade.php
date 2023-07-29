@@ -201,31 +201,49 @@
             </div>
         </div>
     </div>
-    {{-- <script src="{{ asset('dashboard/assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="https://cdn.kkiapay.me/k.js"></script>
 
-    <kkiapay-widget amount="2000" 
-        key="29cee6e00e9711ee9fb597ae39c63a2d"
-        url="<url-vers-votre-logo>"
-        position="right"
-        sandbox="true"
-        data=""
-        callback="">
-</kkiapay-widget> --}}
 
-    <script>
+
+    <script type="text/javascript">
         document.getElementById("pay-btn").addEventListener("click", function(event) {
             event.preventDefault();
             var r_amount = document.getElementById('form-amount').value;
-            openKkiapayWidget({
-                amount: r_amount,
-                position: "right",
-                callback: "",
-                data: "",
-                sandbox="true",
-                theme: "#0095ff",
-                key: "29cee6e00e9711ee9fb597ae39c63a2d"
+            var email = "{{ Auth::user()->email }}";
+            var username = "{{ Auth::user()->name }}";
+            let widget = FedaPay.init({
+                public_key: 'pk_sandbox_-NueTrbGAY_rtuv7jptYDnEt',
+                transaction: {
+                    amount: r_amount,
+                    description: 'Nouvelle recharge'
+                },
+                customer: {
+                    email: email,
+                    lastname: username,
+                    firstname: 'myphonify',
+                },
+                onComplete: function(result) {
+                    if (result.reason == "CHECKOUT COMPLETE") {
+                        var csrf = document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.open("POST", "/recharges?transaction_id=" + result.transaction.id, true);
+                        xhttp.setRequestHeader("X-CSRF-TOKEN", csrf);
+                        xhttp.onreadystatechange = function() {
+                            console.log(this.status);
+                            if (this.readyState == 4 && this.status == 200) {
+                                var response = this.responseText;
+                                if (response == "approved") {
+                                    window.location.reload();
+                                }
+                            }
+                        };
+                        xhttp.send();
+                    }
+
+                }
+
             });
+            widget.open();
         });
     </script>
 @endsection

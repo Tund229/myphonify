@@ -16,7 +16,7 @@ class Number extends Model
     }
 
     public function pays(){
-        return $this->belongsTo('App\Models\Contries_availables', "country");
+        return $this->belongsTo('App\Models\Country', "country");
     }
 
    

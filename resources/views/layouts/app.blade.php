@@ -9,7 +9,7 @@
     <title>Myphonify - {{ $title }}</title>
 
     <meta name="description" content="" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Favicon -->
     <link href="{{ asset('landing_assets/assets/img/favicon.png') }}" rel="icon">
     <link href="{{ asset('landing_assets/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
@@ -34,9 +34,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-
+  <script src="https://cdn.fedapay.com/checkout.js?v=1.1.7"></script>
 </head>
 
 <body>
@@ -362,7 +360,8 @@
 
                                                         <span class="fw-semibold d-block mb-1">Solde</span>
                                                     </div>
-                                                    <h3 class="card-title mb-2">{{ Auth::user()->account_balance }} XOF
+                                                    <h3 class="card-title mb-2">{{ Auth::user()->account_balance }}
+                                                        XOF
                                                     </h3>
                                                 </div>
                                             </div>
@@ -484,7 +483,7 @@
                 "info": false,
                 "autoWidth": false,
                 "language": {
-                    "sEmptyTable": "Aucune donnée disponible dans le tableau",
+                    "sEmptyTable": "Aucune donnée disponible",
                     "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
                     "sInfoEmpty": " 0 à 0 sur 0 élément",
                     "sInfoFiltered": "(filtré à partir de _MAX_ éléments au total)",
@@ -525,9 +524,8 @@
             });
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-    <script src="https://cdn.kkiapay.me/k.js"> </script>
     @livewireScripts
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 </body>
 
 </html>
