@@ -6,7 +6,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Myphonify- Connexion</title>
+    <title>Myphonify- Inscription</title>
 
     <meta name="description" content="" />
 
@@ -22,7 +22,7 @@
         rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{asset('dashboard/assets/vendor/fonts/boxicons.css')}}" />
+    <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/css/core.css') }}"
@@ -80,7 +80,7 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nom d'utilisateur </label>
                                 <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Entrez un nom d'utilisateur " autofocus  value="{{ old('name') }}"/>
+                                    placeholder="Entrez un nom d'utilisateur " autofocus value="{{ old('name') }}" />
                             </div>
                             <div class="mb-4">
                                 @error('name')
@@ -94,7 +94,7 @@
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email </label>
                                 <input type="email" class="form-control" id="email" name="email"
-                                    placeholder="Entrez un email" autofocus  value="{{ old('email') }}"/>
+                                    placeholder="Entrez un email" autofocus value="{{ old('email') }}" />
                             </div>
                             <div class="mb-4">
                                 @error('email')
@@ -105,27 +105,41 @@
                             </div>
 
 
-
                             <div class="mb-3 mt-4 form-password-toggle">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" for="password">Mot de passe</label>
-                                   
                                 </div>
                                 <div class="input-group input-group-merge mb-4">
                                     <input type="password" id="password" class="form-control" name="password"
                                         placeholder="Entrez un mot de passe" aria-describedby="password" />
                                 </div>
-
                                 <div class="mb-4">
-
                                     @error('password')
                                         <span class="text-danger text-center" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
+                            </div>
 
 
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                        name="terms" id="terms-conditions">
+                                    <label class="form-check-label" for="terms-conditions">
+                                        J'ai lu et j'accepte 
+                                        <a href="{{route('privacy-terms')}}"> les conditions générales d'utilisation</a>
+                                    </label>
+                                </div>
+
+                                <div class="mb-4">
+                                    @error('terms')
+                                        <span class="text-danger text-center" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="mb-3">
@@ -161,7 +175,7 @@
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="{{asset('dashboard/assets/js/main.js')}}"></script>
+    <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
 
 </body>
 

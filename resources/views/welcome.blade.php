@@ -147,27 +147,7 @@
                     </div>
                 </div>
 
-                {{-- <div class="row about-extra">
-                    <div class="col-lg-6" data-aos="fade-right">
-                        <img src="{{ asset('landing_assets/assets/img/about-extra-2.svg') }}" class="img-fluid"
-                            alt="">
-                    </div>
-                    <div class="col-lg-6 pt-5 pt-lg-0" data-aos="fade-left">
-                        <h4>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h4>
-                        <p>
-                            Ipsum in aspernatur ut possimus sint. Quia omnis est occaecati possimus ea. Quas molestiae
-                            perspiciatis
-                            occaecati qui rerum. Deleniti quod porro sed quisquam saepe. Numquam mollitia recusandae non
-                            ad at et a.
-                        </p>
-                        <p>
-                            Ad vitae recusandae odit possimus. Quaerat cum ipsum corrupti. Odit qui asperiores ea
-                            corporis deserunt
-                            veritatis quidem expedita perferendis. Qui rerum eligendi ex doloribus quia sit. Porro rerum
-                            eum eum.
-                        </p>
-                    </div>
-                </div> --}}
+              
 
 
             </div>

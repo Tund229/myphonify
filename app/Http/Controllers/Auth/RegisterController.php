@@ -51,11 +51,15 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
+        $customMessages = [
+            'accepted' => "Vous devez accepter les conditions d'utilisation",
+        ];
         return Validator::make($data, [
             'name' => [function ($attribute, $value, $fail) {
                 if (empty($value)) {
                     $fail('Veuillez remplir ce champ');
-                }else {
+                } else {
                     $user = User::where('name', $value)->first();
                     if ($user) {
                         $fail("Le nom d'utilisateur est déjà utilisée.");
@@ -85,7 +89,8 @@ class RegisterController extends Controller
                     $fail('Veuillez remplir ce champ');
                 }
             }, 'string', 'min:8'],
-        ]);
+            'terms' => ['accepted'],
+        ],  $customMessages);
     }
 
     /**

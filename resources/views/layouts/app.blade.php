@@ -26,7 +26,6 @@
         class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('dashboard/assets/css/demo.css') }}" />
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-    <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
     <script src="{{ asset('dashboard/assets/vendor/js/helpers.js') }}"></script>
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
@@ -455,22 +454,11 @@
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('dashboard/assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('dashboard/assets/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('dashboard/assets/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-
-    <script src="{{ asset('dashboard/assets/vendor/js/menu.j') }}s"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-    <script src="{{ asset('dashboard/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-
+    <script src="{{ asset('dashboard/assets/vendor/js/menu.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
-
-    <!-- Page JS -->
-    <script src="{{ asset('dashboard/assets/js/dashboards-analytics.js') }}"></script>
-
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
     <script>

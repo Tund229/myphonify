@@ -17,19 +17,19 @@ use App\Http\Controllers\CountriesController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+
 
 Auth::routes();
 
+Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
+Route::get('/privacy-terms', [HomeController::class, 'privacy_terms'])->name('privacy-terms');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/mywallet', [HomeController::class, 'mywallet'])->name('mywallet');
 Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
 Route::get('/profile-update', [HomeController::class, 'profile_update'])->name('profile_update');
 Route::post('/profile-update', [HomeController::class, 'update'])->name('update');
-
 Route::get('/password-update', [HomeController::class, 'password_update'])->name('password_update');
+
 
 
 
