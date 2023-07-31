@@ -77,5 +77,15 @@ Route::namespace('App\\Http\\Controllers\\Admin')->prefix('private')->name('priv
 
 
 
+    //numbers custom routes
+    Route::get('numbers.block/{id}', 'NumbersController@block')->name('numbers.block');
+    Route::get('numbers.unblock/{id}', 'NumbersController@unblock')->name('numbers.unblock');
+
+    //recharges custom routes 
+    Route::get('recharges.block/{id}', 'RechargesController@block')->name('recharges.block');
+    Route::get('recharges.unblock/{id}', 'RechargesController@unblock')->name('recharges.unblock');
+
+
+
 
 });

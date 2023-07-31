@@ -51,7 +51,10 @@ class NumbersController extends Controller
      */
     public function show($id)
     {
-        //
+        $number = Number::where('id', $id)->first();
+        $title = "Détails Numéros" ;
+        $countries_count = Country::where('state', true)->count();
+        return view('private.numbers.show', compact('number', 'title', 'countries_count'));
     }
 
     /**
@@ -86,5 +89,33 @@ class NumbersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    
+    //block number
+    public function block($id)
+    {   
+        $number = Number::where('id', $id)->first();
+        if($number) {
+            $number->update([
+                'state' => 'echoué'
+            ]);
+        }
+
+        return redirect()->back();
+
+    }
+
+    //unblock number
+    public function unblock($id)
+    {
+        $number = Number::where('id', $id)->first();
+        if($number) {
+            $number->update([
+                'state' => 'validé'
+            ]);
+        }
+        return redirect()->back();
     }
 }

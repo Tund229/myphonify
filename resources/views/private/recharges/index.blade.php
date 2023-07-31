@@ -117,19 +117,19 @@
                                     <span class="badge bg-success">Validé</span>
                                 @elseif($recharge->state == 'en cours')
                                     <span class="badge bg-warning">En cours</span>
-                                @elseif($recharge->state == 'rejeté')
-                                    <span class="badge bg-warning">Echoué</span>
+                                @elseif($recharge->state == 'echoué')
+                                    <span class="badge bg-danger">Echoué</span>
                                 @endif
                             </td>
                             <td class="text-center">{{ $recharge->paiement }}</td>
                             <td class="text-center">
                                 @if ($recharge->state == 'validé')
-                                    <a href="#">
+                                    <a href="{{ route('private.recharges.block', $recharge->id) }}">
                                         <button class="btn btn-outline-danger">
                                             Annuler </button>
                                     </a>
                                 @else
-                                    <a href="#">
+                                    <a href="{{ route('private.recharges.unblock', $recharge->id) }}">
                                         <button class="btn btn-outline-success">
                                             Valider
                                         </button>

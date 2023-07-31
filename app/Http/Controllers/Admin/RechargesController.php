@@ -41,7 +41,7 @@ class RechargesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $data = $this->validator();
         $user = User::where('id', $data['user_id'])->first();
         $recharge = Recharge::create(['user_id' => $user->id, 'amount' => $data['amount'], 'state' => "validé"]);
@@ -106,4 +106,35 @@ class RechargesController extends Controller
             'amount' => ["required", "integer"],
         ]);
     }
+
+        //block recharges
+        public function block($id)
+        {   
+           
+            $recharge = Recharge::where('id', $id)->first();
+            if($recharge) {
+                $recharge->update([
+                    'state' => 'echoué'
+                ]);
+            }
+    
+            return redirect()->back();
+    
+        }
+    
+        //unblock recharges
+        public function unblock($id)
+        {
+            $recharge = Recharge::where('id', $id)->first();
+            if($recharge) {
+                $recharge->update([
+                    'state' => 'validé'
+                ]);
+            }
+            return redirect()->back();
+        }
+    
+
+
+
 }
