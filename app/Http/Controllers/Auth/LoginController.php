@@ -86,7 +86,7 @@ class LoginController extends Controller
 
                 }
             } else {
-                $message = "Le mot de passe est incorrect.";
+                $message = "Vos informations de connexion sont incorrectes.";
                 return redirect()->route('login')
                     ->with('state', $message)
                     ->withErrors(['password' =>$message]);

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->float("amount")->default(0);
             $table->string("state")->default("en cours"); // en cours, echoué, validé
             $table->text('comment')->nullable();
-            $table->enum('paiement', ['pm','local-pay'])->default('local-pay');
+            $table->enum('paiement', ['pm','Espèce'])->default('Espèce');
             $table->timestamps();
         });
     }

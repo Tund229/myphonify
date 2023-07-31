@@ -118,7 +118,7 @@
                                     <h6 class="m-0">Numéros achetés:</h6>
                                 </div>
                             </div>
-                            <div class="info-amount">$1000</div>
+                            <div class="info-amount">{{ Auth::user()->numbers()->where('state', 'validé')->count() }}</div>
                         </div>
 
 
@@ -133,30 +133,19 @@
                     </div>
                     <div class="text-center">
                         <input id="form-amount" type="number" name="amount" class="form-control">
+                        <div id="error-message" style="color: red; padding-top:10px;"></div>
+
                     </div>
 
-                    @if (Auth::user()->account_balance >= 1000)
-                        <div class="text-center">
-                            <button class="btn btn-primary mt-4" id="pay-btn" type="button">Recharger mon compte
-                            </button>
-                        </div>
-
-                        <div class="text-center mt-2">
-                            <button class="btn btn-primary mt-4"> Acheter un numéro
-                            </button>
-                        </div>
-                    @else
-                        <div class="text-center">
-                            <button class="btn btn-primary mt-4" id="pay-btn" type="button">Recharger mon compte
-                            </button>
-                        </div>
-                    @endif
-
-
-
+                    <div class="text-center">
+                        <button class="btn btn-primary mt-4" id="pay-btn" type="button">Recharger mon compte
+                        </button>
+                    </div>
+                    <div class="text-center mt-2">
+                        <a href="{{ route('purchase-numbers') }}" class="btn btn-primary mt-4"> Acheter un numéro
+                        </a>
+                    </div>
                 </div>
-
-
             </div>
         </div>
 
@@ -203,11 +192,15 @@
     </div>
 
 
-
     <script type="text/javascript">
         document.getElementById("pay-btn").addEventListener("click", function(event) {
             event.preventDefault();
             var r_amount = document.getElementById('form-amount').value;
+            if (r_amount === '' || parseInt(r_amount) < 100) {
+                document.getElementById('error-message').innerText = 'Le montant doit être supérieur ou égal à 100f';
+                return;
+            }
+
             var email = "{{ Auth::user()->email }}";
             var username = "{{ Auth::user()->name }}";
             let widget = FedaPay.init({
@@ -233,6 +226,13 @@
                             if (this.readyState == 4 && this.status == 200) {
                                 var response = this.responseText;
                                 if (response == "approved") {
+                                    swal({
+                                        title: "Compte rechargé avec succès",
+                                        text: "Montant :" + r_amount + "XOF",
+                                        timer: 10000,
+                                        type: "success",
+                                        confirmButtonColor: "#4169e1",
+                                    });
                                     window.location.reload();
                                 }
                             }

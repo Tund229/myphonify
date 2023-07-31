@@ -51,7 +51,7 @@ class HomeController extends Controller
         $id = Auth::user()->id;
         $title = "Mywallet" ;
         $countries_count = Country::where('state', true)->count();
-        $recharges = Recharge::where('user_id', $id)->get();
+        $recharges = Recharge::where('user_id', $id)->orderBy('created_at', 'desc')->get();
         return view('mywallet', compact('title', 'countries_count', 'recharges'));
     }
 
@@ -87,6 +87,6 @@ class HomeController extends Controller
 
     public function update(Request $request)
     {
-        dd($request->all());
+        
     }
 }

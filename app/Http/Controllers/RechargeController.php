@@ -27,7 +27,9 @@ class RechargeController extends Controller
     { 
         $title = "Mes recharges";
         $countries_count = Country::where('state', true)->count();
-        return view('recharges.my-recharges', compact('title', 'countries_count'));
+        $id = Auth::user()->id;
+        $recharges = Recharge::where('user_id', $id)->orderBy('created_at', 'desc')->get();
+        return view('recharges.my-recharges', compact('title', 'countries_count', 'recharges'));
     }
 
 

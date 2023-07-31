@@ -103,7 +103,8 @@ class NumberController extends Controller
 
     //purchase
     public function purchase(Request $request, $id)
-    {
+    {   
+        Auth::user()->restoreState();
         $tempourchase = TempPurchase::where('id', $id)->first();
         if($tempourchase) {
             $amount = $tempourchase->service_price;
@@ -158,7 +159,7 @@ class NumberController extends Controller
                                 $rep = $response->json();
                                 if ($rep['response'] == 1) {
                                     $number = Number::create([
-                                        'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country,
+                                        'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country->id,
                                         'state' => 'en cours', 'tzip' => $rep['tzid'], 'api_name' => 'OnlineSim', 'amount' => $amount
                                     ]);
                                     $operation = Http::get(
@@ -186,7 +187,7 @@ class NumberController extends Controller
                                         $rep = $response->json();
                                         if($response->status() == 200 && $rep !=null) {
                                             $number = Number::create([
-                                                'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country,
+                                                'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
                                                 'state' => 'en cours', 'phone' =>$rep['phone'],'tzip' => $rep['id'], 'api_name' => '5sim', 'amount' => $amount
                                             ]);
                                         } else {
@@ -198,7 +199,7 @@ class NumberController extends Controller
                                         }
                                     } else {
                                         $number = Number::create([
-                                            'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country,
+                                            'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country->id,
                                             'state' => 'en cours', 'phone' =>$rep,'tzip' => $website, 'api_name' => "Autofication", 'amount' => $amount
                                         ]);
                                         $tempourchase->delete();
@@ -248,7 +249,7 @@ class NumberController extends Controller
                                     // buy number chez smspva
                                     $phone = $rep['CountryCode'].$rep['number'];
                                     $number = Number::create([
-                                        'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country,
+                                        'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country->id,
                                         'state' => 'en cours', 'phone' =>$phone,'tzip' => $rep['id'], 'api_name' => 'Smspva', 'amount' => $amount
                                     ]);
                                     $tempourchase->delete();
@@ -261,7 +262,7 @@ class NumberController extends Controller
                                     $rep = $response->json();
                                     if ($rep['response'] == 1) {
                                         $number = Number::create([
-                                            'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country,
+                                            'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country->id,
                                             'state' => 'en cours', 'tzip' => $rep['tzid'], 'api_name' => 'OnlineSim', 'amount' => $amount
                                         ]);
                                         $operation = Http::get(
@@ -282,10 +283,11 @@ class NumberController extends Controller
                                         $rep = $response->json();
                                         if($response->status() == 200 && $rep !=null) {
                                             $number = Number::create([
-                                                'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country,
+                                                'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country->id,
                                                 'state' => 'en cours', 'phone' =>$rep['phone'],'tzip' => $rep['id'], 'api_name' => '5sim', 'amount' => $amount
                                             ]);
                                         } else {
+                                            $tempourchase->delete();
                                             $message = "Rupture de numeros " . $product ." pour ". $country->name;
                                             $request->session()->flash('error_message', $message);
                                             return redirect()->back();
@@ -294,13 +296,14 @@ class NumberController extends Controller
                                 }
 
                             } else {
+                                $tempourchase->delete();
                                 $message = "Rupture de numeros " . $product ." pour ". $country->name;
                                 $request->session()->flash('error_message', $message);
                                 return redirect()->back();
                             }
                         } else {
                             $number = Number::create([
-                                'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country,
+                                'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
                                 'state' => 'en cours', 'phone' =>$rep,'tzip' => $website, 'api_name' => $api_name, 'amount' => $amount
                             ]);
                             $tempourchase->delete();
@@ -319,7 +322,7 @@ class NumberController extends Controller
 
                         if ($rep['response'] == 1) {
                             $number = Number::create([
-                                'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country,
+                                'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
                                 'state' => 'en cours','tzip' => $rep['tzid'], 'api_name' => $api_name, 'amount' => $amount
                             ]);
                             $operation = Http::get(
@@ -348,7 +351,7 @@ class NumberController extends Controller
                                 $rep = $response->json();
                                 if($response->status() == 200 && $rep !=null) {
                                     $number = Number::create([
-                                        'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country,
+                                        'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
                                         'state' => 'en cours', 'phone' =>$rep['phone'],'tzip' => $rep['id'], 'api_name' => '5sim', 'amount' => $amount
                                     ]);
                                 } else {
@@ -375,13 +378,14 @@ class NumberController extends Controller
                                         // buy number chez smspva
                                         $phone = $rep['CountryCode'].$rep['number'];
                                         $number = Number::create([
-                                            'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country,
+                                            'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
                                             'state' => 'en cours', 'phone' =>$phone,'tzip' => $rep['id'], 'api_name' => $api_name, 'amount' => $amount
                                         ]);
                                         $tempourchase->delete();
                                         Auth::user()->calcAmount();
                                         return $this->my_numbers();
                                     } else {
+                                        $tempourchase->delete();
                                         $message = "Rupture de numeros " . $product ." pour ". $country->name;
                                         $request->session()->flash('error_message', $message);
                                         return redirect()->back();
@@ -389,7 +393,7 @@ class NumberController extends Controller
                                 }
                             } else {
                                 $number = Number::create([
-                                    'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country,
+                                    'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
                                     'state' => 'en cours', 'phone' =>$rep,'tzip' => $website, 'api_name' => "Autofication", 'amount' => $amount
                                 ]);
                                 $tempourchase->delete();
@@ -402,12 +406,11 @@ class NumberController extends Controller
 
                 }
             } else {
+                Auth::user()->restoreState();
                 $message = "Solde insuffisant, veuillez recharger votre compte";
                 $request->session()->flash('error_message', $message);
                 return redirect()->back();
             }
-
-
         }
         return redirect()->back();
     }

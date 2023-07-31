@@ -7,8 +7,24 @@
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>Myphonify - {{ $title }}</title>
+    <meta name="description"
+        content="Achetez des numéros virtuels pour votre entreprise et offrez à vos clients un moyen simple de vous contacter. Découvrez notre large sélection de numéros disponibles dans différentes régions du monde.">
+    <meta name="keywords"
+        content="numéros virtuels, numéros de téléphone, ventes, entreprise, communication, contacts, clients">
 
-    <meta name="description" content="" />
+    <!-- Balises Open Graph -->
+    <meta property="og:title" content="Vente de Numéros Virtuels">
+    <meta property="og:description"
+        content="Achetez des numéros virtuels pour votre entreprise et offrez à vos clients un moyen simple de vous contacter. Découvrez notre large sélection de numéros disponibles dans différentes régions du monde.">
+    <meta property="og:image" content="https://myphonify.com/landing_assets/assets/img/logo.png">
+    <meta property="og:url" content="https://myphonify.com">
+
+    <!-- Balises Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vente de Numéros Virtuels">
+    <meta name="twitter:description"
+        content="Achetez des numéros virtuels pour votre entreprise et offrez à vos clients un moyen simple de vous contacter. Découvrez notre large sélection de numéros disponibles dans différentes régions du monde.">
+    <meta name="twitter:image" content="https://myphonify.com/landing_assets/assets/img/logo.png">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Favicon -->
     <link href="{{ asset('landing_assets/assets/img/favicon.png') }}" rel="icon">
@@ -33,7 +49,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
-  <script src="https://cdn.fedapay.com/checkout.js?v=1.1.7"></script>
+    <script src="https://cdn.fedapay.com/checkout.js?v=1.1.7"></script>
 </head>
 
 <body>
@@ -105,61 +121,11 @@
                         <li class="menu-item mt-2  {{ $title === 'Mes recharges' ? 'active' : '' }}">
                             <a href="{{ route('my-recharges') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                                <div data-i18n="Analytics"> Recharger </div>
+                                <div data-i18n="Analytics"> Recharges</div>
                             </a>
                         </li>
-
-
-
-                        <!-- Forms & Tables -->
-                        {{-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp;
-                        Tables</span></li>
-                <!-- Forms -->
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-detail"></i>
-                        <div data-i18n="Form Elements">Form Elements</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="forms-basic-inputs.html" class="menu-link">
-                                <div data-i18n="Basic Inputs">Basic Inputs</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="forms-input-groups.html" class="menu-link">
-                                <div data-i18n="Input groups">Input groups</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-detail"></i>
-                        <div data-i18n="Form Layouts">Form Layouts</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="form-layouts-vertical.html" class="menu-link">
-                                <div data-i18n="Vertical Form">Vertical Form</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="form-layouts-horizontal.html" class="menu-link">
-                                <div data-i18n="Horizontal Form">Horizontal Form</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- Tables -->
-                <li class="menu-item">
-                    <a href="tables-basic.html" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-table"></i>
-                        <div data-i18n="Tables">Tables</div>
-                    </a>
-                </li> --}}
                         <!-- Misc -->
-                        <li class="menu-header small text-uppercase"><span class="menu-header-text">Aide &amp;
+                        {{-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Aide &amp;
                                 Assitance</span></li>
                         <li class="menu-item">
                             <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
@@ -167,7 +133,7 @@
                                 <i class="menu-icon tf-icons bx bx-support"></i>
                                 <div data-i18n="Support">Support</div>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 @elseif (Auth::user()->is_admin == 1)
                     <ul class="menu-inner py-1">
@@ -324,7 +290,8 @@
                                                         les dernières mises à jour!
                                                         🚀📢
                                                     </p>
-                                                    <a href="#" class="btn btn-sm btn-outline-primary">
+                                                    <a href="https://t.me/myphonify"
+                                                        class="btn btn-sm btn-outline-primary" target="_blank">
                                                         Rejoindre
                                                     </a>
                                                 </div>
@@ -374,10 +341,11 @@
                                                             <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}"
                                                                 alt="Credit Card" class="rounded" />
                                                         </div>
-
                                                         <span class="fw-semibold d-block mb-1">Numéros</span>
                                                     </div>
-                                                    <h3 class="card-title text-nowrap mb-1 text-center">0</h3>
+                                                    <h3 class="card-title text-nowrap mb-1 text-center">
+                                                        {{ Auth::user()->numbers()->where('state', 'validé')->count() }}
+                                                    </h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -391,9 +359,9 @@
                                                                 alt="Credit Card" class="rounded" />
                                                         </div>
 
-                                                        <span class="fw-semibold d-block mb-1">Numéros</span>
+                                                        <span class="fw-semibold d-block mb-1">Gains</span>
                                                     </div>
-                                                    <h3 class="card-title text-nowrap mb-1 text-center"> 0 </h3>
+                                                    <h3 class="card-title text-nowrap mb-1 text-center"> 0 XOF</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -469,7 +437,10 @@
                 "searching": true,
                 "ordering": true,
                 "info": false,
-                "autoWidth": false,
+                "autoWidth": true,
+                "order": [
+                    [0, "desc"]
+                ],
                 "language": {
                     "sEmptyTable": "Aucune donnée disponible",
                     "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
@@ -488,10 +459,10 @@
                         "sNext": "Suiv.",
                         "sPrevious": "Préc."
                     },
-                    "oAria": {
-                        "sSortAscending": ": activer pour trier la colonne par ordre croissant",
-                        "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
-                    }
+                    // "oAria": {
+                    //     "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    //     "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                    // }
                 }
             });
         });
@@ -513,7 +484,22 @@
         });
     </script>
     @livewireScripts
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="text/javascript">
+        window.$crisp = [];
+        window.CRISP_WEBSITE_ID = "58a684d2-be02-48fd-a382-fc47e3fbdb8a";
+        (function() {
+            d = document;
+            s = d.createElement("script");
+            s.src = "https://client.crisp.chat/l.js";
+            s.async = 1;
+            d.getElementsByTagName("head")[0].appendChild(s);
+        })();
+    </script>
 </body>
 
 </html>

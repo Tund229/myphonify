@@ -6,9 +6,25 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Myphonify- Inscription</title>
+    <title>Inscription - Myphonify</title>
+    <meta name="description"
+        content="Inscrivez-vous sur Myphonify pour créer un compte et accéder à une gamme de numéros virtuels pour votre entreprise.">
+    <meta name="keywords" content="inscription, créer un compte, Myphonify, numéros virtuels, entreprise">
 
-    <meta name="description" content="" />
+    <!-- Balises Open Graph -->
+    <meta property="og:title" content="Inscription - Myphonify">
+    <meta property="og:description"
+        content="Inscrivez-vous sur Myphonify pour créer un compte et accéder à une gamme de numéros virtuels pour votre entreprise.">
+    <meta property="og:image" content="https://myphonify.com/landing_assets/assets/img/logo.png">
+    <meta property="og:url" content="https://myphonify.com/signup">
+
+    <!-- Balises Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Inscription - Myphonify">
+    <meta name="twitter:description"
+        content="Inscrivez-vous sur Myphonify pour créer un compte et accéder à une gamme de numéros virtuels pour votre entreprise.">
+    <meta name="twitter:image" content="https://myphonify.com/landing_assets/assets/img/logo.png">
+
 
     <!-- Favicon -->
     <link href="{{ asset('landing_assets/assets/img/favicon.png') }}" rel="icon">
@@ -125,11 +141,12 @@
 
                             <div class="mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                        name="terms" id="terms-conditions">
+                                    <input class="form-check-input" type="checkbox" name="terms"
+                                        id="terms-conditions">
                                     <label class="form-check-label" for="terms-conditions">
-                                        J'ai lu et j'accepte 
-                                        <a href="{{route('privacy-terms')}}"> les conditions générales d'utilisation</a>
+                                        J'ai lu et j'accepte
+                                        <a href="{{ route('privacy-terms') }}"> les conditions générales
+                                            d'utilisation</a>
                                     </label>
                                 </div>
 

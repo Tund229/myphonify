@@ -88,7 +88,7 @@
     <h5 class="card-header ">Mes numéros</h5>
 
     <div class="card py-4">
-        <div class="table-responsive ">
+        <div class="table-responsive">
             <table class="table table-striped" id="dataTable">
                 <thead>
                     <tr class="text-nowrap">
@@ -117,12 +117,9 @@
                                 @if ($number->message == null)
                                     -
                                 @else
-                                    💬
+                                    <span style="cursor: pointer;"
+                                        onclick="showMessage('{{ $number->message }}')">💬</span>
                                 @endif
-
-
-
-                                {{ $number->message }}
                             </td>
                             <td class="text-center">{{ strtoupper($number->country_name) }}</td>
                             <td class="text-center">{{ $number->phone }}</td>
@@ -171,9 +168,22 @@
         </div>
     </div>
     <script>
-        window.setInterval('refresh()', 3000);
-        function refresh() {
-            Livewire.emit('actualiser');
+        var encours = {!! json_encode($number_encours) !!};
+        if (encours >= 1) {
+            window.setInterval(function() {
+                Livewire.emit('actualiser');
+            }, 5000);
+        }
+
+
+        function showMessage(message) {
+            console.log(message);
+            swal({
+                title: "Message",
+                text: message,
+                imageUrl: "images/thumbs-up.jpg"
+            });
+
         }
     </script>
 </div>

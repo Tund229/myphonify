@@ -3,12 +3,28 @@
 
 <head>
     <meta charset="utf-8" />
+    <title>Connexion - Myphonify</title>
+
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Myphonify- Connexion</title>
+    <meta name="description"
+        content="Connectez-vous à Myphonify pour accéder à votre compte et gérer vos numéros virtuels.">
+    <meta name="keywords" content="connexion, compte, Myphonify, numéros virtuels, gestion">
 
-    <meta name="description" content="" />
+    <!-- Balises Open Graph -->
+    <meta property="og:title" content="Connexion - Myphonify">
+    <meta property="og:description"
+        content="Connectez-vous à Myphonify pour accéder à votre compte et gérer vos numéros virtuels.">
+    <meta property="og:image" content="https://myphonify.com/landing_assets/assets/img/logo.png">
+    <meta property="og:url" content="https://myphonify.com/login">
+
+    <!-- Balises Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Connexion - Myphonify">
+    <meta name="twitter:description"
+        content="Connectez-vous à Myphonify pour accéder à votre compte et gérer vos numéros virtuels.">
+    <meta name="twitter:image" content="https://myphonify.com/landing_assets/assets/img/logo.png">
 
     <!-- Favicon -->
     <link href="{{ asset('landing_assets/assets/img/favicon.png') }}" rel="icon">
@@ -22,7 +38,7 @@
         rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{asset('dashboard/assets/vendor/fonts/boxicons.css')}}" />
+    <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/css/core.css') }}"
@@ -79,7 +95,7 @@
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email </label>
                                 <input type="email" class="form-control" id="email" name="email"
-                                    placeholder="Entrez votre email" autofocus  value="{{ old('email') }}"/>
+                                    placeholder="Entrez votre email" autofocus value="{{ old('email') }}" />
                             </div>
                             <div class="mb-4">
                                 @error('email')
@@ -148,7 +164,7 @@
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="{{asset('dashboard/assets/js/main.js')}}"></script>
+    <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
 
 </body>
 
