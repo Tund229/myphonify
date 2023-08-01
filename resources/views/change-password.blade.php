@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Connexion - Myphonify</title>
+    <title>Code de validation- Myphonify</title>
 
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <meta name="description"
-        content="Connectez-vous à Myphonify pour accéder à votre compte et gérer vos numéros virtuels.">
+        content="Récupérez votre Myphonify pour accéder à votre compte et gérer vos numéros virtuels.">
     <meta name="keywords" content="connexion, compte, Myphonify, numéros virtuels, gestion">
 
     <!-- Balises Open Graph -->
@@ -65,10 +65,10 @@
     <!-- Content -->
 
     <div class="container-xxl">
-        @if (session()->has('error_message'))
+        @if (session()->has('status'))
             <div class="alert alert-danger mt-4 d-flex justify-content-center" role="alert"
-                style="background-color: #e94c4c; color: #FFFFFF;">
-                {{ session('error_message') }}
+                style="background-color: green; color: #FFFFFF;">
+                {{ session('status') }}
             </div>
         @endif
         <div class="authentication-wrapper authentication-basic container-p-y">
@@ -88,17 +88,17 @@
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h5 class="mb-4 text-center"> Connectez-vous 😊</h5>
+                        <h5 class="mb-4 text-center"> Encore quelques étapes et c'est fini! 😊</h5>
 
-                        <form class="mb-3" action="{{ route('login') }}" method="POST">
+                        <form class="mb-3" action="{{ route('changed_password', $_GET['identifier'])}}" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email </label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                    placeholder="Entrez votre email" autofocus value="{{ old('email') }}" />
+                                <label for="code_validation" class="form-label">Code de validation </label>
+                                <input type="number" class="form-control" id="code_validation" name="code_validation"
+                                    placeholder="Entrez votre code validation"  />
                             </div>
                             <div class="mb-4">
-                                @error('email')
+                                @error('code_validation')
                                     <span class="text-danger text-center mb-4" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -106,40 +106,42 @@
                             </div>
 
 
-
-                            <div class="mb-3 mt-4 form-password-toggle">
-                                <div class="d-flex justify-content-between">
-                                    <label class="form-label" for="password">Mot de passe</label>
-                                    <a href="{{route('forgot_password')}}">
-                                        <small>Mot de passe oublié ?</small>
-                                    </a>
-                                </div>
-                                <div class="input-group input-group-merge mb-4">
-                                    <input type="password" id="password" class="form-control" name="password"
-                                        placeholder="Entrez votre mot de passe" aria-describedby="password" />
-                                </div>
-
-                                <div class="mb-4">
-
-                                    @error('password')
-                                        <span class="text-danger text-center" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Nouveau mot de passe </label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Entrez votre mot de passe"  />
+                            </div>
+                            <div class="mb-4">
+                                @error('password')
+                                    <span class="text-danger text-center mb-4" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Se connecter</button>
+                                <label for="password_confirmation" class="form-label">Confirmer mot de passe </label>
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
+                                    placeholder="Confirmez votre mot de passe"  />
+                            </div>
+                            <div class="mb-4">
+                                @error('password_confirmation')
+                                    <span class="text-danger text-center mb-4" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+
+                            <div class="mb-3">
+                                <button class="btn btn-primary d-grid w-100" type="submit">Récupérer</button>
                             </div>
                         </form>
 
                         <p class="text-center">
-                            <span>Vous n'avez pas un compte?</span>
-                            <a href="{{ route('register') }}">
-                                <span> Inscrivez-vous</span>
+                            <span>Vous avez un compte?</span>
+                            <a href="{{ route('login') }}">
+                                <span> Connectez-vous</span>
                             </a>
                         </p>
                     </div>

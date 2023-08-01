@@ -30,6 +30,14 @@ Route::get('/profile-update', [HomeController::class, 'profile_update'])->name('
 Route::post('/profile-update', [HomeController::class, 'update'])->name('update');
 Route::get('/password-update', [HomeController::class, 'password_update'])->name('password_update');
 Route::post('/password-update', [HomeController::class, 'password_updated'])->name('password_updated');
+Route::get('/forgot-password', [HomeController::class, 'forgot_password'])->name('forgot_password');
+Route::post('/forgot-password', [HomeController::class, 'forgoted_password'])->name('forgoted_password');
+
+Route::get('/change-password/{id?}', [HomeController::class, 'change_password'])->name('change_password');
+Route::post('/changed-password/{id}', [HomeController::class, 'changed_password'])->name('changed_password');
+
+
+
 
 
 
