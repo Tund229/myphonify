@@ -29,6 +29,8 @@ Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
 Route::get('/profile-update', [HomeController::class, 'profile_update'])->name('profile_update');
 Route::post('/profile-update', [HomeController::class, 'update'])->name('update');
 Route::get('/password-update', [HomeController::class, 'password_update'])->name('password_update');
+Route::post('/password-update', [HomeController::class, 'password_updated'])->name('password_updated');
+
 
 
 

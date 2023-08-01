@@ -54,6 +54,8 @@ class RegisterController extends Controller
 
         $customMessages = [
             'accepted' => "Vous devez accepter les conditions d'utilisation",
+            'min'=> 'Ce champ doit contenir au moins',
+            'max'=> 'Ce champ doit contenir au plus:'
         ];
         return Validator::make($data, [
             'name' => [function ($attribute, $value, $fail) {

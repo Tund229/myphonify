@@ -140,4 +140,30 @@ class HomeController extends Controller
         $request->session()->flash('status', $message);
         return redirect()->back();
     }
+
+
+    public function password_updated(Request $request){
+        $customMessages = [
+            'required' => "Veuillez remplir ce champ.",
+            'same'=> 'Les mots de passe ne correspondent pas.',
+            'min'=> 'Ce champ doit contenir au moins :min caractères',
+            'max'=> 'Ce champ doit contenir au plus :max caractères '
+        ];
+        $data= $request->validate([
+            'new_password' => ['required', 'string',  'max:255', 'min:8'],
+            'new_password_confirmation' => ['required', 'string',  'max:255', 'min:8', 'same:new_password'],
+            'old_password'  => ['required', 'string' ,function ($attribute, $value, $fail) {
+                if (Hash::check($value, Auth::user()->password)) {
+                } else {
+                    $fail('Votre mot de passe est incorrect');
+                }
+            }]
+        ], $customMessages);
+        $user = User::where('id', Auth::user()->id)->first();
+        $user->update(["password" => Hash::make($data['new_password'])]);
+        $message = "Votre mot de passe a été modifié avec succès";
+        $request->session()->flash('status', $message);
+
+        return redirect()->back();
+    }
 }
