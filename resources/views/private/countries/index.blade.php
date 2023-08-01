@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h5 class="card-header ">Pays disponibles</h5>
+    <h5 class="card-header ">Tous les  disponibles</h5>
     <div class="card py-4">
         <div class="table-responsive ">
             <table class="table table-striped" id="dataTable">

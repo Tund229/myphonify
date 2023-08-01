@@ -66,6 +66,7 @@ Route::namespace('App\\Http\\Controllers\\Admin')->prefix('private')->name('priv
         'recharges' => "RechargesController", // gestion des recharges
         'numbers' => "NumbersController", // gestion des numéros achetés
         'stats' => "StatsController", // gestion des numéros achetés
+        'countries' => "CountryController", // gestion des numéros achetés
     ]);
 
     //users custom routes

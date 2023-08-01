@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\Recharge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -87,6 +88,56 @@ class HomeController extends Controller
 
     public function update(Request $request)
     {
-        
+        $data= $request->validate([
+
+            'name' => [function ($attribute, $value, $fail) {
+                if (empty($value)) {
+                    $fail('Veuillez remplir ce champ');
+                } else {
+                    if (!ctype_alnum($value)) {
+                        $fail("alphanumerique, sans espace, @, +, #, ...");
+                    }
+                    if (!(User::where('name', $value)->where('name', '<>', Auth::user()->name)->get()->isEmpty())) {
+                        $fail("Ce nom d'utilisateur existe déjà");
+                    }
+                }
+            }, 'string', 'max:255'],
+
+
+            'email' => [function ($attribute, $value, $fail) {
+                if (empty($value)) {
+                    $fail('Veuillez remplir ce champ');
+                }
+            }, 'email', 'max:255', function ($attribute, $value, $fail) {
+                if (empty($value)) {
+                    $fail('Veuillez remplir ce champ');
+                } else {
+                    if (!(User::where('email', $value)->where('email', '<>', Auth::user()->email)->get()->isEmpty())) {
+                        $fail("Cet email a déjà été enrégistré");
+                    }
+                }
+            }],
+
+            'password' => [function ($attribute, $value, $fail) {
+                if (empty($value)) {
+                    $fail('Veuillez remplir ce champ');
+                } else {
+                    if (Hash::check($value, Auth::user()->password)) {
+                    } else {
+                        $fail('Votre mot de passe est incorrect');
+                    }
+                }
+            }, 'string', 'min:8'],
+
+            ]);
+
+        $user = User::where('id', Auth::user()->id)->first();
+        $user->update([
+        "name" => $data['name'],
+        'email' => $data['email']
+        ]);
+        $message = "Vos informations ont été modifiées avec succès";
+        $request->session()->flash('status', $message);
+        return redirect()->back();
     }
 }

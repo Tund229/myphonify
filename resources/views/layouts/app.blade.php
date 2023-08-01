@@ -60,7 +60,7 @@
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="index.html" class="app-brand-link">
+                    <a href="{{route('home')}}" class="app-brand-link">
                         <span class="app-brand-logo demo">
                             <img src="{{ asset('landing_assets/assets/img/logo.png') }}" alt=""
                                 class="img-fluid" style="width:120px; ">
@@ -187,6 +187,16 @@
                                 <div data-i18n="Support">Recharges</div>
                             </a>
                         </li>
+
+
+                        <li class="menu-item {{ $title === 'Liste des recharges' ? 'active' : '' }}">
+                            <a href="{{ route('private.countries.index') }}" class="menu-link">
+                                <i class='menu-icon tf-icons bx bxs-world'>🌐</i>
+                                <div data-i18n="Support">Pays</div>
+                            </a>
+                        </li>
+
+
                         <li class="menu-item {{ $title === 'Liste des numéros' ? 'active' : '' }}">
                             <a href="{{ route('private.numbers.index') }}" class="menu-link">
                                 <i class='menu-icon tf-icons bx bxs-phone'></i>
