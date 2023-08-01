@@ -44,9 +44,10 @@ class HomeController extends Controller
     public function index()
     {
         $title = "Dashboard" ;
-
         $countries_count = Country::where('state', true)->count();
         $countries = Country::where('state', true)->get();
+        Auth::user()->restoreState();
+        Auth::user()->calcAmount();
         return view('home', compact('title', 'countries_count', 'countries'));
     }
 
@@ -56,6 +57,8 @@ class HomeController extends Controller
         $title = "Mywallet" ;
         $countries_count = Country::where('state', true)->count();
         $recharges = Recharge::where('user_id', $id)->orderBy('created_at', 'desc')->get();
+        Auth::user()->restoreState();
+        Auth::user()->calcAmount();
         return view('mywallet', compact('title', 'countries_count', 'recharges'));
     }
 

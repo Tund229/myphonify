@@ -19,6 +19,8 @@ class NumbersController extends Controller
         $numbers = Number::all();
         $title = "Liste des numéros" ;
         $countries_count = Country::where('state', true)->count();
+        Auth::user()->restoreState();
+        Auth::user()->calcAmount();
         return view('private.numbers.index', compact('numbers', 'title', 'countries_count'));
     }
 

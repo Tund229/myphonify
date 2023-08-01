@@ -63,7 +63,7 @@ class NumberController extends Controller
 
     //temp_purchase
     public function temp_purchase(Request $request)
-    {
+    {   Auth::user()->restoreState();
         $data = $request->validate([
             'country_id' => ['required'],
             'service' => ['required'],
@@ -91,7 +91,8 @@ class NumberController extends Controller
 
     // purchase_delete
     public function purchase_delete($id)
-    {
+    {   
+        Auth::user()->restoreState();
         $tempourchase = TempPurchase::where('id', $id)->first();
         if($tempourchase) {
             $tempourchase->delete();
@@ -407,6 +408,7 @@ class NumberController extends Controller
                 }
             } else {
                 Auth::user()->restoreState();
+                Auth::user()->calcAmount();
                 $message = "Solde insuffisant, veuillez recharger votre compte";
                 $request->session()->flash('error_message', $message);
                 return redirect()->back();

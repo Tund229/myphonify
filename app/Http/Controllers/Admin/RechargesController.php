@@ -46,6 +46,7 @@ class RechargesController extends Controller
         $user = User::where('id', $data['user_id'])->first();
         $recharge = Recharge::create(['user_id' => $user->id, 'amount' => $data['amount'], 'state' => "validé"]);
         $user->calcAmount();
+        $user->restoreState();
         return redirect()->back();
     }
 

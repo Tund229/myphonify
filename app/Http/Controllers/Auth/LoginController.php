@@ -81,7 +81,7 @@ class LoginController extends Controller
                     Auth::login($user);
                     $title = "Dashboard" ;
                     $countries_count = Country::where('state', true)->count();
-
+                    Auth::user()->restoreState();
                     return redirect()->route('home')->with(compact('title', 'countries_count'));
 
                 }

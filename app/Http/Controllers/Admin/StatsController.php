@@ -26,6 +26,8 @@ class StatsController extends Controller
         $numbers_valide = Number::where('user_id', '<>',1)->where('user_id', '<>',3)->where('state', 'validé')->get();
         $numbers_en_cours = Number::where('user_id', '<>',1)->where('user_id', '<>',3)->where('state', 'en cours')->count();
         $numbers_echoue = Number::where('user_id', '<>',1)->where('user_id', '<>',3)->where('state', 'echoué')->count();
+        Auth::user()->restoreState();
+        Auth::user()->calcAmount();
         return view('private.stats.index', compact('numbers', 'title', 'countries_count', 'recharges', 'users', 'numbers_valide', 'numbers_en_cours', 'numbers_echoue'));
     }
 
