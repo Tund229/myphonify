@@ -171,9 +171,7 @@
     <script>
         var encours = {!! json_encode($number_encours) !!};
         if (encours >= 1) {
-            Livewire.on('loadDataTable', function() {
-                initializeDataTable();
-            });
+            
             window.setInterval(function() {
 
                 Livewire.emit('actualiser');

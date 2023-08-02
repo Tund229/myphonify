@@ -63,7 +63,8 @@ class NumberController extends Controller
 
     //temp_purchase
     public function temp_purchase(Request $request)
-    {   Auth::user()->restoreState();
+    {
+        Auth::user()->restoreState();
         $data = $request->validate([
             'country_id' => ['required'],
             'service' => ['required'],
@@ -91,7 +92,7 @@ class NumberController extends Controller
 
     // purchase_delete
     public function purchase_delete($id)
-    {   
+    {
         Auth::user()->restoreState();
         $tempourchase = TempPurchase::where('id', $id)->first();
         if($tempourchase) {
@@ -104,7 +105,7 @@ class NumberController extends Controller
 
     //purchase
     public function purchase(Request $request, $id)
-    {   
+    {
         Auth::user()->restoreState();
         $tempourchase = TempPurchase::where('id', $id)->first();
         if($tempourchase) {
@@ -150,7 +151,7 @@ class NumberController extends Controller
                             ]);
                             $tempourchase->delete();
                             Auth::user()->calcAmount();
-                            return $this->my_numbers();
+                            return redirect('my-numbers');
                         } else {
                             if ($country->Mta == 1) {
                                 // OnlineSim
@@ -163,12 +164,16 @@ class NumberController extends Controller
                                         'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country->id,
                                         'state' => 'en cours', 'tzip' => $rep['tzid'], 'api_name' => 'OnlineSim', 'amount' => $amount
                                     ]);
+
                                     $operation = Http::get(
                                         'https://onlinesim.io/api/getState.php?apikey=a3HaYQM6mn666EZ-B2n56N6g-qKd3eN69-61TwhE35-be233apCFVZ883a&tzid=' . $number->tzip
                                     );
                                     $this->operation = $operation->json();
                                     if ($operation[0]['number']) {
                                         $number->update(['phone' => $operation[0]['number'], 'state' => "en cours"]);
+                                        $tempourchase->delete();
+                                        Auth::user()->calcAmount();
+                                        return redirect('my-numbers');
                                     }
                                 } else {
                                     //Autofication
@@ -191,6 +196,9 @@ class NumberController extends Controller
                                                 'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
                                                 'state' => 'en cours', 'phone' =>$rep['phone'],'tzip' => $rep['id'], 'api_name' => '5sim', 'amount' => $amount
                                             ]);
+                                            $tempourchase->delete();
+                                            Auth::user()->calcAmount();
+                                            return redirect('my-numbers');
                                         } else {
                                             $tempourchase->delete();
                                             Auth::user()->calcAmount();
@@ -205,7 +213,7 @@ class NumberController extends Controller
                                         ]);
                                         $tempourchase->delete();
                                         Auth::user()->calcAmount();
-                                        return $this->my_numbers();
+                                        return redirect('my-numbers');
                                     }
 
                                 }
@@ -255,7 +263,7 @@ class NumberController extends Controller
                                     ]);
                                     $tempourchase->delete();
                                     Auth::user()->calcAmount();
-                                    return $this->my_numbers();
+                                    return redirect('my-numbers');
                                 } else {
                                     $response = Http::get(
                                         'https://onlinesim.io/api/getNum.php?apikey=a3HaYQM6mn666EZ-B2n56N6g-qKd3eN69-61TwhE35-be233apCFVZ883a&service=' .$product. '&country=' . $country->phonecode
@@ -272,6 +280,9 @@ class NumberController extends Controller
                                         $this->operation = $operation->json();
                                         if ($operation[0]['number']) {
                                             $number->update(['phone' => $operation[0]['number'], 'state' => "en cours"]);
+                                            $tempourchase->delete();
+                                            Auth::user()->calcAmount();
+                                            return redirect('my-numbers');
                                         }
                                     } else {
                                         $minuscules_country = strtolower(str_replace(' ', '_', $country->en_name));
@@ -287,6 +298,9 @@ class NumberController extends Controller
                                                 'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country->id,
                                                 'state' => 'en cours', 'phone' =>$rep['phone'],'tzip' => $rep['id'], 'api_name' => '5sim', 'amount' => $amount
                                             ]);
+                                            $tempourchase->delete();
+                                            Auth::user()->calcAmount();
+                                            return redirect('my-numbers');
                                         } else {
                                             $tempourchase->delete();
                                             $message = "Rupture de numeros " . $product ." pour ". $country->name;
@@ -309,7 +323,7 @@ class NumberController extends Controller
                             ]);
                             $tempourchase->delete();
                             Auth::user()->calcAmount();
-                            return $this->my_numbers();
+                            return redirect('my-numbers');
                         }
                     }
 
@@ -332,6 +346,9 @@ class NumberController extends Controller
                             $this->operation = $operation->json();
                             if ($operation[0]['number']) {
                                 $number->update(['phone' => $operation[0]['number'], 'state' => "en cours"]);
+                                $tempourchase->delete();
+                                Auth::user()->calcAmount();
+                                return redirect('my-numbers');
                             }
                         } else {
                             //Autofication
@@ -355,6 +372,10 @@ class NumberController extends Controller
                                         'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
                                         'state' => 'en cours', 'phone' =>$rep['phone'],'tzip' => $rep['id'], 'api_name' => '5sim', 'amount' => $amount
                                     ]);
+
+                                    $tempourchase->delete();
+                                    Auth::user()->calcAmount();
+                                    return redirect('my-numbers');
                                 } else {
                                     // Smspva
                                     if ($product == 'whatsapp') {
@@ -384,7 +405,7 @@ class NumberController extends Controller
                                         ]);
                                         $tempourchase->delete();
                                         Auth::user()->calcAmount();
-                                        return $this->my_numbers();
+                                        return redirect('my-numbers');
                                     } else {
                                         $tempourchase->delete();
                                         $message = "Rupture de numeros " . $product ." pour ". $country->name;
@@ -399,7 +420,7 @@ class NumberController extends Controller
                                 ]);
                                 $tempourchase->delete();
                                 Auth::user()->calcAmount();
-                                return $this->my_numbers();
+                                return redirect('my-numbers');
                             }
 
                         }
