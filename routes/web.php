@@ -79,6 +79,8 @@ Route::namespace('App\\Http\\Controllers\\Admin')->prefix('private')->name('priv
         'countries' => "CountryController", // gestion des numéros achetés
     ]);
 
+
+
     //users custom routes
     Route::get('users.block/{id}', 'UsersController@block')->name('users.block');
     Route::get('users.unblock/{id}', 'UsersController@unblock')->name('users.unblock');
