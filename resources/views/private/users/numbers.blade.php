@@ -131,30 +131,34 @@
                                     <tr>
                                         <td class="text-center">{{ $number->created_at }}</td>
                                         <td class="text-center">{{ $number->service }}</td>
-                                        <td class="text-center">{{ $number->country->name }}</td>
+                                        <td class="text-center">{{ $number->country_name }}</td>
                                         <td class="text-center">{{ $number->amount }}</td>
                                         <td class="text-center">
                                             @if ($number->state == 'validé')
                                                 <span class="badge bg-success">Validé</span>
                                             @elseif($number->state == 'en cours')
                                                 <span class="badge bg-warning">En cours</span>
-                                            @elseif($number->state == 'rejeté')
-                                                <span class="badge bg-warning">Echoué</span>
+                                            @elseif($number->state == 'echoué')
+                                                <span class="badge bg-danger">Echoué</span>
                                             @endif
                                         </td>
-                                        <td class="text-center">{{ $number->message }}</td>
-
                                         <td class="text-center">
-                                            @if ($number->state == 'validé')
-                                                <a href="#">
-                                                    <button class="btn btn-outline-danger">
-                                                        Annuler </button>
-                                                </a>
+                                            @if ($number->message == null)
+                                                📵
                                             @else
-                                                <a href="#">
-                                                    <button class="btn btn-outline-success">
-                                                        Valider
-                                                    </button>
+                                                <span style="cursor: pointer;"
+                                                    onclick="showMessage('{{ $number->message }}')">💬</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+
+                                            @if ($number->state == 'validé' || $number->state == 'en cours')
+                                                <a href="{{ route('private.numbers.block', $number->id) }}">
+                                                    <button class="btn btn-outline-danger">Annuler</button>
+                                                </a>
+                                            @elseif($number->state == 'echoué')
+                                                <a href="{{ route('private.numbers.unblock', $number->id) }}">
+                                                    <button class="btn btn-outline-success">Valider</button>
                                                 </a>
                                             @endif
                                         </td>

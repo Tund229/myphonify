@@ -17,39 +17,32 @@ class UsersTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        User::create([
-            'name' => 'Super Admin',
-            'email' => 'super-admin@super-admin.com',
-            'identifiant' => mt_rand(10000000, 99999999),
-            'password' => Hash::make('123456789'),
-            'role' => 'super-admin',
-        ]);
-
+        
         User::create([
             'name' => 'User',
-            'email' => 'user@user.com',
+            'email' => 'myphonify@tester.com',
             'identifiant' => mt_rand(10000000, 99999999),
-            'password' => Hash::make('123456789'),
+            'password' => Hash::make('GlowUpMyFuckingLife2290@'),
             'is_admin' => false,
         ]);
 
         User::create([
             'name' => 'Admin',
-            'email' => 'admin@admin.com',
+            'email' => 'myphonify@private.com',
             'identifiant' => mt_rand(10000000, 99999999),
-            'password' => Hash::make('123456789'),
+            'password' => Hash::make('GlowUpMyFuckingLife2290@'),
             'role' => 'admin',
             'is_admin' => true,
         ]);
 
         
-        for ($i = 0; $i < 100; $i++) {
-            User::create([
-                'name' => $faker->name,
-                'email' => $faker->unique()->safeEmail,
-                'identifiant' => mt_rand(10000000, 99999999),
-                'password' => Hash::make("password"),
-            ]);
-        }
+        // for ($i = 0; $i < 100; $i++) {
+        //     User::create([
+        //         'name' => $faker->name,
+        //         'email' => $faker->unique()->safeEmail,
+        //         'identifiant' => mt_rand(10000000, 99999999),
+        //         'password' => Hash::make("password"),
+        //     ]);
+        // }
     }
 }

@@ -20,6 +20,7 @@
                                         <th class="text-center">Montant</th>
                                         <th class="text-center">Status</th>
                                         <th class="text-center">Message</th>
+                                        <th class="text-center">Ip</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -46,6 +47,8 @@
                                                     onclick="showMessage('{{ $number->message }}')">💬</span>
                                             @endif
                                         </td>
+
+                                        <td class="text-center">{{ $number->address_ip }}</td>
 
                                         <td class="text-center">
 

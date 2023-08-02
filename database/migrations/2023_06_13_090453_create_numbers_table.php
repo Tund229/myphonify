@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text("message")->nullable();
             $table->text("comment")->nullable();
             $table->integer("user_id");
+            $table->string("address_ip")->nullable();
             $table->string("api_name")->nullable();
             $table->timestamps();
         });

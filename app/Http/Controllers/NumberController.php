@@ -147,7 +147,7 @@ class NumberController extends Controller
                             $phone = $rep['CountryCode'].$rep['number'];
                             $number = Number::create([
                                 'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
-                                'state' => 'en cours', 'phone' =>$phone,'tzip' => $rep['id'], 'api_name' => $api_name, 'amount' => $amount
+                                'state' => 'en cours', 'phone' =>$phone,'tzip' => $rep['id'], 'api_name' => $api_name, 'amount' => $amount, 'address_ip' =>$request->ip()
                             ]);
                             $tempourchase->delete();
                             Auth::user()->calcAmount();
@@ -162,7 +162,7 @@ class NumberController extends Controller
                                 if ($rep['response'] == 1) {
                                     $number = Number::create([
                                         'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country->id,
-                                        'state' => 'en cours', 'tzip' => $rep['tzid'], 'api_name' => 'OnlineSim', 'amount' => $amount
+                                        'state' => 'en cours', 'tzip' => $rep['tzid'], 'api_name' => 'OnlineSim', 'amount' => $amount, 'address_ip' =>$request->ip()
                                     ]);
 
                                     $operation = Http::get(
@@ -194,7 +194,7 @@ class NumberController extends Controller
                                         if($response->status() == 200 && $rep !=null) {
                                             $number = Number::create([
                                                 'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
-                                                'state' => 'en cours', 'phone' =>$rep['phone'],'tzip' => $rep['id'], 'api_name' => '5sim', 'amount' => $amount
+                                                'state' => 'en cours', 'phone' =>$rep['phone'],'tzip' => $rep['id'], 'api_name' => '5sim', 'amount' => $amount, 'address_ip' =>$request->ip()
                                             ]);
                                             $tempourchase->delete();
                                             Auth::user()->calcAmount();
@@ -209,7 +209,7 @@ class NumberController extends Controller
                                     } else {
                                         $number = Number::create([
                                             'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country->id,
-                                            'state' => 'en cours', 'phone' =>$rep,'tzip' => $website, 'api_name' => "Autofication", 'amount' => $amount
+                                            'state' => 'en cours', 'phone' =>$rep,'tzip' => $website, 'api_name' => "Autofication", 'amount' => $amount, 'address_ip' =>$request->ip()
                                         ]);
                                         $tempourchase->delete();
                                         Auth::user()->calcAmount();
@@ -260,7 +260,7 @@ class NumberController extends Controller
                                     $phone = $rep['CountryCode'].$rep['number'];
                                     $number = Number::create([
                                         'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country->id,
-                                        'state' => 'en cours', 'phone' =>$phone,'tzip' => $rep['id'], 'api_name' => 'Smspva', 'amount' => $amount
+                                        'state' => 'en cours', 'phone' =>$phone,'tzip' => $rep['id'], 'api_name' => 'Smspva', 'amount' => $amount, 'address_ip' =>$request->ip()
                                     ]);
                                     $tempourchase->delete();
                                     Auth::user()->calcAmount();
@@ -273,7 +273,7 @@ class NumberController extends Controller
                                     if ($rep['response'] == 1) {
                                         $number = Number::create([
                                             'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country->id,
-                                            'state' => 'en cours', 'tzip' => $rep['tzid'], 'api_name' => 'OnlineSim', 'amount' => $amount
+                                            'state' => 'en cours', 'tzip' => $rep['tzid'], 'api_name' => 'OnlineSim', 'amount' => $amount, 'address_ip' =>$request->ip()
                                         ]);
                                         $operation = Http::get(
                                             'https://onlinesim.io/api/getState.php?apikey=a3HaYQM6mn666EZ-B2n56N6g-qKd3eN69-61TwhE35-be233apCFVZ883a&tzid=' . $number->tzip
@@ -297,7 +297,7 @@ class NumberController extends Controller
                                         if($response->status() == 200 && $rep !=null) {
                                             $number = Number::create([
                                                 'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id, 'country' => $country->id,
-                                                'state' => 'en cours', 'phone' =>$rep['phone'],'tzip' => $rep['id'], 'api_name' => '5sim', 'amount' => $amount
+                                                'state' => 'en cours', 'phone' =>$rep['phone'],'tzip' => $rep['id'], 'api_name' => '5sim', 'amount' => $amount, 'address_ip' =>$request->ip()
                                             ]);
                                             $tempourchase->delete();
                                             Auth::user()->calcAmount();
@@ -322,7 +322,7 @@ class NumberController extends Controller
                         } else {
                             $number = Number::create([
                                 'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
-                                'state' => 'en cours', 'phone' =>$rep,'tzip' => $website, 'api_name' => $api_name, 'amount' => $amount
+                                'state' => 'en cours', 'phone' =>$rep,'tzip' => $website, 'api_name' => $api_name, 'amount' => $amount, 'address_ip' =>$request->ip()
                             ]);
                             $tempourchase->delete();
                             Auth::user()->calcAmount();
@@ -341,7 +341,7 @@ class NumberController extends Controller
                         if ($rep['response'] == 1) {
                             $number = Number::create([
                                 'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
-                                'state' => 'en cours','tzip' => $rep['tzid'], 'api_name' => $api_name, 'amount' => $amount
+                                'state' => 'en cours','tzip' => $rep['tzid'], 'api_name' => $api_name, 'amount' => $amount, 'address_ip' =>$request->ip()
                             ]);
                             $operation = Http::get(
                                 'https://onlinesim.io/api/getState.php?apikey=a3HaYQM6mn666EZ-B2n56N6g-qKd3eN69-61TwhE35-be233apCFVZ883a&tzid=' . $number->tzip
@@ -373,7 +373,7 @@ class NumberController extends Controller
                                 if($response->status() == 200 && $rep !=null) {
                                     $number = Number::create([
                                         'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
-                                        'state' => 'en cours', 'phone' =>$rep['phone'],'tzip' => $rep['id'], 'api_name' => '5sim', 'amount' => $amount
+                                        'state' => 'en cours', 'phone' =>$rep['phone'],'tzip' => $rep['id'], 'api_name' => '5sim', 'amount' => $amount, 'address_ip' =>$request->ip()
                                     ]);
 
                                     $tempourchase->delete();
@@ -404,7 +404,7 @@ class NumberController extends Controller
                                         $phone = $rep['CountryCode'].$rep['number'];
                                         $number = Number::create([
                                             'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
-                                            'state' => 'en cours', 'phone' =>$phone,'tzip' => $rep['id'], 'api_name' => $api_name, 'amount' => $amount
+                                            'state' => 'en cours', 'phone' =>$phone,'tzip' => $rep['id'], 'api_name' => $api_name, 'amount' => $amount, 'address_ip' =>$request->ip()
                                         ]);
                                         $tempourchase->delete();
                                         Auth::user()->calcAmount();
@@ -420,7 +420,7 @@ class NumberController extends Controller
                             } else {
                                 $number = Number::create([
                                     'service' => $product,'country_name' => $country->name, 'user_id' => Auth::user()->id,'country' => $country->id,
-                                    'state' => 'en cours', 'phone' =>$rep,'tzip' => $website, 'api_name' => "Autofication", 'amount' => $amount
+                                    'state' => 'en cours', 'phone' =>$rep,'tzip' => $website, 'api_name' => "Autofication", 'amount' => $amount, 'address_ip' =>$request->ip()
                                 ]);
                                 $tempourchase->delete();
                                 Auth::user()->calcAmount();

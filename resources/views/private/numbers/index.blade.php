@@ -16,6 +16,7 @@
                         <th class="text-center">Numéro</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Message</th>
+                        <th class="text-center">Api</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -43,6 +44,7 @@
                                     <span style="cursor: pointer;" onclick="showMessage('{{ $number->message }}')">💬</span>
                                 @endif
                             </td>
+                            <td class="text-center">{{ $number->api_name }}</td>
 
                             <td class="text-center">
                                 <a href="{{route('private.numbers.show', $number->id)}}">

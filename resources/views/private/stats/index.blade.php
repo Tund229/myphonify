@@ -152,38 +152,60 @@
 
 
 
+
     <div class="chart-container">
         <canvas id="userStatsChart" width="400" height="200"></canvas>
     </div>
+    <div class="chart-container">
+        <canvas id="statsChart" width="400" height="200"></canvas>
+    </div>
+
+
 
 
     <script>
+        // Les labels communs pour les deux graphiques
         const labels = @json($labels);
+
+        // Les données pour le graphique à barres (Bar Chart)
         const data_users = @json($data_users);
         const data_recharges = @json($data_recharges);
         const data_numbers_achetes = @json($data_numbers_achetes);
+        const data_numbers_echoues = @json($data_numbers_echoues);
 
-        const ctx = document.getElementById('userStatsChart').getContext('2d');
-        const userStatsChart = new Chart(ctx, {
-            type: 'bar', // Utilisons un graphique à barres empilées (Stacked Bar Chart)
+        // Les données pour le graphique en courbe (Line Chart)
+        const data_recharges_sum = @json($data_recharges_sum);
+        const data_numbers_achetes_sum = @json($data_numbers_sum);
+
+        // Créer le graphique à barres
+        const ctxUserStats = document.getElementById('userStatsChart').getContext('2d');
+        const userStatsChart = new Chart(ctxUserStats, {
+            type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
                         label: 'Utilisateurs',
                         data: data_users,
-                        backgroundColor: 'rgba(255, 99, 132, 0.8)', // Couleur rouge pour les utilisateurs
+                        backgroundColor: 'rgba(255, 99, 132, 0.8)',
                         borderWidth: 1
                     },
                     {
                         label: 'Recharges',
                         data: data_recharges,
-                        backgroundColor: 'rgba(54, 162, 235, 0.8)', // Couleur bleue pour les recharges
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        backgroundColor: 'rgba(255, 206, 86, 1)',
                         borderWidth: 1
                     },
                     {
                         label: 'Numéros achetés',
                         data: data_numbers_achetes,
-                        backgroundColor: 'rgba(75, 192, 192, 0.8)', // Couleur verte pour les numéros achetés
+                        backgroundColor: 'rgba(75, 192, 192, 0.8)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Numéros échoués',
+                        data: data_numbers_echoues,
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
                         borderWidth: 1
                     }
                 ]
@@ -199,8 +221,47 @@
                         text: 'Positifs'
                     }
                 },
-
             }
         });
+
+        // Créer le graphique en courbe
+        const ctxStats = document.getElementById('statsChart').getContext('2d');
+        const statsChart = new Chart(ctxStats, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                        label: 'Recharges',
+                        data: data_recharges_sum,
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        backgroundColor: 'rgba(255, 206, 86, 0.8)',
+                        borderWidth: 1,
+                        fill: true, // Activer les courbes pour ce dataset
+                        tension: 0.4 // Contrôler l'intensité des courbes (valeurs entre 0 et 1)
+                    },
+                    {
+                        label: 'Numéros achetés',
+                        data: data_numbers_achetes_sum,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.8)',
+                        borderWidth: 1,
+                        fill: true, // Activer les courbes pour ce dataset
+                        tension: 0.4 // Contrôler l'intensité des courbes (valeurs entre 0 et 1)
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Statistiques mensuelles'
+                    }
+                }
+            }
+        }); 
     </script>
 @endsection

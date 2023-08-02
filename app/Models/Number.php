@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Number extends Model
 {
     use HasFactory;
-    protected $fillable = ['service', 'country', 'phone', 'country_name', 'state', 'tzip', 'message', 'comment', 'user_id', 'api_name', 'amount'];
+    protected $fillable = ['service', 'country', 'phone', 'country_name', 'state', 'tzip', 'message', 'comment', 'user_id', 'api_name', 'amount', 'address_ip'];
 
     
     public function user(){
