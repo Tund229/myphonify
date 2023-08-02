@@ -113,7 +113,7 @@ class NumberController extends Controller
             if(Auth::user()->account_balance >= $amount) {
                 $getLastBuys = Number::where('state', ['en cours'])->where('user_id', Auth::user()->id)->count();
                 if ($getLastBuys > 0) {
-                    $message = "Vous avez déjà un achat en cours. Réessayez plus tard !";
+                    $message = "Vous ne pouvez lancer deux achats au même moment!";
                     $request->session()->flash('error_message', $message);
                     return redirect()->back();
                 } else {
@@ -202,7 +202,7 @@ class NumberController extends Controller
                                         } else {
                                             $tempourchase->delete();
                                             Auth::user()->calcAmount();
-                                            $message = "Rupture de numeros " . $product ." pour ". $country->name;
+                                            $message = "Malheureusement, pour le moment, les numéros pour " . $product . " ne sont plus disponibles dans le pays " . $country->name. ".";
                                             $request->session()->flash('error_message', $message);
                                             return redirect()->back();
                                         }
@@ -220,7 +220,8 @@ class NumberController extends Controller
                             } else {
                                 $tempourchase->delete();
                                 Auth::user()->calcAmount();
-                                $message = "Rupture de numeros " . $product." pour ". $country->name;
+                                $message = "Malheureusement, pour le moment, les numéros pour " . $product . " ne sont plus disponibles dans le pays " . $country->name. ".";
+
                                 $request->session()->flash('error_message', $message);
                                 return redirect()->back();
                             }
@@ -303,7 +304,8 @@ class NumberController extends Controller
                                             return redirect('my-numbers');
                                         } else {
                                             $tempourchase->delete();
-                                            $message = "Rupture de numeros " . $product ." pour ". $country->name;
+                                            $message = "Malheureusement, pour le moment, les numéros pour " . $product . " ne sont plus disponibles dans le pays " . $country->name. ".";
+
                                             $request->session()->flash('error_message', $message);
                                             return redirect()->back();
                                         }
@@ -312,7 +314,8 @@ class NumberController extends Controller
 
                             } else {
                                 $tempourchase->delete();
-                                $message = "Rupture de numeros " . $product ." pour ". $country->name;
+                                $message = "Malheureusement, pour le moment, les numéros pour " . $product . " ne sont plus disponibles dans le pays " . $country->name. ".";
+
                                 $request->session()->flash('error_message', $message);
                                 return redirect()->back();
                             }
@@ -408,7 +411,8 @@ class NumberController extends Controller
                                         return redirect('my-numbers');
                                     } else {
                                         $tempourchase->delete();
-                                        $message = "Rupture de numeros " . $product ." pour ". $country->name;
+                                        $message = "Malheureusement, pour le moment, les numéros pour " . $product . " ne sont plus disponibles dans le pays " . $country->name. ".";
+
                                         $request->session()->flash('error_message', $message);
                                         return redirect()->back();
                                     }
@@ -430,7 +434,7 @@ class NumberController extends Controller
             } else {
                 Auth::user()->restoreState();
                 Auth::user()->calcAmount();
-                $message = "Solde insuffisant, veuillez recharger votre compte";
+                $message = "Malheureusement, pour le moment, les numéros pour " . $product . " ne sont plus disponibles dans le pays " . $country->name. ".";
                 $request->session()->flash('error_message', $message);
                 return redirect()->back();
             }
