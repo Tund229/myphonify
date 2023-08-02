@@ -25,6 +25,9 @@ Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Route::get('/privacy-terms', [HomeController::class, 'privacy_terms'])->name('privacy-terms');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/mywallet', [HomeController::class, 'mywallet'])->name('mywallet');
+Route::get('/mywallet', [HomeController::class, 'mywallet'])->name('mywallet');
+Route::get('/partners', [HomeController::class, 'partners'])->name('partners');
+
 Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
 Route::get('/profile-update', [HomeController::class, 'profile_update'])->name('profile_update');
 Route::post('/profile-update', [HomeController::class, 'update'])->name('update');
@@ -79,6 +82,10 @@ Route::namespace('App\\Http\\Controllers\\Admin')->prefix('private')->name('priv
         'countries' => "CountryController", // gestion des numéros achetés
     ]);
 
+    Route::get('countries.updateMta/{id}', 'CountryController@updateMta')->name('updateMta');
+    Route::get('countries.updateState/{id}', 'CountryController@updateState')->name('updateState');
+
+
 
 
     //users custom routes
@@ -94,7 +101,7 @@ Route::namespace('App\\Http\\Controllers\\Admin')->prefix('private')->name('priv
     Route::get('numbers.block/{id}', 'NumbersController@block')->name('numbers.block');
     Route::get('numbers.unblock/{id}', 'NumbersController@unblock')->name('numbers.unblock');
 
-    //recharges custom routes 
+    //recharges custom routes
     Route::get('recharges.block/{id}', 'RechargesController@block')->name('recharges.block');
     Route::get('recharges.unblock/{id}', 'RechargesController@unblock')->name('recharges.unblock');
 

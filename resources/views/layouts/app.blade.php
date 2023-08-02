@@ -60,7 +60,7 @@
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="{{route('home')}}" class="app-brand-link">
+                    <a href="{{ route('home') }}" class="app-brand-link">
                         <span class="app-brand-logo demo">
                             <img src="{{ asset('landing_assets/assets/img/logo.png') }}" alt=""
                                 class="img-fluid" style="width:120px; ">
@@ -89,6 +89,13 @@
                             <a href="{{ route('mywallet') }}" class="menu-link">
                                 <i class='menu-icon  tf-icons bx bxs-user-circle'></i>
                                 <div data-i18n="Analytics">Mon compte</div>
+                            </a>
+                        </li>
+
+                        <li class="menu-item  mt-2  {{ $title === "Gagner de l'argent" ? 'active' : '' }}">
+                            <a href="{{ route('partners') }}" class="menu-link">
+                                <i class='menu-icon  bx bx-money'></i>
+                                <div data-i18n="Analytics">Gains</div>
                             </a>
                         </li>
 
@@ -153,6 +160,13 @@
                             </a>
                         </li>
 
+                        <li class="menu-item  mt-2  {{ $title === "Gagner de l'argent" ? 'active' : '' }}">
+                            <a href="{{ route('partners') }}" class="menu-link">
+                                <i class='menu-icon  bx bx-money'></i>
+                                <div data-i18n="Analytics">Gains</div>
+                            </a>
+                        </li>
+
 
 
                         <li class="menu-header small text-uppercase">
@@ -189,7 +203,7 @@
                         </li>
 
 
-                        <li class="menu-item {{ $title === 'Liste des recharges' ? 'active' : '' }}">
+                        <li class="menu-item {{ $title === 'Gestion des pays' ? 'active' : '' }}">
                             <a href="{{ route('private.countries.index') }}" class="menu-link">
                                 <i class='menu-icon tf-icons bx bxs-world'>🌐</i>
                                 <div data-i18n="Support">Pays</div>
@@ -439,8 +453,28 @@
     <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('#single-select-optgroup-field').select2({
+                theme: "bootstrap-5",
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                    'style',
+                placeholder: $(this).data('placeholder'),
+                templateSelection: function(selection) {
+                    return $('<span>').css('color', '#5c7ee5').text(selection.text);
+                },
+                dropdownPosition: 'below',
+
+            });
+
+            initializeDataTable();
+
+        });
+
+
+        function initializeDataTable() {
             $('#dataTable').DataTable({
                 "paging": true,
                 "lengthChange": false,
@@ -469,32 +503,11 @@
                         "sNext": "Suiv.",
                         "sPrevious": "Préc."
                     },
-                    // "oAria": {
-                    //     "sSortAscending": ": activer pour trier la colonne par ordre croissant",
-                    //     "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
-                    // }
                 }
             });
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#single-select-optgroup-field').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                templateSelection: function(selection) {
-                    return $('<span>').css('color', '#5c7ee5').text(selection.text);
-                },
-                dropdownPosition: 'below',
-
-            });
-        });
+        }
     </script>
     @livewireScripts
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
         integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -510,7 +523,7 @@
             d.getElementsByTagName("head")[0].appendChild(s);
         })();
     </script>
-   
+
 </body>
 
 </html>

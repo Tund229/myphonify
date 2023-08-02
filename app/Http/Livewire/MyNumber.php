@@ -10,13 +10,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
-
 class MyNumber extends Component
 {
     protected $listeners = ['actualiser' => 'refreshAll'];
 
     public function render()
-    {   
+    {
         Auth::user()->restoreState();
         $numbers = Auth::user()->numbers()->orderBy('created_at', 'desc')->get();
         $number_encours =  Auth::user()->numbers()->where('state', 'en cours')->count();
@@ -24,13 +23,13 @@ class MyNumber extends Component
     }
 
 
-    
+
 
     public function actualiser(Number $nbr)
     {
-        
 
-        
+        $this->emit('loadDataTable');
+
         if ($nbr->api_name == 'OnlineSim') {
             $operation = Http::get(
                 'https://onlinesim.io/api/getState.php?apikey=a3HaYQM6mn666EZ-B2n56N6g-qKd3eN69-61TwhE35-be233apCFVZ883a&tzid=' . $nbr->tzip
@@ -175,25 +174,25 @@ class MyNumber extends Component
                     return redirect()->back();
                 }
                 if ($operation == "Not_received") {
-            $num = DB::table('numbers')->where('user_id', '=', Auth::user()->id)->latest('created_at')->first();
-            $created_at = Carbon::parse($num->created_at);
-            $time = $created_at->format('H:i:s');
-            $date = new DateTime();
-            $is_Expired = $date->format('H:i:s');
-            $diff_in_minutes = $created_at->diffInMinutes($is_Expired);
+                    $num = DB::table('numbers')->where('user_id', '=', Auth::user()->id)->latest('created_at')->first();
+                    $created_at = Carbon::parse($num->created_at);
+                    $time = $created_at->format('H:i:s');
+                    $date = new DateTime();
+                    $is_Expired = $date->format('H:i:s');
+                    $diff_in_minutes = $created_at->diffInMinutes($is_Expired);
 
-            if ($diff_in_minutes >= 10) {
-                $nbr->transaction->update(['state' => "echoué"]);
-                $nbr->update(['state' => "echoué"]);
-                Auth::user()->calcAmount();
-            }
+                    if ($diff_in_minutes >= 10) {
+                        $nbr->transaction->update(['state' => "echoué"]);
+                        $nbr->update(['state' => "echoué"]);
+                        Auth::user()->calcAmount();
+                    }
                 }
             }
         }
     }
 
     public function refreshAll()
-    { 
+    {
         Auth::user()->restoreState();
         $date = new DateTime();
         $date->modify('-10 minutes');

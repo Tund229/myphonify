@@ -6,6 +6,7 @@ use App\Models\Number;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class NumbersController extends Controller
 {

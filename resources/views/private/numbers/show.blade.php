@@ -49,11 +49,11 @@
 
                                         <td class="text-center">
 
-                                            @if ($number->state == 'validé')
+                                            @if ($number->state == 'validé' || $number->state == 'en cours')
                                                 <a href="{{ route('private.numbers.block', $number->id) }}">
                                                     <button class="btn btn-outline-danger">Annuler</button>
                                                 </a>
-                                            @else
+                                            @elseif($number->state == 'echoué' )
                                                 <a href="{{ route('private.numbers.unblock', $number->id) }}">
                                                     <button class="btn btn-outline-success">Valider</button>
                                                 </a>

@@ -62,6 +62,15 @@ class HomeController extends Controller
         return view('mywallet', compact('title', 'countries_count', 'recharges'));
     }
 
+    public function partners(){
+        $id = Auth::user()->id;
+        $title = "Mywallet" ;
+        $countries_count = Country::where('state', true)->count();
+        Auth::user()->restoreState();
+        Auth::user()->calcAmount();
+        return view('partners.index', compact('title', 'countries_count'));
+    }
+
     public function profile()
     {
         $title = "Mon Profil" ;

@@ -156,7 +156,7 @@
                                     </script>
                                 </td>
                             @else
-                                <td class="text-center">⌛️</td>
+                                <td class="text-center">📵</td>
                             @endif
 
 
@@ -167,17 +167,21 @@
             </table>
         </div>
     </div>
+
     <script>
         var encours = {!! json_encode($number_encours) !!};
         if (encours >= 1) {
+            Livewire.on('loadDataTable', function() {
+                initializeDataTable();
+            });
             window.setInterval(function() {
+
                 Livewire.emit('actualiser');
             }, 5000);
         }
 
 
         function showMessage(message) {
-            console.log(message);
             swal({
                 title: "Message",
                 text: message,

@@ -13,6 +13,7 @@
                         <th class="text-center">Service</th>
                         <th class="text-center">Pays</th>
                         <th class="text-center">Utilisateur</th>
+                        <th class="text-center">Numéro</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Message</th>
                         <th class="text-center">Action</th>
@@ -25,6 +26,7 @@
                             <td class="text-center">{{ $number->service }}</td>
                             <td class="text-center">{{ $number->country_name }}</td>
                             <td class="text-center">{{ $number->user->name }}</td>
+                            <td class="text-center">{{ $number->phone }}</td>
                             <td class="text-center">
                                 @if ($number->state == 'validé')
                                     <span class="badge bg-success">Validé</span>
