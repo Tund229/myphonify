@@ -204,7 +204,7 @@
             var email = "{{ Auth::user()->email }}";
             var username = "{{ Auth::user()->name }}";
             let widget = FedaPay.init({
-                public_key: 'pk_sandbox_-NueTrbGAY_rtuv7jptYDnEt',
+                public_key: 'pk_live_YC4G8qxtKn3xWtRPnrzQUC0S',
                 transaction: {
                     amount: r_amount,
                     description: 'Nouvelle recharge'

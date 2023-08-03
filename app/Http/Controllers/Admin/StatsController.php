@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
 class StatsController extends Controller
@@ -38,7 +39,7 @@ class StatsController extends Controller
         $chart_users = User::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
         ->whereYear('created_at', date('Y'))
         ->where('role', '<>', 'admin')
-        ->where('is_admin','<>', true)
+        ->where('is_admin', '<>', true)
         ->groupBy(DB::raw("month_name"))
         ->orderByRaw('MONTH(created_at)')
         ->pluck('count', 'month_name');
@@ -68,7 +69,7 @@ class StatsController extends Controller
 
 
 
-        //sum 
+        //sum
 
         $chart_recharges_sum = Recharge::select(DB::raw("SUM(amount) as total_recharge"), DB::raw("MONTHNAME(created_at) as month_name"))
         ->whereYear('created_at', date('Y'))
@@ -86,7 +87,7 @@ class StatsController extends Controller
         ->orderByRaw('MONTH(created_at)')
         ->pluck('total_number_sum', 'month_name');
 
-      
+
 
         // Ensemble de mois de référence (tous les mois de l'année)
         $allMonths = collect([
@@ -195,5 +196,15 @@ class StatsController extends Controller
         //
     }
 
+
+    public function getLocation($ip)
+    {
+        // Appeler l'API "ipinfo.io" pour obtenir les détails de localisation
+        $api_url = 'https://ipinfo.io/' . $ip . '/json';
+        $response = Http::get($api_url);
+        $location_data = $response->json();
+
+        return response()->json($location_data);
+    }
 
 }

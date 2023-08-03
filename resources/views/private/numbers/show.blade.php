@@ -56,7 +56,7 @@
                                                 <a href="{{ route('private.numbers.block', $number->id) }}">
                                                     <button class="btn btn-outline-danger">Annuler</button>
                                                 </a>
-                                            @elseif($number->state == 'echoué' )
+                                            @elseif($number->state == 'echoué')
                                                 <a href="{{ route('private.numbers.unblock', $number->id) }}">
                                                     <button class="btn btn-outline-success">Valider</button>
                                                 </a>
@@ -75,4 +75,96 @@
         </div>
 
     </div>
+
+    <div class="row">
+        <div class="col-md-6 col-12 mb-md-0 mb-4">
+            <div class="card">
+                <h5 class="card-header">Détails de l'acheteur</h5>
+                <div class="card-body">
+                    <div class="d-flex mb-3">
+                        <div class="flex-grow-1 row">
+                            <div class="col-9 mb-sm-0 mb-2">
+                                <h6 class="mb-0">IP Address:</h6>
+                            </div>
+                            <div class="col-3 text-end" id="ip-address">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <div class="flex-grow-1 row">
+                            <div class="col-9 mb-sm-0 mb-2">
+                                <h6 class="mb-0">City: </h6>
+                            </div>
+                            <div class="col-3 text-end" id="city">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+
+                        <div class="flex-grow-1 row">
+                            <div class="col-9 mb-sm-0 mb-2">
+                                <h6 class="mb-0">Region :</h6>
+                            </div>
+                            <div class="col-3 text-end" id="region">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+
+                        <div class="flex-grow-1 row">
+                            <div class="col-9 mb-sm-0 mb-2">
+                                <h6 class="mb-0">Country</h6>
+                            </div>
+                            <div class="col-3 text-end" id="country">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="flex-grow-1 row">
+                            <div class="col-9 mb-sm-0 mb-2">
+                                <h6 class="mb-0">Latitude</h6>
+                            </div>
+                            <div class="col-3 text-end" id="latitude">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="flex-grow-1 row">
+                            <div class="col-9 mb-sm-0 mb-2">
+                                <h6 class="mb-0">Longitude: </h6>
+                            </div>
+                            <div class="col-3 text-end" id="longitude">
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Connections -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ipAddress = @json($number->address_ip);
+    
+        // Appeler l'API pour récupérer les détails de la position géographique
+        fetch(`https://ipinfo.io/${ipAddress}/json`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ip-address').textContent = data.ip;
+                document.getElementById('city').textContent = data.city;
+                document.getElementById('region').textContent = data.region;
+                document.getElementById('country').textContent = data.country;
+                document.getElementById('latitude').textContent = data.loc.split(',')[0];
+                document.getElementById('longitude').textContent = data.loc.split(',')[1];
+            })
+            .catch(error => console.error('Error fetching IP details:', error));
+    </script>
+    
 @endsection
