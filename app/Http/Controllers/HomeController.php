@@ -61,7 +61,7 @@ class HomeController extends Controller
         Auth::user()->calcAmount();
         return view('mywallet', compact('title', 'countries_count', 'recharges'));
     }
-
+    
     public function partners(){
         $id = Auth::user()->id;
         $title = "Gagner de l'argent" ;
