@@ -64,7 +64,7 @@ class HomeController extends Controller
 
     public function partners(){
         $id = Auth::user()->id;
-        $title = "Mywallet" ;
+        $title = "Gagner de l'argent" ;
         $countries_count = Country::where('state', true)->count();
         Auth::user()->restoreState();
         Auth::user()->calcAmount();

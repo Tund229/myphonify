@@ -344,7 +344,7 @@
                                                     <div
                                                         class="card-title d-flex align-items-start justify-content-between">
                                                         <div class="avatar flex-shrink-0">
-                                                            <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}"
+                                                            <img src="{{ asset('dashboard/assets/img/icons/unicons/cc-primary.png') }}"
                                                                 alt="chart success" class="rounded" />
                                                         </div>
 
