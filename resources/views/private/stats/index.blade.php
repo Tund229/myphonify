@@ -148,21 +148,42 @@
         </div>
     </div>
 
+
+
+
+
+    <div class="col-md-12 col-12 mt-4">
+        <div class="card">
+            <h5 class="card-header">Statistiques des ventes </h5>
+            <div class="card-body">
+                <canvas id="userStatsChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-12 mt-4">
+        <div class="card">
+            <h5 class="card-header">Statistiques des montants</h5>
+            <div class="card-body">
+                <canvas id="statsChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-12 mt-4">
+        <div class="card">
+            <h5 class="card-header">Statistiques par jour</h5>
+            <div class="card-body">
+                <canvas id="statsChartByDay"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-
-
-    <div class="chart-container">
-        <canvas id="userStatsChart" width="400" height="200"></canvas>
-    </div>
-    <div class="chart-container">
-        <canvas id="statsChart" width="400" height="200"></canvas>
-    </div>
-
-
-
-
     <script>
         // Les labels communs pour les deux graphiques
         const labels = @json($labels);
@@ -262,6 +283,98 @@
                     }
                 }
             }
-        }); 
+        });
+
+
+
+
+        // Récupérer les données pour chaque catégorie
+        const data_recharges_by_day = @json($chart_recharges_by_day);
+        const data_numbers_achetes_by_day = @json($chart_numbers_achetes_by_day);
+        const data_numbers_echoues_by_day = @json($chart_numbers_echoues_by_day);
+
+        // Convertir les données en tableaux pour Chart.js
+        const labelsByDay = Object.keys(data_recharges_by_day).map(date => new Date(date).toLocaleDateString());
+        const rechargesByDay = Object.values(data_recharges_by_day);
+        const numbersAchetesByDay = Object.values(data_numbers_achetes_by_day);
+        const numbersEchouesByDay = Object.values(data_numbers_echoues_by_day);
+
+        const ctxStatsByDay = document.getElementById('statsChartByDay').getContext('2d');
+        const statsChartByDay = new Chart(ctxStatsByDay, {
+            type: 'line',
+            data: {
+                labels: labelsByDay,
+                datasets: [{
+                        label: 'Recharges',
+                        data: rechargesByDay,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                        pointRadius: 5,
+                        fill: true,
+                        tension: 0.4 // Ajustez cette valeur pour modifier l'intensité de la courbe
+                    },
+                    {
+                        label: 'Numéros achetés',
+                        data: numbersAchetesByDay,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                        pointRadius: 5,
+                        fill: true,
+                        tension: 0.4 // Ajustez cette valeur pour modifier l'intensité de la courbe
+                    },
+                    {
+                        label: 'Numéros échoués',
+                        data: numbersEchouesByDay,
+                        borderColor: 'rgba(0, 0, 0, 0.8)',
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(255, 206, 86, 1)',
+                        pointRadius: 5,
+                        fill: true,
+                        tension: 0.4 // Ajustez cette valeur pour modifier l'intensité de la courbe
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Statistiques par jour',
+                        font: {
+                            size: 18
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                }
+            }
+        });
     </script>
 @endsection

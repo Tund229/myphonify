@@ -132,7 +132,7 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <input id="form-amount" type="number" name="amount" class="form-control">
+                        <input id="form-amount" type="number" name="amount" class="form-control" placeholder="Entrez votre montant ici">
                         <div id="error-message" style="color: red; padding-top:10px;"></div>
 
                     </div>
@@ -204,7 +204,7 @@
             var email = "{{ Auth::user()->email }}";
             var username = "{{ Auth::user()->name }}";
             let widget = FedaPay.init({
-                public_key: 'pk_live_YC4G8qxtKn3xWtRPnrzQUC0S',
+                public_key: 'pk_sandbox_-NueTrbGAY_rtuv7jptYDnEt',
                 transaction: {
                     amount: r_amount,
                     description: 'Nouvelle recharge'

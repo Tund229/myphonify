@@ -46,7 +46,7 @@ class RechargeController extends Controller
     {
         $data = $this->validator();
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer sk_live_pSMriVywigAJteNV_-1PPtJX'
+            'Authorization' => 'Bearer sk_sandbox_nAg7ezG1g3RMKZ8CHOs89afi'
         ])->get('https://sandbox-api.fedapay.com/v1/transactions/' . $data['transaction_id']);
         $rep = $response->json();
         if (array_key_exists("v1/transaction",$rep)){
