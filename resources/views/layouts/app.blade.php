@@ -189,13 +189,13 @@
 
                         <li class="menu-header small text-uppercase"><span class="menu-header-text">
                                 Menu Adminstrateur</span></li>
-                        <li class="menu-item mt-2{{ $title === 'Liste des utilisateurs' ? 'active' : '' }}">
+                        <li class="menu-item mt-2 {{ $title === 'Liste des utilisateurs' ? 'active' : '' }}">
                             <a href="{{ route('private.users.index') }}" class="menu-link">
                                 <i class='menu-icon tf-icons bx bxs-user'></i>
                                 <div data-i18n="Support">Utilisateurs</div>
                             </a>
                         </li>
-                        <li class="menu-item mt-2{{ $title === 'Liste des recharges' ? 'active' : '' }}">
+                        <li class="menu-item mt-2 {{ $title === 'Liste des recharges' ? 'active' : '' }}">
                             <a href="{{ route('private.recharges.index') }}" class="menu-link">
                                 <i class='menu-icon tf-icons bx bxs-book-add'></i>
                                 <div data-i18n="Support">Recharges</div>
@@ -203,7 +203,7 @@
                         </li>
 
 
-                        <li class="menu-item mt-2{{ $title === 'Gestion des pays' ? 'active' : '' }}">
+                        <li class="menu-item mt-2 {{ $title === 'Gestion des pays' ? 'active' : '' }}">
                             <a href="{{ route('private.countries.index') }}" class="menu-link">
                                 <i class='menu-icon tf-icons bx bxs-world'>🌐</i>
                                 <div data-i18n="Support">Pays</div>
@@ -211,13 +211,13 @@
                         </li>
 
 
-                        <li class="menu-item mt-2{{ $title === 'Liste des numéros' ? 'active' : '' }}">
+                        <li class="menu-item mt-2 {{ $title === 'Liste des numéros' ? 'active' : '' }}">
                             <a href="{{ route('private.numbers.index') }}" class="menu-link">
                                 <i class='menu-icon tf-icons bx bxs-phone'></i>
                                 <div data-i18n="Support">Numéros</div>
                             </a>
                         </li>
-                        <li class="menu-item mt-2 mb-4{{ $title === 'Stats' ? 'active' : '' }}">
+                        <li class="menu-item mt-2 mb-4 {{ $title === 'Stats' ? 'active' : '' }}">
                             <a href="{{ route('private.stats.index') }}" class="menu-link">
                                 <i class='menu-icon tf-icons bx bx-stats'></i>
                                 <div data-i18n="Support">Stats</div>

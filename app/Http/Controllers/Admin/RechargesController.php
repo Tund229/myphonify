@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\Recharge;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class RechargesController extends Controller
 {
@@ -97,7 +98,13 @@ class RechargesController extends Controller
 
 
     private function validator()
-    {
+    {   
+        $customMessages = [
+            'required' => "Veuillez remplir ce champ.",
+            'same' => 'Les mots de passe ne correspondent pas.',
+            'min' => 'Ce champ doit contenir au moins :min caractères',
+            'max' => 'Ce champ doit contenir au plus :max caractères ',
+        ];
         return request()->validate([
             'user_id' => ["required", function ($attribute, $value, $fail) {
                 if (User::where('id', $value)->first() == null) {
@@ -105,7 +112,7 @@ class RechargesController extends Controller
                 }
             }],
             'amount' => ["required", "integer"],
-        ]);
+        ], $customMessages);
     }
 
         //block recharges
@@ -118,7 +125,7 @@ class RechargesController extends Controller
                     'state' => 'echoué'
                 ]);
             }
-    
+            Auth::user()->calcAmount();    
             return redirect()->back();
     
         }
@@ -132,6 +139,7 @@ class RechargesController extends Controller
                     'state' => 'validé'
                 ]);
             }
+            Auth::user()->calcAmount();
             return redirect()->back();
         }
     

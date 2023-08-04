@@ -82,7 +82,7 @@ class NumberController extends Controller
                 'service_price' => $price,
             ]);
         } else {
-            $message = "Votre sole est insuffisant !";
+            $message = "Veuillez recharger votre compte, il vous faut ".$price." XOF pour cet achat !";
             $request->session()->flash('error_message', $message);
             return redirect()->back();
         }
@@ -151,6 +151,7 @@ class NumberController extends Controller
                             ]);
                             $tempourchase->delete();
                             Auth::user()->calcAmount();
+                            Auth::user()->restoreState();
                             return redirect('my-numbers');
                         } else {
                             if ($country->Mta == 1) {
@@ -173,6 +174,7 @@ class NumberController extends Controller
                                         $number->update(['phone' => $operation[0]['number'], 'state' => "en cours"]);
                                         $tempourchase->delete();
                                         Auth::user()->calcAmount();
+                                        Auth::user()->restoreState();
                                         return redirect('my-numbers');
                                     }
                                 } else {
@@ -198,6 +200,7 @@ class NumberController extends Controller
                                             ]);
                                             $tempourchase->delete();
                                             Auth::user()->calcAmount();
+                                            Auth::user()->restoreState();
                                             return redirect('my-numbers');
                                         } else {
                                             $tempourchase->delete();
@@ -213,6 +216,7 @@ class NumberController extends Controller
                                         ]);
                                         $tempourchase->delete();
                                         Auth::user()->calcAmount();
+                                        Auth::user()->restoreState();
                                         return redirect('my-numbers');
                                     }
 
@@ -220,6 +224,7 @@ class NumberController extends Controller
                             } else {
                                 $tempourchase->delete();
                                 Auth::user()->calcAmount();
+                                Auth::user()->restoreState();
                                 $message = "Malheureusement, pour le moment, les numéros pour " . $product . " ne sont plus disponibles dans le pays " . $country->name. ".";
 
                                 $request->session()->flash('error_message', $message);
@@ -264,6 +269,7 @@ class NumberController extends Controller
                                     ]);
                                     $tempourchase->delete();
                                     Auth::user()->calcAmount();
+                                    Auth::user()->restoreState();
                                     return redirect('my-numbers');
                                 } else {
                                     $response = Http::get(
@@ -283,6 +289,7 @@ class NumberController extends Controller
                                             $number->update(['phone' => $operation[0]['number'], 'state' => "en cours"]);
                                             $tempourchase->delete();
                                             Auth::user()->calcAmount();
+                                            Auth::user()->restoreState();
                                             return redirect('my-numbers');
                                         }
                                     } else {
@@ -301,6 +308,7 @@ class NumberController extends Controller
                                             ]);
                                             $tempourchase->delete();
                                             Auth::user()->calcAmount();
+                                            Auth::user()->restoreState();
                                             return redirect('my-numbers');
                                         } else {
                                             $tempourchase->delete();
@@ -326,6 +334,7 @@ class NumberController extends Controller
                             ]);
                             $tempourchase->delete();
                             Auth::user()->calcAmount();
+                            Auth::user()->restoreState();
                             return redirect('my-numbers');
                         }
                     }
@@ -351,6 +360,7 @@ class NumberController extends Controller
                                 $number->update(['phone' => $operation[0]['number'], 'state' => "en cours"]);
                                 $tempourchase->delete();
                                 Auth::user()->calcAmount();
+                                Auth::user()->restoreState();
                                 return redirect('my-numbers');
                             }
                         } else {
@@ -378,6 +388,7 @@ class NumberController extends Controller
 
                                     $tempourchase->delete();
                                     Auth::user()->calcAmount();
+                                    Auth::user()->restoreState();
                                     return redirect('my-numbers');
                                 } else {
                                     // Smspva
@@ -408,6 +419,7 @@ class NumberController extends Controller
                                         ]);
                                         $tempourchase->delete();
                                         Auth::user()->calcAmount();
+                                        Auth::user()->restoreState();
                                         return redirect('my-numbers');
                                     } else {
                                         $tempourchase->delete();
@@ -424,6 +436,7 @@ class NumberController extends Controller
                                 ]);
                                 $tempourchase->delete();
                                 Auth::user()->calcAmount();
+                                Auth::user()->restoreState();
                                 return redirect('my-numbers');
                             }
 

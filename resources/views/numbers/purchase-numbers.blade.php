@@ -21,7 +21,10 @@
                             <select id="single-select-optgroup-field" class="form-select" name="country_id">
                                 @foreach ($countries as $country)
                                     <option value="{{ $country->id }}" @if ($id == $country->phonecode) selected @endif>
-                                        {{ $country->name }}
+                                        <div class="d-flex justify-content-between">
+                                            <span>{{ $country->name }}</span>
+                                            <span class="text-end">(+{{ $country->phonecode }})</span>
+                                        </div>
                                     </option>
                                 @endforeach
                             </select>
@@ -53,9 +56,6 @@
                                     @enderror
                                 </div>
                             </div>
-
-
-
                             <button type="submit" class="btn btn-primary text-center">Commander</button>
 
                         </div>
@@ -94,10 +94,11 @@
 
                                     <form action="{{ route('purchase', ['id' => $purchase->id]) }}" method="POST">
                                         @csrf
-                                        <button class="btn btn-outline-success btn-sm mt-2" type="submit">Confirmer</button>
+                                        <button class="btn btn-outline-success btn-sm mt-2"
+                                            type="submit">Confirmer</button>
                                     </form>
-                                    
-                                    
+
+
                                 </div>
 
                             </div>
@@ -110,81 +111,4 @@
     </div>
 
 
-
-
-
-
-
-
-    {{-- <script>
-        function submitForm() {
-            var countrySelect = document.getElementById('single-select-optgroup-field');
-            var serviceSelect = document.getElementById('serviceSelect');
-            var selectedValuesDiv = document.getElementById('selectedValues');
-            var submitButton = document.getElementById('submitButton');
-
-            // Vérifier le champ "Choisir le pays"
-            if (countrySelect.value === '') {
-                countrySelect.style.borderColor = 'red';
-            } else {
-                countrySelect.style.borderColor = '';
-            }
-
-            // Vérifier le champ "Choisir le service"
-            if (serviceSelect.value === '') {
-                serviceSelect.style.borderColor = 'red';
-            } else {
-                serviceSelect.style.borderColor = '';
-            }
-
-            // Récupérer les valeurs des champs
-            var countryValue = countrySelect.value;
-            var serviceValue = serviceSelect.value;
-            var countryText = countrySelect.options[countrySelect.selectedIndex].text;
-            var serviceText = serviceSelect.options[serviceSelect.selectedIndex].text;
-
-
-            if (countryValue !== '' && serviceValue !== '') {
-                // Afficher la div "selectedValues"
-                selectedValuesDiv.style.display = 'block';
-                // Afficher les valeurs sélectionnées dans la div "selectedValues"
-                document.getElementById('countryValue').textContent = countryText;
-                document.getElementById('serviceValue').textContent = serviceText;
-                // Désactiver le bouton
-                submitButton.disabled = true;
-            } else {
-                // Masquer la div "selectedValues"
-                selectedValuesDiv.style.display = 'none';
-                // Activer le bouton
-                submitButton.disabled = false;
-            }
-
-        }
-
-        function deleteSelectedValues() {
-            var selectedValuesDiv = document.getElementById('selectedValues');
-            var countryValueSpan = document.getElementById('countryValue');
-            var serviceValueSpan = document.getElementById('serviceValue');
-            var deleteButton = document.getElementById('deleteButton');
-
-            if (selectedValuesDiv.style.display === 'none') {
-                // Afficher la div "selectedValues"
-                selectedValuesDiv.style.display = 'block';
-                // Réinitialiser les valeurs sélectionnées
-                countryValueSpan.textContent = '';
-                serviceValueSpan.textContent = '';
-                // Mettre à jour le texte du bouton
-                deleteButton.textContent = 'Supprimer';
-            } else {
-                // Masquer la div "selectedValues"
-                selectedValuesDiv.style.display = 'none';
-                // Réinitialiser les valeurs sélectionnées
-                countryValueSpan.textContent = '';
-                serviceValueSpan.textContent = '';
-                submitButton.disabled = false;
-                // Mettre à jour le texte du bouton
-                deleteButton.textContent = 'Annuler la suppression';
-            }
-        }
-    </script> --}}
 @endsection

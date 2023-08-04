@@ -87,11 +87,60 @@
         }
     </style>
 
+
+<div class="col-6 col-md-6 col-lg-6 offset-md-6 offset-lg-6" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel2">Recharger</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{{ route('private.recharges.store') }}" method="POST">
+            @csrf
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="nameSmall" class="form-label">Utilisateurs</label>
+                        <select id="single-select-optgroup-field" class="form-control" name="user_id"
+                            data-container="body">
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}">
+                                    {{ $user->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('user_id')
+                            <span role="alert">
+                                <strong class="text-danger">{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="nameSmall" class="form-label">Montant</label>
+                        <input type="number" id="nameSmall" class="form-control" name="amount"
+                            value="{{ old('amount') }}" />
+                    </div>
+                    @error('amount')
+                        <span role="alert">
+                            <strong class="text-danger">{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Valider</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+
+
     <h5 class="card-header ">Recharges</h5>
-    <button type="button" data-bs-toggle="modal" data-bs-target="#smallModal"
-        class="btn btn-outline-primary account-image-reset mb-4">
-        Recharger
-    </button>
     <div class="card py-4">
 
         <div class="table-responsive ">
@@ -142,53 +191,4 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="col-lg-4 col-md-6">
-            <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel2">Recharger</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form action="{{ route('private.recharges.store') }}" method="POST">
-                            @csrf
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col mb-3">
-                                        <label for="nameSmall" class="form-label">Utilisateurs</label>
-                                        <input type="text" id="nameSmall" class="form-control" name="user" />
-                                        @error('user')
-                                            <span role="alert">
-                                                <strong class="text-danger">{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col mb-3">
-                                        <label for="nameSmall" class="form-label">Montant</label>
-                                        <input type="number" id="nameSmall" class="form-control" name="amount"
-                                            value="{{ old('amount') }}" />
-                                    </div>
-                                    @error('amount')
-                                        <span role="alert">
-                                            <strong class="text-danger">{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-success">Valider</button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-@endsection
+    @endsection

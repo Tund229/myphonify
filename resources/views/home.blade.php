@@ -20,7 +20,7 @@
                 <tbody>
                     @foreach ($countries as $country)
                         <tr>
-                            <td class="text-center">{{ $country->name }}</td>
+                            <td class="text-center">{{ $country->name }} <span class="text-primary">(+{{$country->phonecode}})</span></td>
                             <td class="text-center">
                                 <a href="{{ route('purchase-numbers', ['id' => $country->phonecode]) }}">
                                     <button class="btn btn-outline-primary">
