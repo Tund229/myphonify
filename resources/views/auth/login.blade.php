@@ -63,6 +63,11 @@
 
 <body>
     <!-- Content -->
+    <style>
+        #passwordIcon {
+            cursor: pointer;
+        }
+    </style>
 
     <div class="container-xxl">
         @if (session()->has('error_message'))
@@ -110,17 +115,21 @@
                             <div class="mb-3 mt-4 form-password-toggle">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" for="password">Mot de passe</label>
-                                    <a href="{{route('forgot_password')}}">
+                                    <a href="{{ route('forgot_password') }}">
                                         <small>Mot de passe oublié ?</small>
                                     </a>
                                 </div>
                                 <div class="input-group input-group-merge mb-4">
                                     <input type="password" id="password" class="form-control" name="password"
-                                        placeholder="Entrez votre mot de passe" aria-describedby="password" />
+                                        placeholder="Entrez votre mot de passe" />
+                                    <span class="input-group-text" >
+                                        <i class='bx bx-hide' id="passwordIcon"></i>
+                                    </span>
                                 </div>
 
-                                <div class="mb-4">
 
+
+                                <div class="mb-4">
                                     @error('password')
                                         <span class="text-danger text-center" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -151,6 +160,7 @@
 
     <!-- / Content -->
 
+    <!-- Inclure Font Awesome pour les icônes -->
 
 
     <script src="{{ asset('dashboard/assets/vendor/libs/jquery/jquery.js') }}"></script>
@@ -177,6 +187,29 @@
             d.getElementsByTagName("head")[0].appendChild(s);
         })();
     </script>
+
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('passwordIcon');
+
+            if (passwordInput.getAttribute('type') === 'password') {
+                // Afficher le mot de passe
+                passwordInput.setAttribute('type', 'text');
+                passwordIcon.classList.remove('bx-hide');
+                passwordIcon.classList.add('bx-show');
+            } else {
+                // Masquer le mot de passe
+                passwordInput.setAttribute('type', 'password');
+                passwordIcon.classList.remove('bx-show');
+                passwordIcon.classList.add('bx-hide');
+            }
+        });
+    </script>
+
+
+
+
 
 </body>
 

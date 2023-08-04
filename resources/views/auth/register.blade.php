@@ -62,7 +62,11 @@
 </head>
 
 <body>
-    <!-- Content -->
+    <style>
+        #passwordIcon {
+            cursor: pointer;
+        }
+    </style>
 
     <div class="container-xxl">
         @if (session()->has('error_message'))
@@ -128,6 +132,9 @@
                                 <div class="input-group input-group-merge mb-4">
                                     <input type="password" id="password" class="form-control" name="password"
                                         placeholder="Entrez un mot de passe" aria-describedby="password" />
+                                    <span class="input-group-text">
+                                        <i class='bx bx-hide' id="passwordIcon"></i>
+                                    </span>
                                 </div>
                                 <div class="mb-4">
                                     @error('password')
@@ -137,6 +144,30 @@
                                     @enderror
                                 </div>
                             </div>
+
+
+                            <div class="mb-3 mt-4 form-password-toggle">
+                                <div class="d-flex justify-content-between">
+                                    <label for="password_confirmation" class="form-label">Confirmer mot de passe </label>
+                                </div>
+                                <div class="input-group input-group-merge mb-4">
+                                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
+                                    placeholder="Confirmez le mot de passe"  />
+                                    <span class="input-group-text">
+                                        <i class='bx bx-hide' id="passwordIcon"></i>
+                                    </span>
+                                </div>
+                                <div class="mb-4">
+                                    @error('password_confirmation')
+                                    <span class="text-danger text-center mb-4" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </div>
+                            </div>
+
+
+                            
 
 
                             <div class="mb-3">
@@ -158,6 +189,9 @@
                                     @enderror
                                 </div>
                             </div>
+
+
+                            
 
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100">S'inscrire</button>
@@ -203,6 +237,25 @@
             s.async = 1;
             d.getElementsByTagName("head")[0].appendChild(s);
         })();
+    </script>
+
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('passwordIcon');
+
+            if (passwordInput.getAttribute('type') === 'password') {
+                // Afficher le mot de passe
+                passwordInput.setAttribute('type', 'text');
+                passwordIcon.classList.remove('bx-hide');
+                passwordIcon.classList.add('bx-show');
+            } else {
+                // Masquer le mot de passe
+                passwordInput.setAttribute('type', 'password');
+                passwordIcon.classList.remove('bx-show');
+                passwordIcon.classList.add('bx-hide');
+            }
+        });
     </script>
 
 </body>

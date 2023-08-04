@@ -53,10 +53,13 @@ class RegisterController extends Controller
     {
 
         $customMessages = [
+            'required' => "Veuillez remplir ce champ.",
+            'same' => 'Les mots de passe ne correspondent pas.',
+            'min' => 'Ce champ doit contenir au moins :min caractères',
+            'max' => 'Ce champ doit contenir au plus :max caractères ',
             'accepted' => "Vous devez accepter les conditions d'utilisation",
-            'min'=> 'Ce champ doit contenir au moins',
-            'max'=> 'Ce champ doit contenir au plus:'
         ];
+
         return Validator::make($data, [
             'name' => [function ($attribute, $value, $fail) {
                 if (empty($value)) {
@@ -91,6 +94,7 @@ class RegisterController extends Controller
                     $fail('Veuillez remplir ce champ');
                 }
             }, 'string', 'min:8'],
+            'password_confirmation' => ['required', 'string', 'max:255', 'min:8', 'same:password'],
             'terms' => ['accepted'],
         ],  $customMessages);
     }

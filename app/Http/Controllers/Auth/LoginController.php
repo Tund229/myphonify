@@ -43,7 +43,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
     private function validator(Request $request)
-    {
+    {   
         return request()->validate([
             'email' => [function ($attribute, $value, $fail) {
                 if (empty($value)) {
