@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
 use App\Models\Api;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class CountryController extends Controller
 {
@@ -170,5 +172,54 @@ class CountryController extends Controller
         $message = "Mta modifié avec succès";
         $request->session()->flash('status', $message);
         return redirect()->back();
+    }
+
+
+    function gestion(){
+        $title = "Gestion des pays";
+        $countries_count = Country::where('state', true)->count();
+        $countries = Country::where('state', true)->get();
+        $apis = Api::all();
+       return view('private.countries.gestion', compact('countries_count', 'countries', 'apis', 'title'));
+    }
+
+    function gestion_pays(Request $request)
+    {
+        // Check if countries and services are present in the request
+        if ($request->countries && $request->services) {
+            $countries = Country::whereIn("id", $request->countries)->get();
+            $services = $request->services;
+    
+            // Begin the database transaction to optimize multiple updates
+            try {
+                DB::beginTransaction();
+    
+                foreach ($countries as $country) {
+                    $updateData = [];
+                    foreach ($services as $service) {
+                        $updateData[$service] = $request->price;
+                    }
+                    $updateData['api_id'] = $request->apis;
+    
+                    // Update the country with the new data
+                    $country->update($updateData);
+                }
+    
+                // Commit the transaction if all updates are successful
+                \DB::commit();
+    
+                $message = "Les pays ont été modifiés avec succès";
+                Session::flash('status', $message);
+            } catch (\Exception $e) {
+                // Rollback the transaction if an error occurs
+                \DB::rollback();
+    
+                // Handle the exception, log, or display an error message
+                $message = "Une erreur est survenue lors de la mise à jour des pays";
+                Session::flash('error', $message);
+            }
+    
+            return redirect()->back();
+        }
     }
 }

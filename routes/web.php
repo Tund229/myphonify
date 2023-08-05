@@ -84,6 +84,10 @@ Route::namespace('App\\Http\\Controllers\\Admin')->prefix('private')->name('priv
 
     Route::get('countries.updateMta/{id}', 'CountryController@updateMta')->name('updateMta');
     Route::get('countries.updateState/{id}', 'CountryController@updateState')->name('updateState');
+    Route::get('countries.gestion', 'CountryController@gestion')->name('gestion');
+    Route::post('countries.gestion', 'CountryController@gestion_pays')->name('gestion_pays');
+
+
 
     Route::get('stats.location', 'StatsController@getLocation')->name('get.location');
 

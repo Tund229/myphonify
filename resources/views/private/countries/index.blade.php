@@ -1,8 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="row mx-auto">
+    <div class="col-6">
+        <h5 class="card-header">Tous les disponibles</h5>
+    </div>
+    <div class="col-12 col-lg-auto">
+        <a href="{{route('private.gestion')}}">
+            <button class="btn btn-primary d-grid w-100" type="submit">Gestion rapide</button>
+        </a>
+    </div>
+</div>
 
-    <h5 class="card-header ">Tous les  disponibles</h5>
+
+
     <div class="card py-4">
         <div class="table-responsive ">
             <table class="table table-striped" id="dataTable">
@@ -29,7 +40,7 @@
                             <td class="text-center">
                                 <a href="{{ route('private.countries.show', $country->id) }}">
                                     <button class="btn btn-outline-primary">
-                                        <i class='bx bxs-info-circle' ></i>
+                                        <i class='bx bxs-info-circle'></i>
                                     </button>
                                 </a>
                             </td>
