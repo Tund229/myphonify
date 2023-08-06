@@ -1,5 +1,6 @@
 <?php
 
+use Spatie\Sitemap\Sitemap;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NumberController;
@@ -20,6 +21,25 @@ use App\Http\Controllers\CountriesController;
 
 
 Auth::routes();
+
+
+Route::get('/generate-sitemap', function () {
+    $sitemap = Sitemap::create();
+
+    // Add URLs to your sitemap
+    $sitemap
+        ->add(url('/'), now(), '1.0') // URL, last modified, priority (optional)
+        ->add(url('/login'), now(), '0.8')
+        ->add(url('/register'), now(), '0.8');
+
+    // Add more URLs if needed
+
+    // Write the sitemap to the sitemap.xml file
+    $sitemap->writeToFile(public_path('sitemap.xml'));
+
+    return 'Sitemap generated successfully!';
+});
+
 
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Route::get('/privacy-terms', [HomeController::class, 'privacy_terms'])->name('privacy-terms');
