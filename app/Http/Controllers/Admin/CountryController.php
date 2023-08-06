@@ -6,8 +6,10 @@ use DB;
 use App\Models\Api;
 use App\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class CountryController extends Controller
 {
@@ -79,8 +81,8 @@ class CountryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
-       
+    {
+
         $customMessages = [
             'required' => "Veuillez remplir ce champ.",
         ];
@@ -175,50 +177,57 @@ class CountryController extends Controller
     }
 
 
-    function gestion(){
+    public function gestion()
+    {
         $title = "Gestion des pays";
         $countries_count = Country::where('state', true)->count();
-        $countries = Country::where('state', true)->get();
+        $countries = Country::all();
         $apis = Api::all();
-       return view('private.countries.gestion', compact('countries_count', 'countries', 'apis', 'title'));
+        return view('private.countries.gestion', compact('countries_count', 'countries', 'apis', 'title'));
     }
 
-    function gestion_pays(Request $request)
+
+    public function gestion_pays(Request $request)
     {
-        // Check if countries and services are present in the request
-        if ($request->countries && $request->services) {
-            $countries = Country::whereIn("id", $request->countries)->get();
-            $services = $request->services;
-    
-            // Begin the database transaction to optimize multiple updates
-            try {
-                DB::beginTransaction();
-    
-                foreach ($countries as $country) {
-                    $updateData = [];
-                    foreach ($services as $service) {
-                        $updateData[$service] = $request->price;
-                    }
-                    $updateData['api_id'] = $request->apis;
-    
-                    // Update the country with the new data
-                    $country->update($updateData);
-                }
-    
-                // Commit the transaction if all updates are successful
-                \DB::commit();
-    
-                $message = "Les pays ont été modifiés avec succès";
-                Session::flash('status', $message);
-            } catch (\Exception $e) {
-                // Rollback the transaction if an error occurs
-                \DB::rollback();
-    
-                // Handle the exception, log, or display an error message
-                $message = "Une erreur est survenue lors de la mise à jour des pays";
-                Session::flash('error', $message);
+        $validator = Validator::make($request->all(), [
+            'countries' => 'required|array',
+            'services' => 'required|array',
+            'price' => 'required|numeric',
+            'apis' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            $message = "Une erreur est survenue lors de la mise à jour des pays";
+            $request->session()->flash('status', $message);
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $countries = Country::whereIn("id", $request->countries)->get();
+
+        if ($countries->isEmpty()) {
+            $message = "Aucun pays trouvé pour la mise à jour";
+            $request->session()->flash('status', $message);
+            return redirect()->back();
+        }
+
+        $servicePrices = [];
+        foreach ($request->services as $service) {
+            $servicePrices[$service] = $request->price;
+        }
+
+        try {
+            foreach ($countries as $country) {
+                $country->update($servicePrices);
             }
-    
+
+            $message = "Modifié avec succès";
+            $request->session()->flash('status', $message);
+
+            return redirect()->back();
+        } catch (\Exception $e) {
+            $message = "Une erreur est survenue lors de la mise à jour des pays";
+            $request->session()->flash('status', $message);
+            Log::error('Error updating countries: ' . $e->getMessage(), ['exception' => $e]);
             return redirect()->back();
         }
     }

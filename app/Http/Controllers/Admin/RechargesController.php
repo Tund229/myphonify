@@ -98,7 +98,7 @@ class RechargesController extends Controller
 
 
     private function validator()
-    {   
+    {
         $customMessages = [
             'required' => "Veuillez remplir ce champ.",
             'same' => 'Les mots de passe ne correspondent pas.',
@@ -115,34 +115,38 @@ class RechargesController extends Controller
         ], $customMessages);
     }
 
-        //block recharges
-        public function block($id)
-        {   
-           
-            $recharge = Recharge::where('id', $id)->first();
-            if($recharge) {
-                $recharge->update([
-                    'state' => 'echoué'
-                ]);
-            }
-            Auth::user()->calcAmount();    
-            return redirect()->back();
-    
+    //block recharges
+    public function block($id)
+    {
+
+        $recharge = Recharge::where('id', $id)->first();
+        if($recharge) {
+            $recharge->update([
+                'state' => 'echoué'
+            ]);
         }
-    
-        //unblock recharges
-        public function unblock($id)
-        {
-            $recharge = Recharge::where('id', $id)->first();
-            if($recharge) {
-                $recharge->update([
-                    'state' => 'validé'
-                ]);
-            }
-            Auth::user()->calcAmount();
-            return redirect()->back();
+        $getUser = User::where('id', $recharge->user_id)->first();
+        $getUser->calcAmount();
+        $getUser->restoreState();
+        return redirect()->back();
+
+    }
+
+    //unblock recharges
+    public function unblock($id)
+    {
+        $recharge = Recharge::where('id', $id)->first();
+        if($recharge) {
+            $recharge->update([
+                'state' => 'validé'
+            ]);
         }
-    
+        $getUser = User::where('id', $recharge->user_id)->first();
+        $getUser->calcAmount();
+        $getUser->restoreState();
+        return redirect()->back();
+    }
+
 
 
 

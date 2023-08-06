@@ -10,7 +10,6 @@
 @endif
 
 <h5 class="card-header">Gestion rapides des pays</h5>
-
     <form action="{{route('private.gestion_pays')}}" method="post">
     @csrf
         <div class="row">

@@ -26,7 +26,7 @@ class StatsController extends Controller
         Auth::user()->calcAmount();
         $numbers = Number::all();
         $admin = User::where('role', 'admin')->where('is_admin', true)->first();
-        $recharges = Recharge::where('user_id', '<>', $admin->id)->get();
+        $recharges = Recharge::where('user_id', '<>', $admin->id)->where('state', 'validé')->get();
         $users = User::where('role', 'user')->get();
         $title = "Stats" ;
         $countries_count = Country::where('state', true)->count();
@@ -130,31 +130,53 @@ class StatsController extends Controller
             return $chart_numbers_sum->has($month) ? $chart_numbers_sum[$month] : 0;
         });
 
+        $chart_recharges_by_day = Recharge::select(DB::raw("SUM(amount) as total_amount"), DB::raw("DATE(created_at) as date"))
+        ->whereYear('created_at', date('Y'))
+        ->where('state', 'validé')
+        ->groupBy(DB::raw("DATE(created_at)"))
+        ->orderByRaw('DATE(created_at)')
+        ->pluck('total_amount', 'date');
 
-        $chart_recharges_by_day = Recharge::select(DB::raw("COUNT(*) as count"), DB::raw("DATE(created_at) as date"))
-            ->whereYear('created_at', date('Y'))
-            ->where('state', 'validé')
-            ->groupBy(DB::raw("DATE(created_at)"))
-            ->orderByRaw('DATE(created_at)')
-            ->pluck('count', 'date');
-
-        $chart_numbers_achetes_by_day = Number::select(DB::raw("COUNT(*) as count"), DB::raw("DATE(created_at) as date"))
-            ->whereYear('created_at', date('Y'))
-            ->where('state', 'validé')
-            ->groupBy(DB::raw("DATE(created_at)"))
-            ->orderByRaw('DATE(created_at)')
-            ->pluck('count', 'date');
-
-        $chart_numbers_echoues_by_day = Number::select(DB::raw("COUNT(*) as count"), DB::raw("DATE(created_at) as date"))
-            ->whereYear('created_at', date('Y'))
-            ->where('state', 'echoué')
-            ->groupBy(DB::raw("DATE(created_at)"))
-            ->orderByRaw('DATE(created_at)')
-            ->pluck('count', 'date');
+        $chart_numbers_achetes_by_day = Number::select(DB::raw("SUM(amount) as total_amount"), DB::raw("DATE(created_at) as date"))
+        ->whereYear('created_at', date('Y'))
+        ->where('state', 'validé')
+        ->groupBy(DB::raw("DATE(created_at)"))
+        ->orderByRaw('DATE(created_at)')
+        ->pluck('total_amount', 'date');
 
 
+        $chart_numbers_echoues_by_day = Number::select(DB::raw("SUM(amount) as total_amount"), DB::raw("DATE(created_at) as date"))
+        ->whereYear('created_at', date('Y'))
+        ->where('state', 'echoué')
+        ->groupBy(DB::raw("DATE(created_at)"))
+        ->orderByRaw('DATE(created_at)')
+        ->pluck('total_amount', 'date');
 
-        return view('private.stats.index', compact('numbers', 'title', 'countries_count', 'recharges', 'users', 'numbers_valide', 'numbers_en_cours', 'numbers_echoue', 'labels', 'data_users', 'data_recharges', 'data_numbers_achetes', 'data_numbers_echoues', 'data_recharges_sum', 'data_numbers_sum', 'chart_recharges_by_day', 'chart_numbers_achetes_by_day', 'chart_numbers_echoues_by_day'));
+
+
+
+
+
+        return view('private.stats.index', compact(
+            'numbers',
+            'title',
+            'countries_count',
+            'recharges',
+            'users',
+            'numbers_valide',
+            'numbers_en_cours',
+            'numbers_echoue',
+            'labels',
+            'data_users',
+            'data_recharges',
+            'data_numbers_achetes',
+            'data_numbers_echoues',
+            'data_recharges_sum',
+            'data_numbers_sum',
+            'chart_recharges_by_day',
+            'chart_numbers_achetes_by_day',
+            'chart_numbers_echoues_by_day'
+        ));
 
     }
 

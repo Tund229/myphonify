@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\Number;
 use App\Models\Country;
 use Illuminate\Http\Request;
@@ -20,8 +21,6 @@ class NumbersController extends Controller
         $numbers = Number::all();
         $title = "Liste des numéros" ;
         $countries_count = Country::where('state', true)->count();
-        Auth::user()->restoreState();
-        Auth::user()->calcAmount();
         return view('private.numbers.index', compact('numbers', 'title', 'countries_count'));
     }
 
@@ -95,17 +94,22 @@ class NumbersController extends Controller
     }
 
 
-    
+
     //block number
     public function block($id)
-    {   
+    {
         $number = Number::where('id', $id)->first();
         if($number) {
             $number->update([
                 'state' => 'echoué'
             ]);
         }
+        // Auth::user()->restoreState();
+        // Auth::user()->calcAmount();
 
+        $getUser = User::where('id', $number->user_id)->first();
+        $getUser->calcAmount();
+        $getUser->restoreState();
         return redirect()->back();
 
     }
@@ -119,6 +123,9 @@ class NumbersController extends Controller
                 'state' => 'validé'
             ]);
         }
+        $getUser = User::where('id', $number->user_id)->first();
+        $getUser->calcAmount();
+        $getUser->restoreState();
         return redirect()->back();
     }
 }
