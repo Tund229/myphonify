@@ -94,11 +94,11 @@
             <table class="table table-striped" id="dataTable">
                 <thead>
                     <tr class="text-nowrap">
+                        <th class="text-center">Date</th>
+
                         <th class="text-center">Nom</th>
                         <th class="text-center">Email</th>
-                        <th class="text-center">Identifiant</th>
                         <th class="text-center">Solde</th>
-                        <th class="text-center">Status</th>
                         <th class="text-center">Actions</th>
                         <th class="text-center">Plus</th>
                     </tr>
@@ -106,17 +106,11 @@
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
+                            <td class="text-center">{{ $user->created_at }}</td>
                             <td class="text-center">{{ $user->name }}</td>
                             <td class="text-center">{{ $user->email }}</td>
-                            <td class="text-center">{{ $user->identifiant }}</td>
                             <td class="text-center">{{ $user->account_balance }}</td>
-                            <td class="text-center">
-                                @if ($user->status == 0)
-                                    <span class="badge bg-success">Actif</span>
-                                @else
-                                    <span class="badge bg-danger">Inactif</span>
-                                @endif
-                            </td>
+                           
                             <td class="text-center">
                                 @if ($user->status == 0)
                                     <a href="{{ route('private.users.block', $user->id) }}">

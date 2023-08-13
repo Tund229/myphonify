@@ -44,52 +44,57 @@ class StatsController extends Controller
             ->selectRaw("COUNT(*) as count, MONTHNAME(created_at) as month_name")
             ->pluck('count', 'month_name');
 
-        $chart_recharges = Recharge::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"), DB::raw("MONTH(created_at) as month"))
-             ->whereYear('created_at', date('Y'))
-             ->where('state', 'validé')
-             ->groupBy(DB::raw("month_name, month"))
-             ->orderByRaw('month')
-             ->pluck('count', 'month_name');
-
-
-
-        $chart_numbers_achetes = Number::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-             ->whereYear('created_at', date('Y'))
-             ->where('state', 'validé')
-             ->groupBy(DB::raw("MONTH(created_at), MONTHNAME(created_at)")) // Ajouter la colonne created_at à la clause GROUP BY
-             ->orderByRaw('MONTH(created_at)')
-             ->pluck('count', 'month_name');
-
-
-
-        $chart_numbers_echoues = Number::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-         ->whereYear('created_at', date('Y'))
-         ->where('state', 'echoué')
-         ->groupBy(DB::raw("MONTH(created_at), MONTHNAME(created_at)")) // Ajouter la colonne created_at à la clause GROUP BY
-         ->orderByRaw('MONTH(created_at)')
-         ->pluck('count', 'month_name');
+        $chart_recharges = Recharge::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(recharges.created_at) as month_name"), DB::raw("MONTH(recharges.created_at) as month"))
+        ->join('users', 'recharges.user_id', '=', 'users.id')
+        ->whereYear('recharges.created_at', date('Y'))
+        ->where('recharges.state', 'validé')
+        ->where('users.is_admin', false)
+        ->groupBy(DB::raw("month_name, month"))
+        ->orderByRaw('month')
+        ->pluck('count', 'month_name');
 
 
 
 
-        //sum
-
-        $chart_recharges_sum = Recharge::select(DB::raw("SUM(amount) as total_recharge"), DB::raw("MONTHNAME(created_at) as month_name"))
-          ->whereYear('created_at', date('Y'))
-          ->where('state', 'validé')
-          ->groupBy(DB::raw("MONTH(created_at), MONTHNAME(created_at)")) // Ajouter la colonne created_at à la clause GROUP BY
-          ->orderByRaw('MONTH(created_at)')
-          ->pluck('total_recharge', 'month_name');
-
-
+        $chart_numbers_achetes = Number::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(numbers.created_at) as month_name"))
+        ->join('users', 'numbers.user_id', '=', 'users.id')
+        ->whereYear('numbers.created_at', date('Y'))
+        ->where('numbers.state', 'validé')
+        ->where('users.is_admin', false)
+        ->groupBy(DB::raw("MONTH(numbers.created_at), MONTHNAME(numbers.created_at)")) // Ajouter la colonne created_at à la clause GROUP BY
+        ->orderByRaw('MONTH(numbers.created_at)')
+        ->pluck('count', 'month_name');
 
 
-        $chart_numbers_sum = Number::select(DB::raw("SUM(amount) as total_number_sum"), DB::raw("MONTHNAME(created_at) as month_name"))
-            ->whereYear('created_at', date('Y'))
-            ->where('state', 'validé')
-            ->groupBy(DB::raw("MONTH(created_at), MONTHNAME(created_at)")) // Ajouter la colonne created_at à la clause GROUP BY
-            ->orderByRaw('MONTH(created_at)')
+
+
+        $chart_numbers_echoues = Number::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(numbers.created_at) as month_name"))
+        ->join('users', 'numbers.user_id', '=', 'users.id')
+        ->whereYear('numbers.created_at', date('Y'))
+        ->where('numbers.state', 'echoué')
+        ->where('users.is_admin', false)
+        ->groupBy(DB::raw("MONTH(numbers.created_at), MONTHNAME(numbers.created_at)"))
+        ->orderByRaw('MONTH(numbers.created_at)')
+        ->pluck('count', 'month_name');
+
+        $chart_recharges_sum = Recharge::select(DB::raw("SUM(amount) as total_recharge"), DB::raw("MONTHNAME(recharges.created_at) as month_name"))
+            ->join('users', 'recharges.user_id', '=', 'users.id')
+            ->whereYear('recharges.created_at', date('Y'))
+            ->where('recharges.state', 'validé')
+            ->where('users.is_admin', false)
+            ->groupBy(DB::raw("MONTH(recharges.created_at), MONTHNAME(recharges.created_at)"))
+            ->orderByRaw('MONTH(recharges.created_at)')
+            ->pluck('total_recharge', 'month_name');
+
+        $chart_numbers_sum = Number::select(DB::raw("SUM(amount) as total_number_sum"), DB::raw("MONTHNAME(numbers.created_at) as month_name"))
+            ->join('users', 'numbers.user_id', '=', 'users.id')
+            ->whereYear('numbers.created_at', date('Y'))
+            ->where('numbers.state', 'validé')
+            ->where('users.is_admin', false)
+            ->groupBy(DB::raw("MONTH(numbers.created_at), MONTHNAME(numbers.created_at)"))
+            ->orderByRaw('MONTH(numbers.created_at)')
             ->pluck('total_number_sum', 'month_name');
+
 
 
 
@@ -130,33 +135,77 @@ class StatsController extends Controller
             return $chart_numbers_sum->has($month) ? $chart_numbers_sum[$month] : 0;
         });
 
-        $chart_recharges_by_day = Recharge::select(DB::raw("SUM(amount) as total_amount"), DB::raw("DATE(created_at) as date"))
-        ->whereYear('created_at', date('Y'))
-        ->where('state', 'validé')
-        ->groupBy(DB::raw("DATE(created_at)"))
-        ->orderByRaw('DATE(created_at)')
-        ->pluck('total_amount', 'date');
-
-        $chart_numbers_achetes_by_day = Number::select(DB::raw("SUM(amount) as total_amount"), DB::raw("DATE(created_at) as date"))
-        ->whereYear('created_at', date('Y'))
-        ->where('state', 'validé')
-        ->groupBy(DB::raw("DATE(created_at)"))
-        ->orderByRaw('DATE(created_at)')
-        ->pluck('total_amount', 'date');
-
-
-        $chart_numbers_echoues_by_day = Number::select(DB::raw("SUM(amount) as total_amount"), DB::raw("DATE(created_at) as date"))
-        ->whereYear('created_at', date('Y'))
-        ->where('state', 'echoué')
-        ->groupBy(DB::raw("DATE(created_at)"))
-        ->orderByRaw('DATE(created_at)')
+        $chart_recharges_by_day = Recharge::select(DB::raw("SUM(recharges.amount) as total_amount"), DB::raw("DATE(recharges.created_at) as date"))
+        ->join('users', 'recharges.user_id', '=', 'users.id')
+        ->whereYear('recharges.created_at', date('Y'))
+        ->where('users.is_admin', false)
+        ->groupBy(DB::raw("DATE(recharges.created_at)"))
+        ->orderByRaw('DATE(recharges.created_at)')
         ->pluck('total_amount', 'date');
 
 
 
 
+        $chart_numbers_achetes_by_day = Number::select(DB::raw("COUNT(numbers.id) as total_count"), DB::raw("DATE(numbers.created_at) as date"))
+        ->join('users', 'numbers.user_id', '=', 'users.id')
+        ->whereYear('numbers.created_at', date('Y'))
+        ->where('users.is_admin', false)
+        ->groupBy(DB::raw("DATE(numbers.created_at)"))
+        ->orderByRaw('DATE(numbers.created_at)')
+        ->pluck('total_count', 'date');
 
 
+
+
+        $chart_numbers_echoues_by_day = Number::select(DB::raw("SUM(numbers.amount) as total_amount"), DB::raw("DATE(numbers.created_at) as date"))
+        ->join('users', 'numbers.user_id', '=', 'users.id')
+        ->whereYear('numbers.created_at', date('Y'))
+        ->where('numbers.state', 'echoué')
+        ->where('users.is_admin', false)
+        ->groupBy(DB::raw("DATE(numbers.created_at)"))
+        ->orderByRaw('DATE(numbers.created_at)')
+        ->pluck('total_amount', 'date');
+
+
+
+        $users_count_by_day = User::select(DB::raw("COUNT(*) as user_count"), DB::raw("DATE(created_at) as date"))
+        ->whereYear('created_at', date('Y'))
+        ->where('is_admin', false) // Exclure les utilisateurs avec is_admin == true
+        ->groupBy(DB::raw("DATE(created_at)"))
+        ->orderByRaw('DATE(created_at)')
+        ->pluck('user_count', 'date');
+
+
+
+
+
+        $minDate = DB::table('recharges')
+    ->selectRaw('MIN(DATE(created_at)) as min_date')
+    ->union(DB::table('numbers')
+        ->selectRaw('MIN(DATE(created_at)) as min_date'))
+    ->union(DB::table('users')
+        ->selectRaw('MIN(DATE(created_at)) as min_date'))
+    ->value('min_date');
+
+    $maxDate = DB::table('recharges')
+    ->selectRaw('MAX(DATE(created_at)) as max_date')
+    ->union(DB::table('numbers')
+        ->selectRaw('MAX(DATE(created_at)) as max_date'))
+    ->union(DB::table('users')
+        ->selectRaw('MAX(DATE(created_at)) as max_date'))
+    ->orderBy('max_date', 'desc') // Ordonner par date décroissante
+    ->value('max_date');
+
+
+        $allDates = [];
+        $currentDate = $minDate;
+
+        while ($currentDate <= $maxDate) {
+            $allDates[] = $currentDate;
+            $currentDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+        }
+
+     
         return view('private.stats.index', compact(
             'numbers',
             'title',
@@ -175,7 +224,9 @@ class StatsController extends Controller
             'data_numbers_sum',
             'chart_recharges_by_day',
             'chart_numbers_achetes_by_day',
-            'chart_numbers_echoues_by_day'
+            'chart_numbers_echoues_by_day',
+            'users_count_by_day',
+            'allDates'
         ));
 
     }

@@ -5,8 +5,8 @@
         <div class="col-md-12">
             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                 <li class="nav-item">
-                    <a class="nav-link @if ($title == 'Détails utilisateur') active @endif" href="{{route('private.users.show', $user->id)}}"><i
-                            class="bx bx-user me-1"></i> Compte</a>
+                    <a class="nav-link @if ($title == 'Détails utilisateur') active @endif"
+                        href="{{ route('private.users.show', $user->id) }}"><i class="bx bx-user me-1"></i> Compte</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link @if ($title == 'Recharges utilisateur') active @endif"
@@ -14,15 +14,22 @@
                         Recharges</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if ($title == 'Numéros utilisateur') active @endif" href="{{ route('private.users.user_numbers', $user->id) }}"><i
-                            class="bx bx-link-alt me-1"></i>
+                    <a class="nav-link @if ($title == 'Numéros utilisateur') active @endif"
+                        href="{{ route('private.users.user_numbers', $user->id) }}"><i class="bx bx-link-alt me-1"></i>
                         Achats</a>
                 </li>
             </ul>
             <div class="card mb-4">
-                <h5 class="card-header">Details utilisateur <span
-                        class="badge rounded-pill bg-label-primary px-4">{{ $user->identifiant }}</span>
+                <h5 class="card-header">Details utilisateur
+
+                    @if ($user->status == 0)
+                        <span class="badge rounded-pill bg-label-success px-4">Actif</span>
+                    @else
+                        <span class="badge rounded-pill bg-label-danger px-4">Inactif</span>
+                    @endif
+
                 </h5>
+
                 <!-- Account -->
                 <div class="card-body">
                     <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -56,6 +63,11 @@
                                 <input type="text" class="form-control" value="{{ $user->affiliate_exarnings }}"
                                     disabled />
                             </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="organization" class="form-label">Identifiant</label>
+                                <input type="text" class="form-control" value="{{ $user->identifiant }}" disabled />
+                            </div>
                         </div>
                         <div class="mt-2">
                             <a href="{{ route('private.users.reset_password', $user->id) }}"
@@ -68,7 +80,7 @@
                 </div>
                 <!-- /Account -->
             </div>
-           
+
         </div>
 
         <div class="col-lg-4 col-md-6">
@@ -85,7 +97,7 @@
                                 <div class="row">
                                     <div class="col mb-3">
                                         <input type="number" value="{{ $user->id }}" class="form-control"
-                                            name="user_id" hidden       />
+                                            name="user_id" hidden />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -101,10 +113,10 @@
                                     @enderror
 
                                     @error('user_id')
-                                    <span role="alert">
-                                        <strong class="text-danger">{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                        <span role="alert">
+                                            <strong class="text-danger">{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
 
                             </div>

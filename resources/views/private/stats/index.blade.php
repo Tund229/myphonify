@@ -288,93 +288,106 @@
 
 
 
-        // Récupérer les données pour chaque catégorie
-        const data_recharges_by_day = @json($chart_recharges_by_day);
-        const data_numbers_achetes_by_day = @json($chart_numbers_achetes_by_day);
-        const data_numbers_echoues_by_day = @json($chart_numbers_echoues_by_day);
+// Récupérer les données pour chaque catégorie
+const data_recharges_by_day = @json($chart_recharges_by_day);
+const data_numbers_achetes_by_day = @json($chart_numbers_achetes_by_day);
+const data_numbers_echoues_by_day = @json($chart_numbers_echoues_by_day);
+const data_users_by_day = @json($users_count_by_day);
+const allDates = @json($allDates);
 
-        // Convertir les données en tableaux pour Chart.js
-        const labelsByDay = Object.keys(data_recharges_by_day).map(date => new Date(date).toLocaleDateString());
-        const rechargesByDay = Object.values(data_recharges_by_day);
-        const numbersAchetesByDay = Object.values(data_numbers_achetes_by_day);
-        const numbersEchouesByDay = Object.values(data_numbers_echoues_by_day);
+// Convertir les données en tableaux pour Chart.js
+const rechargesByDay = allDates.map(date => data_recharges_by_day[date] || 0);
+const numbersAchetesByDay = allDates.map(date => data_numbers_achetes_by_day[date] || 0);
+const numbersEchouesByDay = allDates.map(date => data_numbers_echoues_by_day[date] || 0);
+const usersByDay = allDates.map(date => data_users_by_day[date] || 0);
 
-        const ctxStatsByDay = document.getElementById('statsChartByDay').getContext('2d');
-        const statsChartByDay = new Chart(ctxStatsByDay, {
-            type: 'line',
-            data: {
-                labels: labelsByDay,
-                datasets: [{
-                        label: 'Recharges',
-                        data: rechargesByDay,
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                        borderWidth: 2,
-                        pointBackgroundColor: 'rgba(255, 99, 132, 1)',
-                        pointRadius: 5,
-                        fill: true,
-                        tension: 0.4 // Ajustez cette valeur pour modifier l'intensité de la courbe
-                    },
-                    {
-                        label: 'Numéros achetés',
-                        data: numbersAchetesByDay,
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
-                        borderWidth: 2,
-                        pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-                        pointRadius: 5,
-                        fill: true,
-                        tension: 0.4 // Ajustez cette valeur pour modifier l'intensité de la courbe
-                    },
-                    {
-                        label: 'Numéros échoués',
-                        data: numbersEchouesByDay,
-                        borderColor: 'rgba(0, 0, 0, 0.8)',
-                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                        borderWidth: 2,
-                        pointBackgroundColor: 'rgba(255, 206, 86, 1)',
-                        pointRadius: 5,
-                        fill: true,
-                        tension: 0.4 // Ajustez cette valeur pour modifier l'intensité de la courbe
-                    }
-                ]
+// Créer le graphique
+const ctxStatsByDay = document.getElementById('statsChartByDay').getContext('2d');
+const statsChartByDay = new Chart(ctxStatsByDay, {
+    type: 'line',
+    data: {
+        labels: allDates.map(date => new Date(date).toLocaleDateString()),
+        datasets: [
+            {
+                label: 'Recharges',
+                data: rechargesByDay,
+                backgroundColor: 'rgba(255, 206, 86, 1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            font: {
-                                size: 14
-                            }
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Statistiques par jour',
-                        font: {
-                            size: 18
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        ticks: {
-                            font: {
-                                size: 14
-                            }
-                        }
-                    },
-                    y: {
-                        ticks: {
-                            font: {
-                                size: 14
-                            }
-                        }
+            {
+                label: 'Numéros achetés',
+                data: numbersAchetesByDay,
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            },
+            {
+                label: 'Numéros échoués',
+                data: numbersEchouesByDay,
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            },
+            {
+                label: 'Utilisateurs',
+                data: usersByDay,
+                backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                borderWidth: 2,
+                fill: true,
+                yAxisID: 'user-axis'
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    font: {
+                        size: 14
                     }
                 }
+            },
+            title: {
+                display: true,
+                text: 'Statistiques par jour',
+                font: {
+                    size: 18
+                }
             }
-        });
+        },
+        scales: {
+            x: {
+                ticks: {
+                    font: {
+                        size: 14
+                    }
+                }
+            },
+            y: {
+                ticks: {
+                    font: {
+                        size: 14
+                    }
+                }
+            },
+            'user-axis': {
+                position: 'right',
+                ticks: {
+                    font: {
+                        size: 14
+                    },
+                    stepSize: 4
+                }
+            }
+        }
+    }
+});
+
     </script>
 @endsection

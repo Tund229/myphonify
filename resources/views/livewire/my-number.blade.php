@@ -183,7 +183,6 @@
             swal({
                 title: "Message",
                 text: message,
-                imageUrl: "images/thumbs-up.jpg"
             });
 
         }
