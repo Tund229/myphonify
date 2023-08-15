@@ -1,89 +1,28 @@
 <div>
-    <style>
-        #dataTable_paginate {
 
-            margin: 0 auto;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    @if ($numbers->where('state', 'en cours')->count() >= 1)
+        <div class="col-lg-12">
+            <div class="alert alert-warning alert-dismissible fade show text-black" role="alert ">
+                <div class="d-flex align-items-end row">
+                    <div class="col-sm-7">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary"> <strong>Important 🚀📢:</strong> </h5>
+                            <ul>
+                                <li>Les numéros doivent être utilisés conformément aux <a
+                                        href="{{ route('privacy-terms') }}" target="_blank">conditions d'utilisation</a>.
+                                </li>
+                                <li>Vous avez 10 minutes pour utiliser le numéro avant que l'achat ne soit annulé.</li>
+                                <li>Aucun remboursement ne sera possible si le numéro est déjà utilisé.</li>
+                            </ul>
+                        </div>
+                    </div>
 
-        #dataTable {
-            padding: 20px 0;
-        }
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
 
-        #dataTable thead th {
-            background-color: #f5f5f5;
-            font-weight: bold;
-            border-top: 1px solid #ddd;
-            border-bottom: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        #dataTable tbody td {
-            border-bottom: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        #dataTable_paginate .paginate_button {
-            background-color: transparent;
-            color: #000;
-            border: 1px solid #ddd;
-            padding: 3px 8px;
-            margin-right: 2px;
-            transition: background-color 0.3s;
-            cursor: pointer;
-
-        }
-
-        #dataTable_paginate .paginate_button.current {
-            background-color: #5c7ee5;
-            color: white;
-            border: 1px solid #5c7ee5;
-            padding: 3px 8px;
-            margin-right: 2px;
-        }
-
-        #dataTable_filter {
-            text-align: center;
-            margin: 0 auto;
-        }
-
-        #dataTable_filter>label>input[type="search"] {
-
-
-            padding: 0.4375rem 0.875rem;
-            font-size: 0.9375rem;
-            font-weight: 400;
-            line-height: 1.53;
-            color: #697a8d;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #d9dee3;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            border-radius: 0.375rem;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
-
-        #dataTable_filter>label>input[type="search"]:focus {
-            outline: 1px solid #5c7ee5;
-
-            padding: 0.4375rem 0.875rem;
-            font-size: 0.9375rem;
-            font-weight: 400;
-            line-height: 1.53;
-            color: #697a8d;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #d9dee3;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            border-radius: 0.375rem;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
-    </style>
 
     <h5 class="card-header ">Mes numéros</h5>
 
@@ -150,7 +89,7 @@
                                             // If the count down is over, write some text 
                                             if (distance < 0) {
                                                 clearInterval(x);
-                                                document.getElementById("counter").innerHTML = "Temps écoulé";
+                                                document.getElementById("counter").innerHTML = "Time out";
                                             }
                                         }, 1000);
                                     </script>
@@ -171,7 +110,7 @@
     <script>
         var encours = {!! json_encode($number_encours) !!};
         if (encours >= 1) {
-            
+
             window.setInterval(function() {
 
                 Livewire.emit('actualiser');

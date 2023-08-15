@@ -139,6 +139,7 @@ class StatsController extends Controller
         ->join('users', 'recharges.user_id', '=', 'users.id')
         ->whereYear('recharges.created_at', date('Y'))
         ->where('users.is_admin', false)
+        ->where('recharges.state', 'validé')
         ->groupBy(DB::raw("DATE(recharges.created_at)"))
         ->orderByRaw('DATE(recharges.created_at)')
         ->pluck('total_amount', 'date');
@@ -150,6 +151,7 @@ class StatsController extends Controller
         ->join('users', 'numbers.user_id', '=', 'users.id')
         ->whereYear('numbers.created_at', date('Y'))
         ->where('users.is_admin', false)
+        ->where('numbers.state', 'validé')
         ->groupBy(DB::raw("DATE(numbers.created_at)"))
         ->orderByRaw('DATE(numbers.created_at)')
         ->pluck('total_count', 'date');
@@ -162,6 +164,7 @@ class StatsController extends Controller
         ->whereYear('numbers.created_at', date('Y'))
         ->where('numbers.state', 'echoué')
         ->where('users.is_admin', false)
+        ->where('numbers.state', 'echoué')
         ->groupBy(DB::raw("DATE(numbers.created_at)"))
         ->orderByRaw('DATE(numbers.created_at)')
         ->pluck('total_amount', 'date');
